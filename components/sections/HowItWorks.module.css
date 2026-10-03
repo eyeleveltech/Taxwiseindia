@@ -1,0 +1,420 @@
+.how {
+  position: relative;
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(36px, 5vh, 60px) 0 clamp(20px, 3vh, 36px);
+}
+.howPin {
+  /* optional wrapper class if needed */
+}
+.howHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: clamp(14px, 2vh, 26px);
+}
+.howHead :global(.h2) {
+  max-width: 14em;
+  font-size: clamp(26px, 2.8vw, 40px);
+  margin-top: 10px;
+}
+.howBar {
+  flex: none;
+  width: clamp(140px, 18vw, 240px);
+  height: 4px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+.howBar i {
+  display: block;
+  height: 100%;
+  background: var(--emerald);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.howView {
+  overflow: hidden;
+}
+.howTrack {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  list-style: none;
+  margin: 0;
+  padding: 8px max(20px, calc((100% - var(--wrap)) / 2)) 20px;
+}
+.hstep {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  width: clamp(290px, 28vw, 400px);
+  height: clamp(280px, calc(100vh - 210px), 380px);
+  padding: clamp(16px, 1.8vh, 22px);
+  border-radius: 24px;
+  background: var(--off);
+  border: 1px solid var(--line);
+  transition: background-color .6s, border-color .6s, box-shadow .7s var(--ease);
+}
+.hstep.isCurrent {
+  background: #fff;
+  border-color: var(--mint-line);
+  box-shadow: 0 40px 70px -42px rgba(7,26,43,.4);
+}
+.hsTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.hsNum {
+  font: 700 clamp(36px, 3.2vw, 50px) / .9 var(--display);
+  letter-spacing: -.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--line-2);
+  transition: color .6s, -webkit-text-stroke-color .6s;
+}
+.hstep.isOn .hsNum, :global(html:not(.motion)) .hsNum {
+  color: var(--emerald);
+  -webkit-text-stroke-color: var(--emerald);
+}
+.hsArt {
+  position: relative;
+  flex: 1;
+  min-height: 75px;
+  margin: 10px 0;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: background-color .6s;
+}
+.hstep.isCurrent .hsArt {
+  background: var(--off);
+}
+.hsArt > * {
+  transition: opacity .6s var(--ease), transform .8s var(--ease);
+}
+.hsBody h3 {
+  margin: 0;
+  font-size: clamp(16px, 1.3vw, 19px);
+  letter-spacing: -.015em;
+  line-height: 1.3;
+}
+.hsBody p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* step art 1 — conversation */
+.bub {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 54%;
+  padding: 11px 13px;
+  border-radius: 14px;
+}
+.bub i {
+  display: block;
+  height: 6px;
+  border-radius: 6px;
+  background: currentColor;
+  opacity: .55;
+}
+.bub i:last-child {
+  width: 62%;
+}
+.art1 .b1 {
+  left: 8%;
+  top: 12%;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-bottom-left-radius: 4px;
+  color: var(--line-2);
+  box-shadow: var(--sh-1);
+}
+.art1 .b2 {
+  right: 8%;
+  top: 37%;
+  background: var(--emerald);
+  border-bottom-right-radius: 4px;
+  color: var(--navy);
+  transition-delay: .2s;
+}
+.art1 .b2 i {
+  opacity: .4;
+}
+.art1 .send {
+  position: absolute;
+  right: 8%;
+  bottom: 10%;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  transition-delay: .4s;
+}
+.art1 .send :global(.i) {
+  width: 17px;
+  height: 17px;
+}
+.art1::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: calc(8% + 44px);
+  bottom: 10%;
+  height: 36px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+:global(.motion) .hstep:not(.isOn) .art1 .bub {
+  opacity: 0;
+  transform: translateY(14px) scale(.9);
+}
+:global(.motion) .hstep:not(.isOn) .art1 .send {
+  opacity: 0;
+  transform: scale(.4);
+}
+
+/* step art 2 — work in progress */
+.art2 .doc {
+  position: absolute;
+  left: 9%;
+  top: 14%;
+  bottom: 14%;
+  width: 54%;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--sh-1);
+}
+.art2 .doc > i {
+  display: block;
+  height: 7px;
+  border-radius: 7px;
+  background: var(--line);
+}
+.art2 .doc > i:nth-child(2) {
+  width: 80%;
+}
+.art2 .doc > i:nth-child(3) {
+  width: 58%;
+}
+.art2 .doc > .docBar {
+  margin-top: auto;
+  height: 8px;
+  background: var(--mint-soft);
+  overflow: hidden;
+}
+.docBar i {
+  display: block;
+  height: 100%;
+  background: var(--emerald);
+  transform: scaleX(.12);
+  transform-origin: left;
+  transition: transform 1.8s var(--ease) .2s;
+}
+.hstep.isOn .docBar i {
+  transform: scaleX(.74);
+}
+.art2 .gear {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  width: 76px;
+  height: 76px;
+  margin-top: -38px;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  background: var(--mint-soft);
+  border: 1px solid var(--mint-line);
+  box-shadow: 0 5px 0 var(--mint-line);
+  color: var(--emerald-ink);
+}
+.art2 .gear :global(.i) {
+  width: 40px;
+  height: 40px;
+  animation: spin 7s linear infinite paused;
+}
+.hstep.isOn .gear :global(.i) {
+  animation-play-state: running;
+}
+:global(.motion) .hstep:not(.isOn) .art2 .gear {
+  opacity: 0;
+  transform: scale(.5) rotate(-40deg);
+}
+
+/* step art 3 — update ping */
+.art3::before {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -50px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: rgba(99,230,190,.4);
+}
+.art3 .bell {
+  position: absolute;
+  left: 12%;
+  top: 50%;
+  width: 66px;
+  height: 66px;
+  margin-top: -33px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--emerald);
+  color: var(--navy);
+  box-shadow: 0 6px 0 var(--emerald-d);
+}
+.art3 .bell :global(.i) {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  stroke-width: 2;
+}
+.rip {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--emerald);
+  opacity: 0;
+}
+.hstep.isOn .rip {
+  animation: ripple 2.4s var(--ease) infinite;
+}
+.hstep.isOn .rip.r2 {
+  animation-delay: 1.2s;
+}
+.art3 .mini {
+  position: absolute;
+  right: 7%;
+  top: 50%;
+  width: 52%;
+  margin-top: -29px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 14px;
+}
+.miniIc {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.miniIc img {
+  width: 22px;
+}
+.miniL {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.miniL i {
+  display: block;
+  height: 7px;
+  border-radius: 7px;
+  background: var(--line-2);
+}
+.miniL i:last-child {
+  width: 62%;
+  background: var(--line);
+}
+:global(.motion) .hstep:not(.isOn) .art3 .mini {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* step art 4 — done */
+.art4 {
+  display: grid;
+  place-items: center;
+}
+.coinLg {
+  width: 88px;
+  height: 88px;
+}
+.coinLg :global(.i) {
+  width: 42px;
+  height: 42px;
+}
+.doneRing {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 88px;
+  height: 88px;
+  margin: -44px 0 0 -44px;
+  border-radius: 50%;
+  border: 2px solid var(--mint);
+  opacity: 0;
+}
+.hstep.isOn .doneRing {
+  animation: ripple 2.8s var(--ease) infinite;
+}
+.hstep.isOn .doneRing.r2 {
+  animation-delay: 1.4s;
+}
+:global(.motion) .hstep:not(.isOn) .art4 :global(.coin) {
+  opacity: 0;
+  transform: scale(.5) rotate(-30deg);
+}
+
+@media (max-width: 991.98px) {
+  .how {
+    min-height: 0;
+    padding: clamp(88px, 11vw, 120px) 0;
+  }
+  .howBar {
+    display: none;
+  }
+  .howView {
+    overflow: visible;
+  }
+  .howTrack {
+    flex-direction: column;
+    width: auto;
+    padding: 0 20px;
+    gap: 16px;
+  }
+  .hstep {
+    width: 100%;
+    height: auto;
+  }
+  .hsArt {
+    flex: none;
+    height: 190px;
+  }
+}
+@media (max-width: 640px) {
+  .howTrack {
+    padding: 0 16px;
+  }
+}

@@ -1,0 +1,46 @@
+.trust {
+  background: #fff;
+  border-block: 1px solid var(--line);
+  padding: 24px 0;
+  overflow: hidden;
+}
+.marquee {
+  overflow: hidden;
+}
+.mqTrack {
+  display: flex;
+  width: max-content;
+}
+.mqGroup {
+  display: flex;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.trust li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 28px;
+  font: 600 clamp(16px, 1.3vw, 19px)/1.2 var(--display);
+  color: var(--navy);
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+.trust li b {
+  font-weight: 700;
+  color: var(--emerald-ink);
+}
+
+@media (max-width: 640px) {
+  .trust li {
+    padding: 0 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+}

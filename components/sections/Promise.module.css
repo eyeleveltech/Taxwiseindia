@@ -1,0 +1,151 @@
+.promiseGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+.promiseHead {
+  position: sticky;
+  top: 140px;
+}
+.flow {
+  --node: 56px;
+  --pad: 20px;
+}
+.flowList {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.flowLine {
+  position: absolute;
+  left: calc(var(--node)/2 - 1px);
+  top: calc(var(--pad) + var(--node)/2);
+  bottom: calc(var(--pad) + var(--node)/2);
+  width: 2px;
+  border-radius: 2px;
+  background: var(--line);
+}
+.flowFill {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: var(--emerald);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+}
+.flowDot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--emerald);
+  box-shadow: 0 0 0 6px rgba(99, 230, 190, .3);
+}
+.flowStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--node) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 32px);
+  padding: var(--pad) 0;
+}
+.fnode {
+  position: relative;
+  z-index: 1;
+  width: var(--node);
+  height: var(--node);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid var(--line-2);
+  color: #97A5B3;
+  transition: background-color .5s, border-color .5s, color .5s, box-shadow .5s, transform .6s var(--ease);
+}
+.fnode :global(.i), .fnode svg {
+  width: 22px;
+  height: 22px;
+}
+.flabel {
+  font: 700 clamp(22px, 2.4vw, 34px)/1.15 var(--display);
+  letter-spacing: -.02em;
+  color: #A3B0BD;
+  transition: color .5s, transform .7s var(--ease);
+}
+.flowStep.on .fnode, :global(html:not(.motion)) .fnode {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: var(--navy);
+  box-shadow: 0 0 0 8px rgba(99, 230, 190, .28);
+}
+.flowStep.on .fnode {
+  transform: scale(1.05);
+}
+.flowStep.on .flabel, :global(html:not(.motion)) .flabel {
+  color: var(--navy);
+}
+.flowStep.on .flabel {
+  transform: translateX(6px);
+}
+:global(html:not(.motion)) .flowFill {
+  transform: none;
+}
+:global(html:not(.motion)) .flowDot {
+  display: none;
+}
+.flowFoot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 26px 0 0;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: var(--mint-soft);
+  border: 1px solid var(--mint-line);
+  font: 600 clamp(15.5px, 1.2vw, 17px)/1.4 var(--display);
+  color: var(--navy);
+  letter-spacing: -.01em;
+  transition: opacity .6s, transform .7s var(--ease);
+}
+:global(.motion) .flowFoot {
+  opacity: 0;
+  transform: translateY(16px);
+}
+:global(.motion) .flowFoot.on {
+  opacity: 1;
+  transform: none;
+}
+.tkMk {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 3px 0 var(--line);
+}
+.tkMk img {
+  width: 21px;
+  height: auto;
+}
+
+@media (max-width: 991.98px) {
+  .promiseGrid {
+    grid-template-columns: 1fr;
+  }
+  .promiseHead {
+    position: static;
+  }
+  .flow {
+    --node: 56px;
+    --pad: 18px;
+  }
+}

@@ -1,0 +1,91 @@
+.ownRow {
+  display: flex;
+  gap: 16px;
+  height: clamp(340px, 30vw, 400px);
+}
+.own {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(24px, 2.6vw, 36px);
+  border-radius: 28px;
+  background: var(--off);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: flex-grow .8s var(--ease), background-color .5s, border-color .5s;
+}
+.own::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(7,26,43,.14);
+  opacity: 0;
+  transition: opacity .5s, transform 1s var(--ease);
+  transform: scale(.7);
+}
+.own.isActive {
+  flex-grow: 1.75;
+  background: var(--emerald);
+  border-color: var(--emerald);
+}
+.own.isActive::after {
+  opacity: 1;
+  transform: none;
+}
+.own.isActive :global(.key) {
+  background: #fff;
+  border-color: #fff;
+  color: var(--navy);
+  box-shadow: 0 7px 0 var(--emerald-d), 0 22px 30px -14px rgba(7,26,43,.35);
+}
+.ownB {
+  position: relative;
+  min-width: 230px;
+}
+.own h3 {
+  margin: 0;
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.3;
+  letter-spacing: .05em;
+}
+.own p {
+  margin: 10px 0 0;
+  max-width: 22em;
+  font-size: 15.5px;
+  color: var(--body);
+  transition: color .5s;
+}
+.own.isActive p {
+  color: var(--navy);
+}
+.own:focus-visible {
+  outline-offset: 4px;
+  border-radius: 28px;
+}
+.ownCta {
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+}
+
+@media (max-width: 991.98px) {
+  .ownRow {
+    flex-direction: column;
+    height: auto;
+  }
+  .own {
+    flex: none;
+    min-height: 230px;
+    gap: 40px;
+  }
+  .own.isActive {
+    flex-grow: 0;
+  }
+}

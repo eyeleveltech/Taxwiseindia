@@ -1,0 +1,16 @@
+.faqGrid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.faqHead { position: sticky; top: 140px; }
+.faqList { border-top: 1px solid var(--line); }
+.faqItem { border-bottom: 1px solid var(--line); }
+.faqItem h3 { margin: 0; }
+.faqQ { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; padding: 22px 0; background: none; border: 0; text-align: left; cursor: pointer; font: 600 clamp(16px, 1.25vw, 18px)/1.4 var(--display); color: var(--navy); letter-spacing: -.01em; }
+.faqIc { position: relative; flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-2); transition: background-color .35s, border-color .35s, transform .55s var(--ease); }
+.faqIc::before, .faqIc::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; margin: -1px 0 0 -7px; border-radius: 2px; background: var(--navy); }
+.faqIc::after { transform: rotate(90deg); }
+.faqQ:hover .faqIc { border-color: var(--navy); }
+.isOpen .faqIc { transform: rotate(45deg); background: var(--emerald); border-color: var(--emerald); }
+.faqA { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--ease); }
+.faqA > div { overflow: hidden; visibility: hidden; transition: visibility .5s; }
+.isOpen .faqA { grid-template-rows: 1fr; }
+.isOpen .faqA > div { visibility: visible; }
+.faqA p { margin: 0; max-width: 40em; padding: 0 60px 22px 0; font-size: 15.5px; }

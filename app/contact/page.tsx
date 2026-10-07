@@ -1,99 +1,79 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+import Link from 'next/link';
 import { CONTACT_INFO, WHATSAPP_URL } from '@/lib/constants';
+import { SERVICE_CATALOG } from '@/lib/services';
 import SvgIcon from '@/components/ui/SvgIcon';
 import ContactForm from '@/components/ui/ContactForm';
+import CompanyMotion from '@/components/company/CompanyMotion';
+import { EM, H1, H2, LEAD, TEXT_LINK } from '@/components/company/styles';
 
 export const metadata: Metadata = {
   title: 'Contact Us | TaxwiseIndia',
-  description: 'Connect with TaxwiseIndia. Chat directly on WhatsApp, request a callback, or submit an inquiry to our tax professionals.',
+  description: 'Tell TaxwiseIndia about your business. Start a conversation about registration, taxes, accounting, compliance and more.',
 };
 
-export default function ContactPage() {
-  return (
-    <main className="sec sec-off" style={{ paddingTop: 'clamp(100px, 14vw, 150px)', paddingBottom: '90px' }}>
-      <div className="wrap">
-        {/* Header */}
-        <div style={{ maxWidth: '640px', marginBottom: '44px' }}>
-          <p className="eyebrow"><i className="dot"></i>Direct Contact</p>
-          <h1 className="h2" style={{ marginTop: '16px' }}>Let&apos;s Talk Taxes & Compliance</h1>
-          <p className="lead">
-            Have a question or need immediate filing assistance? Our team responds within minutes during business hours.
-          </p>
-        </div>
+const METHOD = 'group flex items-center gap-3 border-b border-line py-5 sm:gap-4';
+const METHOD_ICON = 'grid size-[43px] flex-none place-items-center rounded-full border border-line-2 text-emerald-ink transition-colors group-hover:border-emerald group-hover:bg-emerald group-hover:text-navy [&_.i]:size-5';
+const LABEL = 'mb-1.5 block font-display text-[9px] font-semibold tracking-[.13em] text-muted';
 
-        {/* 2-Column Layout: Cards Left, Form Right */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 460px), 1fr))', gap: '32px', alignItems: 'start' }}>
-          {/* Info Side */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {/* WhatsApp Priority Card */}
-            <div style={{ background: 'var(--navy)', color: '#fff', borderRadius: '24px', padding: '32px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-                <span className="coin" style={{ width: '48px', height: '48px' }}>
-                  <SvgIcon id="i-send" style={{ width: '22px', height: '22px' }} />
-                </span>
-                <div>
-                  <h3 style={{ fontSize: '19px', fontWeight: 700, margin: 0, color: '#fff' }}>Instant WhatsApp Support</h3>
-                  <p style={{ margin: '4px 0 0', fontSize: '13.5px', color: 'rgba(255,255,255,0.7)' }}>Fastest response — typically under 15 minutes</p>
-                </div>
-              </div>
-              <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'rgba(255,255,255,0.85)', margin: '0 0 20px' }}>
-                Chat directly with our team to share documents, clarify tax doubts, or initiate your registration instantly.
-              </p>
-              <a 
-                href={WHATSAPP_URL} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn btn-primary btn-lg" 
-                style={{ width: '100%' }}
-              >
-                Chat on WhatsApp Now
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[] }> }) {
+  const { service } = await searchParams;
+  const initialService = SERVICE_CATALOG.some((item) => item.slug === service) ? service as string : 'general';
+
+  return (
+    <CompanyMotion>
+      <section className="bg-[radial-gradient(ellipse_at_10%_10%,#EAFAF4,#FFFFFF_70%)] pb-[50px] pt-[110px] lg:pb-[85px] lg:pt-[150px]">
+        <div className="wrap grid grid-cols-1 items-start gap-9 lg:grid-cols-[1fr_1.05fr] lg:gap-[clamp(40px,6vw,90px)]">
+          <div className="lg:pt-5">
+            <p className="eyebrow" data-intro><i className="dot"></i>Let&apos;s make the next step simple</p>
+            <h1 className={`${H1} text-[clamp(36px,4.1vw,56px)]`} data-intro>Good things start<br /><em className={EM}>with a conversation.</em></h1>
+            <p className={LEAD} data-intro>A new business, a pending task or just a question. Tell us what&apos;s on your mind. We&apos;ll help you find a place to start.</p>
+
+            <div className="mb-5 mt-9" data-intro>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={METHOD}>
+                <span className={METHOD_ICON}><SvgIcon id="i-send" /></span>
+                <span><small className={LABEL}>PREFER A CHAT?</small><strong className="font-display text-sm font-semibold tracking-[-.02em] text-navy sm:text-base">Say hello on WhatsApp</strong></span>
+                <SvgIcon id="i-arrow" className="i ml-auto size-4 text-emerald-ink" />
+              </a>
+              <a href={`mailto:${CONTACT_INFO.email}`} className={METHOD}>
+                <span className={METHOD_ICON}><SvgIcon id="i-mail" /></span>
+                <span><small className={LABEL}>DROP US A LINE</small><strong className="font-display text-sm font-semibold tracking-[-.02em] text-navy sm:text-base">{CONTACT_INFO.email}</strong></span>
+                <SvgIcon id="i-arrow" className="i ml-auto size-4 text-emerald-ink" />
               </a>
             </div>
+            <p className="m-0 flex items-center gap-2 text-[11px] text-muted" data-intro><span className="size-[5px] rounded-full bg-emerald" /> {CONTACT_INFO.hours}</p>
 
-            {/* Contact Details Cards */}
-            <div style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '24px', padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              <div style={{ display: 'flex', gap: '16px' }}>
-                <span className="key key-sm"><SvgIcon id="i-phone" /></span>
-                <div>
-                  <b style={{ display: 'block', fontSize: '14px', textTransform: 'uppercase', color: 'var(--navy)', letterSpacing: '0.04em' }}>Phone</b>
-                  <a href={`tel:${CONTACT_INFO.phone}`} style={{ fontSize: '16px', fontWeight: 600, color: 'var(--emerald-ink)', textDecoration: 'none' }}>
-                    {CONTACT_INFO.phone}
-                  </a>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '16px' }}>
-                <span className="key key-sm"><SvgIcon id="i-mail" /></span>
-                <div>
-                  <b style={{ display: 'block', fontSize: '14px', textTransform: 'uppercase', color: 'var(--navy)', letterSpacing: '0.04em' }}>Email</b>
-                  <a href={`mailto:${CONTACT_INFO.email}`} style={{ fontSize: '16px', fontWeight: 600, color: 'var(--emerald-ink)', textDecoration: 'none' }}>
-                    {CONTACT_INFO.email}
-                  </a>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '16px' }}>
-                <span className="key key-sm"><SvgIcon id="i-work" /></span>
-                <div>
-                  <b style={{ display: 'block', fontSize: '14px', textTransform: 'uppercase', color: 'var(--navy)', letterSpacing: '0.04em' }}>Working Hours</b>
-                  <p style={{ margin: 0, fontSize: '15px', color: 'var(--navy-2)' }}>{CONTACT_INFO.hours}</p>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '16px' }}>
-                <span className="key key-sm"><SvgIcon id="i-store" /></span>
-                <div>
-                  <b style={{ display: 'block', fontSize: '14px', textTransform: 'uppercase', color: 'var(--navy)', letterSpacing: '0.04em' }}>Office Address</b>
-                  <p style={{ margin: 0, fontSize: '15px', color: 'var(--navy-2)', lineHeight: 1.5 }}>{CONTACT_INFO.address}</p>
-                </div>
-              </div>
+            <div className="mt-6 flex items-center gap-4 lg:mt-12" data-intro>
+              <SvgIcon id="i-layers" className="i size-[25px] text-emerald-ink" />
+              <p className="m-0 text-xs leading-[1.8] text-muted">
+                Not sure which service fits?<br />
+                <Link href="/services" className={TEXT_LINK}>Explore what we can help with <SvgIcon id="i-arrow" /></Link>
+              </p>
             </div>
           </div>
 
-          {/* Form Side */}
-          <ContactForm />
+          <div data-intro><ContactForm key={initialService} initialService={initialService} /></div>
         </div>
-      </div>
-    </main>
+      </section>
+
+      <section className="border-t border-line py-[45px] lg:pb-[80px] lg:pt-[65px]">
+        <div className="wrap grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-7 lg:grid-cols-[1.2fr_1fr_1fr] lg:gap-[55px]" data-company-reveal>
+          <div className="sm:col-span-2 lg:col-span-1">
+            <p className="eyebrow"><i className="dot"></i>A more personal connection</p>
+            <h2 className={`${H2} mt-4 text-[35px]`}>Here for your<br /><em className={EM}>next step.</em></h2>
+          </div>
+          <div>
+            <span className={`${LABEL} mb-5 mt-3`}>CALL US</span>
+            <a href={`tel:${CONTACT_INFO.phone.replace(/[^+\d]/g, '')}`} className="font-display text-[19px] font-semibold tracking-[-.03em] text-navy">{CONTACT_INFO.phone}</a>
+            <p className="mt-2 text-[13px] leading-[1.8] text-muted">{CONTACT_INFO.hours}</p>
+          </div>
+          <div>
+            <span className={`${LABEL} mb-5 mt-3`}>FIND US</span>
+            <p className="m-0 text-[13px] leading-[1.8] text-muted">{CONTACT_INFO.address}</p>
+            <a href={`mailto:${CONTACT_INFO.email}`} className={`${TEXT_LINK} mt-2.5`}>Email us before visiting <SvgIcon id="i-arrow" /></a>
+          </div>
+        </div>
+      </section>
+    </CompanyMotion>
   );
 }

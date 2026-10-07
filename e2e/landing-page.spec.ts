@@ -16,57 +16,34 @@ test.describe('Landing Page E2E Tests', () => {
     await expect(page.locator('#services')).toBeVisible();
     await expect(page.locator('#how')).toBeVisible();
     await expect(page.locator('#why')).toBeVisible();
-    await expect(page.locator('#faq')).toBeVisible();
+    await expect(page.locator('#testimonials')).toBeVisible();
   });
 
-  test('FAQ accordion expands and reveals answer when clicked', async ({ page }) => {
+  test('Services navigation opens the services directory', async ({ page, isMobile }) => {
     await page.goto('/', { waitUntil: 'networkidle' });
-
-    const faqSection = page.locator('#faq');
-    await faqSection.scrollIntoViewIfNeeded();
-
-    const firstFaqButton = page.locator('#faq button').first();
-    await expect(firstFaqButton).toBeVisible();
-
-    // Click to expand
-    await firstFaqButton.click();
-
-    // Verify aria-expanded is true
-    await expect(firstFaqButton).toHaveAttribute('aria-expanded', 'true');
+    if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
+    const nav = page.getByRole('navigation', { name: isMobile ? 'Mobile' : 'Primary', exact: true });
+    await nav.getByRole('link', { name: 'Services', exact: true }).click();
+    await expect(page).toHaveURL(/\/services$/);
+    await expect(page.locator('h1')).toContainText('Everything Your');
+    if (isMobile) await expect(page.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false');
   });
 
-  test('Clicking the "Services" navbar link smoothly scrolls to the #services section', async ({ page }) => {
+  test('About and Contact replace the old header links on desktop and mobile', async ({ page, isMobile }) => {
     await page.goto('/', { waitUntil: 'networkidle' });
-
-    // Find the desktop Services navbar link
-    const servicesNavLink = page.locator('header nav a[href="/#services"]').first();
-    if (await servicesNavLink.isVisible()) {
-      await servicesNavLink.click();
-
-      // Wait for smooth scroll glide to settle
-      await page.waitForTimeout(1500);
-
-      // Verify that the page has scrolled down towards #services
-      const scrollY = await page.evaluate(() => window.scrollY);
-      expect(scrollY).toBeGreaterThan(300);
-
-      const servicesBounding = await page.locator('#services').boundingBox();
-      expect(servicesBounding?.y).toBeLessThanOrEqual(5);
-    }
-  });
-
-  test('Clicking "How it works" navbar link aligns the section with top of viewport without showing previous section', async ({ page }) => {
+    const nav = page.getByRole('navigation', { name: isMobile ? 'Mobile' : 'Primary', exact: true });
+    if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
+    await expect(nav.getByRole('link', { name: 'How it works' })).toHaveCount(0);
+    await expect(nav.getByRole('link', { name: 'Why TaxwiseIndia' })).toHaveCount(0);
+    await nav.getByRole('link', { name: 'About Us', exact: true }).click();
+    await expect(page).toHaveURL(/\/about$/);
+    if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
+    await nav.getByRole('link', { name: 'Contact', exact: true }).click();
+    await expect(page).toHaveURL(/\/contact$/);
+    await expect(page.getByRole('heading', { name: 'Good things start with a conversation.' })).toBeVisible();
     await page.goto('/', { waitUntil: 'networkidle' });
-
-    const howNavLink = page.locator('header nav a[href="/#how"]').first();
-    if (await howNavLink.isVisible()) {
-      await howNavLink.click();
-
-      await page.waitForTimeout(1500);
-
-      const howBounding = await page.locator('#how').boundingBox();
-      expect(howBounding?.y).toBeLessThanOrEqual(5);
-    }
+    await page.locator('main').getByRole('link', { name: 'Get Started', exact: true }).first().click();
+    await expect(page).toHaveURL(/\/contact#contact-form$/);   // every Get Started lands on the form
   });
 
   test('Navigation links route to appropriate pages', async ({ page }) => {

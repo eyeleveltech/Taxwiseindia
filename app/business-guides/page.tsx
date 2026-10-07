@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { WHATSAPP_URL } from '@/lib/constants';
+import { CardGrid, ContentPage, CtaPanel, InfoCard, Tag } from '@/components/content/ContentPage';
 
 export const metadata: Metadata = {
   title: 'Business Guides & Incorporation Roadmaps | TaxwiseIndia',
@@ -32,51 +33,26 @@ const BIZ_GUIDES = [
 
 export default function BusinessGuidesPage() {
   return (
-    <main className="sec sec-off" style={{ paddingTop: 'clamp(100px, 14vw, 150px)', paddingBottom: '90px' }}>
-      <div className="wrap">
-        <div style={{ maxWidth: '640px', marginBottom: '44px' }}>
-          <p className="eyebrow"><i className="dot"></i>Founder Toolkit</p>
-          <h1 className="h2" style={{ marginTop: '16px' }}>Business & Incorporation Guides</h1>
-          <p className="lead">
-            Everything entrepreneurs need to know about registering, structuring, and operating legally compliant businesses in India.
-          </p>
-        </div>
+    <ContentPage
+      eyebrow="Founder Toolkit"
+      title="Business & Incorporation Guides"
+      lead="Everything entrepreneurs need to know about registering, structuring, and operating legally compliant businesses in India."
+    >
+      <CardGrid>
+        {BIZ_GUIDES.map((g) => (
+          <InfoCard
+            key={g.title}
+            meta={<Tag>{g.category}</Tag>}
+            title={g.title}
+            text={g.desc}
+            action={<a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">Discuss With Incorporation Advisor &rarr;</a>}
+          />
+        ))}
+      </CardGrid>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '48px' }}>
-          {BIZ_GUIDES.map((g, idx) => (
-            <article key={idx} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '24px', padding: '32px', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ marginBottom: '14px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--emerald-ink)', background: 'var(--mint-soft)', padding: '4px 10px', borderRadius: '99px', textTransform: 'uppercase' }}>
-                  {g.category}
-                </span>
-              </div>
-              <h2 style={{ fontSize: '19px', fontWeight: 700, color: 'var(--navy)', lineHeight: 1.35, margin: '0 0 12px' }}>
-                {g.title}
-              </h2>
-              <p style={{ fontSize: '15px', color: 'var(--navy-2)', lineHeight: 1.6, margin: '0 0 20px', flex: 1 }}>
-                {g.desc}
-              </p>
-              <div style={{ marginTop: 'auto' }}>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm" style={{ width: '100%' }}>
-                  Discuss With Incorporation Advisor &rarr;
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div style={{ background: 'var(--emerald)', borderRadius: '24px', padding: '36px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--navy)', margin: '0 0 8px' }}>
-            Ready to register your company?
-          </h2>
-          <p style={{ fontSize: '15px', color: 'var(--navy)', margin: '0 0 20px' }}>
-            We handle name reservation, DSC, MOA/AOA drafting, and MCA incorporation end-to-end.
-          </p>
-          <Link href="/company-registration" className="btn btn-navy btn-lg">
-            Start Business Registration
-          </Link>
-        </div>
-      </div>
-    </main>
+      <CtaPanel tone="emerald" title="Ready to register your company?" text="We handle name reservation, DSC, MOA/AOA drafting, and MCA incorporation end-to-end.">
+        <Link href="/services/business-registration" className="btn btn-navy btn-lg">Start Business Registration</Link>
+      </CtaPanel>
+    </ContentPage>
   );
 }

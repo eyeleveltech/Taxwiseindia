@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,64 +10,51 @@ if (typeof window !== 'undefined') {
 
 let lenisInstance: Lenis | null = null;
 
+type ScrollTarget = string | number | HTMLElement;
+type ScrollOptions = { offset?: number; duration?: number; immediate?: boolean };
+
 /**
- * Creates a global Lenis instance, synced with GSAP ticker + ScrollTrigger.
- * Returns `{ lenis, scrollTo, stop, start }`.
- * Only one Lenis instance is created across the entire app.
+ * Creates the one Lenis instance for the whole app (called once from <SmoothScroll /> in the layout)
+ * and keeps it in step with GSAP's ticker and ScrollTrigger. Returns a destroy function.
  */
-export function useLenis() {
-  const initialized = useRef(false);
+export function initLenis() {
+  if (lenisInstance || typeof window === 'undefined') return () => {};
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
 
-  useEffect(() => {
-    if (initialized.current || typeof window === 'undefined') return;
-    initialized.current = true;
+  const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
+  lenisInstance = lenis;
+  lenis.on('scroll', ScrollTrigger.update);
+  const tick = (t: number) => lenis.raf(t * 1000);
+  gsap.ticker.add(tick);
+  gsap.ticker.lagSmoothing(0);
 
-    lenisInstance = new Lenis({ lerp: 0.1 });
-    lenisInstance.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((t) => lenisInstance?.raf(t * 1000));
-    gsap.ticker.lagSmoothing(0);
-
-    const scrollToHash = () => {
-      if (window.location.hash) {
-        const id = window.location.hash.slice(1);
-        const rawEl = id === 'top' ? null : document.getElementById(id);
-        const target = rawEl
-          ? ((rawEl.closest('.pin-spacer') as HTMLElement) || rawEl)
-          : (id === 'top' ? 0 : null);
-        if (target !== null) {
-          lenisInstance?.scrollTo(target, { offset: 0, duration: 1.2 });
-        }
-      }
-    };
-
-    // Scroll to initial hash after brief layout stabilization
-    const timer = setTimeout(scrollToHash, 250);
-    window.addEventListener('hashchange', scrollToHash);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('hashchange', scrollToHash);
-      lenisInstance?.destroy();
-      lenisInstance = null;
-      initialized.current = false;
-    };
-  }, []);
-
-  const scrollTo = useCallback(
-    (target: string | number | HTMLElement, options?: { offset?: number; duration?: number }) => {
-      if (lenisInstance) {
-        lenisInstance.scrollTo(target, options);
-      }
-    },
-    []
-  );
-
-  const stop = useCallback(() => lenisInstance?.stop(), []);
-  const start = useCallback(() => lenisInstance?.start(), []);
-
-  return { lenis: lenisInstance, scrollTo, stop, start };
+  return () => {
+    gsap.ticker.remove(tick);
+    lenis.destroy();
+    lenisInstance = null;
+  };
 }
 
 export function getLenis() {
   return lenisInstance;
+}
+
+/** Scroll to an element, selector or position — through Lenis when it is running, natively otherwise. */
+export function scrollToTarget(target: ScrollTarget, options: ScrollOptions = {}) {
+  const el = typeof target === 'string' ? (document.querySelector(target) as HTMLElement | null) : target;
+  if (el === null) return;
+  if (lenisInstance) {
+    lenisInstance.scrollTo(el, { duration: 1.2, ...options });
+    return;
+  }
+  if (typeof el === 'number') window.scrollTo({ top: el, behavior: options.immediate ? 'auto' : 'smooth' });
+  else el.scrollIntoView({ behavior: options.immediate ? 'auto' : 'smooth', block: 'start' });
+}
+
+/** Helpers around the shared instance. Does not create one — <SmoothScroll /> does. */
+export function useLenis() {
+  const scrollTo = useCallback((target: ScrollTarget, options?: ScrollOptions) => scrollToTarget(target, options), []);
+  const stop = useCallback(() => lenisInstance?.stop(), []);
+  const start = useCallback(() => lenisInstance?.start(), []);
+  return { lenis: lenisInstance, scrollTo, stop, start };
 }

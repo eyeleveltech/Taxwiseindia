@@ -21,3 +21,6 @@ function getServerSnapshot() {
 export function useReducedMotion(): boolean {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
+
+/** One-off check for code that runs once (GSAP setups): true when the OS asks for reduced motion. */
+export const prefersReducedMotion = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { WHATSAPP_URL } from '@/lib/constants';
+import { CardGrid, ContentPage, CtaPanel, InfoCard, Tag } from '@/components/content/ContentPage';
 
 export const metadata: Metadata = {
   title: 'Tax Guides & Checklists | TaxwiseIndia',
@@ -35,52 +36,26 @@ const GUIDES = [
 
 export default function TaxGuidesPage() {
   return (
-    <main className="sec sec-off" style={{ paddingTop: 'clamp(100px, 14vw, 150px)', paddingBottom: '90px' }}>
-      <div className="wrap">
-        <div style={{ maxWidth: '640px', marginBottom: '44px' }}>
-          <p className="eyebrow"><i className="dot"></i>Knowledge Base</p>
-          <h1 className="h2" style={{ marginTop: '16px' }}>Practical Tax Guides & Checklists</h1>
-          <p className="lead">
-            Clear, actionable tax insights written by Chartered Accountants to help you navigate Indian tax regulations with total confidence.
-          </p>
-        </div>
+    <ContentPage
+      eyebrow="Knowledge Base"
+      title="Practical Tax Guides & Checklists"
+      lead="Clear, actionable tax insights written by Chartered Accountants to help you navigate Indian tax regulations with total confidence."
+    >
+      <CardGrid>
+        {GUIDES.map((g) => (
+          <InfoCard
+            key={g.title}
+            meta={<><Tag>{g.category}</Tag><span>{g.readTime}</span></>}
+            title={g.title}
+            text={g.description}
+            action={<a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">Ask CA About This Topic &rarr;</a>}
+          />
+        ))}
+      </CardGrid>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginBottom: '48px' }}>
-          {GUIDES.map((g, idx) => (
-            <article key={idx} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '24px', padding: '32px', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--emerald-ink)', background: 'var(--mint-soft)', padding: '4px 10px', borderRadius: '99px', textTransform: 'uppercase' }}>
-                  {g.category}
-                </span>
-                <span style={{ fontSize: '13px', color: 'var(--navy-2)' }}>{g.readTime}</span>
-              </div>
-              <h2 style={{ fontSize: '19px', fontWeight: 700, color: 'var(--navy)', lineHeight: 1.35, margin: '0 0 12px' }}>
-                {g.title}
-              </h2>
-              <p style={{ fontSize: '15px', color: 'var(--navy-2)', lineHeight: 1.6, margin: '0 0 20px', flex: 1 }}>
-                {g.description}
-              </p>
-              <div style={{ marginTop: 'auto' }}>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm" style={{ width: '100%' }}>
-                  Ask CA About This Topic &rarr;
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div style={{ background: 'var(--emerald)', borderRadius: '24px', padding: '36px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--navy)', margin: '0 0 8px' }}>
-            Have a specific tax question not covered here?
-          </h2>
-          <p style={{ fontSize: '15px', color: 'var(--navy)', margin: '0 0 20px' }}>
-            Chat with our tax team directly on WhatsApp for prompt clarification.
-          </p>
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-navy btn-lg">
-            Chat with a Tax Specialist
-          </a>
-        </div>
-      </div>
-    </main>
+      <CtaPanel tone="emerald" title="Have a specific tax question not covered here?" text="Chat with our tax team directly on WhatsApp for prompt clarification.">
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-navy btn-lg">Chat with a Tax Specialist</a>
+      </CtaPanel>
+    </ContentPage>
   );
 }

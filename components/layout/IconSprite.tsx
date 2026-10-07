@@ -23,9 +23,14 @@ export default function IconSprite() {
         <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
         <symbol id="i-work" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18"/></symbol>
         <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="7"/><path d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
         <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-6.5 18-4.5-7-7-4.5z"/></symbol>
         <symbol id="i-quote" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M4 18.5v-5.2C4 9 6.2 6.2 10 5.5l.6 1.8c-2.2.7-3.3 2.3-3.4 4.4H10v6.8zm9.5 0v-5.2c0-4.3 2.2-7.1 6-7.8l.6 1.8c-2.2.7-3.3 2.3-3.4 4.4h3.3v6.8z"/></symbol>
         <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
+        <symbol id="i-tm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 16V8h2.9a2.4 2.4 0 0 1 0 4.8H9.6M12.7 12.8l2.2 3.2"/></symbol>
+        <symbol id="i-license" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2.5"/><path d="M7 8.5h5M7 12h3"/><circle cx="16" cy="10.5" r="2.2"/><path d="M14.6 12.4V20l1.4-1.2 1.4 1.2v-7.6"/></symbol>
+        <symbol id="i-legal" viewBox="0 0 24 24"><path d="M12 4v16M8 20h8M4.5 7.5h15"/><path d="M4.5 7.5L2 13.5a2.8 2.8 0 0 0 5 0zM19.5 7.5L17 13.5a2.8 2.8 0 0 0 5 0z"/></symbol>
+        <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5.5l6.5 6.5L9 18.5"/></symbol>
       </defs>
     </svg>
   );

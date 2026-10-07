@@ -44,11 +44,11 @@ html.lenis,html.lenis body{height:auto}
 .skip{position:absolute;left:12px;top:-60px;z-index:100;padding:10px 16px;border-radius:10px;background:var(--navy);color:#fff;font-weight:600}
 .skip:focus{top:12px}
 
-.i, svg.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .key svg, .coin svg{fill:none;stroke:currentColor}
 
-/* Hero pieces wait for the GSAP intro (class set in <head>, removed if GSAP is missing) */
-.motion [data-intro]{visibility:hidden}
+/* Intro pieces wait for their GSAP intro - only when the visitor allows motion */
+@media (prefers-reduced-motion:no-preference){.motion [data-intro]{visibility:hidden}}
 
 /* ---------- Type ---------- */
 .eyebrow{display:inline-flex;align-items:center;gap:10px;min-height:32px;margin:0;padding:7px 14px 7px 11px;border:1px solid var(--line-2);border-radius:99px;background:#fff;font:600 11px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--navy)}

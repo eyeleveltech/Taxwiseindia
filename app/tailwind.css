@@ -1,0 +1,23 @@
+/* Tailwind v4 — utilities only. The site keeps its own base styles (globals.css);
+   this file is imported after them so utility classes win ties. */
+@import "tailwindcss/theme.css";
+@import "tailwindcss/utilities.css";
+
+@theme {
+  --color-navy: #071A2B;
+  --color-navy-2: #153049;
+  --color-body: #4A5A6B;
+  --color-muted: #627386;
+  --color-line: #E4E9EF;
+  --color-line-2: #D2DBE4;
+  --color-off: #F6F8FA;
+  --color-emerald: #16B878;
+  --color-emerald-d: #0E9E68;
+  --color-emerald-ink: #0A7C52;
+  --color-mint: #63E6BE;
+  --color-mint-soft: #EAFAF4;
+  --color-mint-line: #C2EEDC;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --ease-out-expo: cubic-bezier(.22, 1, .36, 1);
+}

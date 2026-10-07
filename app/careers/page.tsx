@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { CONTACT_INFO } from '@/lib/constants';
+import { ContentPage, CtaPanel, Tag } from '@/components/content/ContentPage';
 
 export const metadata: Metadata = {
   title: 'Careers | TaxwiseIndia',
@@ -29,64 +30,34 @@ const OPENINGS = [
 
 export default function CareersPage() {
   return (
-    <main className="sec sec-off" style={{ paddingTop: 'clamp(100px, 14vw, 150px)', paddingBottom: '90px' }}>
-      <div className="wrap">
-        <div style={{ maxWidth: '680px', marginBottom: '44px' }}>
-          <p className="eyebrow"><i className="dot"></i>Work With Us</p>
-          <h1 className="h2" style={{ marginTop: '16px' }}>Build the Future of Professional Services</h1>
-          <p className="lead">
-            We are redefining how businesses experience taxation and compliance in India through radical transparency, speed, and proactive communication.
-          </p>
-        </div>
+    <ContentPage
+      eyebrow="Work With Us"
+      title="Build the Future of Professional Services"
+      lead="We are redefining how businesses experience taxation and compliance in India through radical transparency, speed, and proactive communication."
+    >
+      <h2 className="mb-6 text-2xl" data-reveal>Open Positions</h2>
 
-        <h2 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--navy)', margin: '0 0 24px' }}>
-          Open Positions
-        </h2>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '48px' }}>
-          {OPENINGS.map((op, idx) => (
-            <div key={idx} style={{ background: '#fff', border: '1px solid var(--line)', borderRadius: '24px', padding: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
-              <div style={{ maxWidth: '640px' }}>
-                <div style={{ display: 'flex', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--emerald-ink)', background: 'var(--mint-soft)', padding: '4px 10px', borderRadius: '99px' }}>
-                    {op.location}
-                  </span>
-                  <span style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--navy-2)', background: 'var(--off)', padding: '4px 10px', borderRadius: '99px' }}>
-                    {op.experience}
-                  </span>
-                </div>
-                <h3 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--navy)', margin: '0 0 8px' }}>
-                  {op.role}
-                </h3>
-                <p style={{ fontSize: '15px', color: 'var(--navy-2)', lineHeight: 1.6, margin: 0 }}>
-                  {op.desc}
-                </p>
+      <div className="mb-12 flex flex-col gap-5">
+        {OPENINGS.map((op) => (
+          <div key={op.role} className="flex flex-wrap items-center justify-between gap-5 rounded-3xl border border-line bg-white p-8 transition-[border-color,box-shadow] duration-500 ease-out-expo hover:border-mint-line hover:shadow-[0_30px_60px_-32px_rgba(7,26,43,.32)]" data-reveal>
+            <div className="max-w-[640px]">
+              <div className="mb-2 flex flex-wrap gap-3">
+                <Tag>{op.location}</Tag>
+                <Tag tone="off">{op.experience}</Tag>
               </div>
-
-              <div>
-                <a 
-                  href={`mailto:${CONTACT_INFO.email}?subject=Job Application: ${encodeURIComponent(op.role)}`}
-                  className="btn btn-navy btn-sm"
-                >
-                  Apply via Email &rarr;
-                </a>
-              </div>
+              <h3 className="m-0 text-xl font-bold">{op.role}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-navy-2">{op.desc}</p>
             </div>
-          ))}
-        </div>
-
-        <div style={{ background: 'var(--off)', border: '1px solid var(--line)', borderRadius: '24px', padding: '36px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '22px', fontWeight: 700, color: 'var(--navy)', margin: '0 0 8px' }}>
-            Don&apos;t see a match for your background?
-          </h2>
-          <p style={{ fontSize: '15px', color: 'var(--navy-2)', margin: '0 0 16px' }}>
-            We are always interested in meeting exceptional chartered accountants, lawyers, and client champions.
-          </p>
-          <a href={`mailto:${CONTACT_INFO.email}?subject=General Application`} className="btn btn-ghost btn-sm">
-            Send Your Resume to {CONTACT_INFO.email}
-          </a>
-        </div>
+            <a href={`mailto:${CONTACT_INFO.email}?subject=Job Application: ${encodeURIComponent(op.role)}`} className="btn btn-navy btn-sm">
+              Apply via Email &rarr;
+            </a>
+          </div>
+        ))}
       </div>
-    </main>
+
+      <CtaPanel tone="off" title="Don't see a match for your background?" text={`We are always interested in meeting exceptional chartered accountants, lawyers, and client champions. Write to ${CONTACT_INFO.email}.`}>
+        <a href={`mailto:${CONTACT_INFO.email}?subject=General Application`} className="btn btn-ghost btn-sm">Send Your Resume</a>
+      </CtaPanel>
+    </ContentPage>
   );
 }

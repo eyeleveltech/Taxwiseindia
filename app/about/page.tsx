@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SvgIcon from '@/components/ui/SvgIcon';
 import AsciiFluid from '@/components/ui/ascii-fluid';
+import Interactive3DCard from '@/components/ui/interactive-3d-card';
 import CompanyMotion from '@/components/company/CompanyMotion';
 import { EM, H2 } from '@/components/company/styles';
 import FinalCTA from '@/components/sections/FinalCTA';
@@ -69,16 +70,18 @@ export default function AboutPage() {
               </div>
             </div>
             
-            <div className="relative w-full aspect-square max-w-125 mx-auto lg:mx-0 lg:ml-auto" data-intro>
-              <div className="absolute inset-0 rounded-4xl overflow-hidden shadow-[0_12px_40px_-12px_rgba(7,26,43,.15)] border border-line">
-                <Image 
-                  src="/assets/about-hero.jpg" 
-                  alt="Modern abstract illustration" 
-                  fill 
-                  className="object-cover"
-                  priority 
-                />
-              </div>
+            <div className="relative w-full aspect-square max-w-125 mx-auto lg:mx-0 lg:ml-auto perspective-distant" data-intro>
+              <Interactive3DCard className="w-full h-full" maxRotation={15} scaleOnHover={1.03}>
+                <div className="absolute inset-0 rounded-4xl overflow-hidden shadow-[0_12px_40px_-12px_rgba(7,26,43,.15)] border border-line">
+                  <Image 
+                    src="/assets/about-hero.jpg" 
+                    alt="Modern abstract illustration" 
+                    fill 
+                    className="object-cover"
+                    priority 
+                  />
+                </div>
+              </Interactive3DCard>
               {/* decorative blur element behind the image */}
               <div className="absolute -inset-4 bg-emerald/20 blur-[60px] -z-10 rounded-full" />
             </div>

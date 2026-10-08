@@ -12,6 +12,8 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { WHATSAPP_URL, TRUST_ITEMS } from '@/lib/constants';
 import { ServiceCategory, servicePath, slugify } from '@/lib/services';
 import type { ServiceDetail } from '@/lib/service-details';
+import { Pricing } from '@/components/ui/pricing';
+import { SERVICE_PRICING } from '@/lib/pricing-data';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -163,6 +165,12 @@ export default function ServiceItemPage({ service, name, detail }: { service: Se
           </ul>
         </div>
       </section>
+
+      {SERVICE_PRICING[slug] && (
+        <section className="border-t border-line relative overflow-hidden bg-white">
+          <Pricing plans={SERVICE_PRICING[slug]} title="Clear, Predictable Pricing" />
+        </section>
+      )}
 
       <FinalCTA />
     </main>

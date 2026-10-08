@@ -55,7 +55,7 @@ export default function PromiseSection() {
         <div className="lg:sticky lg:top-[140px]">
           <p className="eyebrow" data-reveal><i className="dot"></i>The Taxwise Promise</p>
           <h2 className="h2" id="promise-title" data-reveal>You shouldn&apos;t have to chase your tax consultant.</h2>
-          <p className="lead" data-reveal>We believe once you&apos;ve trusted us with the work, staying informed should be our responsibility — not yours.</p>
+          <p className="lead" data-reveal>We believe once you&apos;ve trusted us with the work, staying informed should be our responsibility, not yours.</p>
         </div>
 
         <div className="[--node:56px] [--pad:18px] lg:[--pad:20px]">

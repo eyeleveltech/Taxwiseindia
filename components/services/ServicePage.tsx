@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,7 +9,6 @@ import SvgIcon from '@/components/ui/SvgIcon';
 import ServiceHeroScene from '@/components/services/ServiceHeroScene';
 import FinalCTA from '@/components/sections/FinalCTA';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { getLenis } from '@/hooks/useLenis';
 import { WHATSAPP_URL, HOW_STEPS, TRUST_ITEMS } from '@/lib/constants';
 import { SERVICE_CATALOG, ServiceCategory, servicePath, slugify } from '@/lib/services';
 
@@ -21,15 +20,13 @@ const SEC_HEAD = 'mb-[clamp(32px,4vw,48px)] max-w-[640px]';
 const SEC = 'py-[clamp(72px,9vw,120px)]';
 
 /**
- * /services/[slug] — one service, kept clean (reference: contiant.com): copy and the service's 3D
- * sculpture in the hero, the trust row, what the service covers as a check list, how TaxwiseIndia
- * works, the other six services and the final CTA. Styled with Tailwind; copy from the brief.
+ * /services/[slug] — one service category, kept clean (reference: contiant.com): copy and the category's 3D
+ * sculpture in the hero, the trust row, the services it covers (each a button to its own page), how
+ * TaxwiseIndia works, the other six categories and the final CTA. Styled with Tailwind; copy from the brief.
  */
 export default function ServicePage({ service }: { service: ServiceCategory }) {
   const others = SERVICE_CATALOG.filter((s) => s.slug !== service.slug);
   const reduce = useReducedMotion();
-  const [target, setTarget] = useState<string | null>(null);
-
   const root = useRef<HTMLElement>(null);
 
   useGSAP(() => {
@@ -54,21 +51,6 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
     });
   }, { scope: root, dependencies: [reduce, service.slug], revertOnUpdate: true });
 
-  // /services/<slug>#<item> — arrive on that row and mark it
-  useEffect(() => {
-    const id = window.location.hash.slice(1);
-    if (!id || !service.items.some((x) => slugify(x) === id)) return;
-    const t = setTimeout(() => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const lenis = getLenis();
-      if (lenis) lenis.scrollTo(el, { offset: -160, duration: 1.2 }); else el.scrollIntoView({ block: 'center' });
-      setTarget(id);
-      setTimeout(() => setTarget(null), 3600);
-    }, 900);
-    return () => clearTimeout(t);
-  }, [service]);
-
   return (
     <main id="main" ref={root} className="bg-white">
       {/* ============ hero ============ */}
@@ -90,7 +72,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
             </ul>
           </div>
 
-          {/* the service's own sculpture (drag to rotate), on a slowly turning ring */}
+          {/* the category's own sculpture (drag to rotate), on a slowly turning ring */}
           <div className="relative mx-auto w-full max-w-[560px] max-lg:mt-2" data-stage>
             <i className="pointer-events-none absolute inset-0 m-auto aspect-square w-[min(100%,520px)] rounded-full border-[1.5px] border-dashed border-emerald/35" data-stage-ring aria-hidden="true">
               <i className="absolute -top-[7px] left-1/2 -ml-[6.5px] size-[13px] rounded-full bg-emerald shadow-[0_0_0_5px_rgba(22,184,120,.18)]" />
@@ -114,7 +96,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
         </div>
       </section>
 
-      {/* ============ what this service covers ============ */}
+      {/* ============ the services in this category; each opens its own page ============ */}
       <section className={SEC} id="list" aria-labelledby="list-title">
         <div className="wrap grid grid-cols-1 items-start gap-[clamp(32px,5vw,72px)] lg:grid-cols-[minmax(0,1fr)_320px]">
           <div>
@@ -122,21 +104,18 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
               <p className={EYEBROW} data-reveal><i className="dot"></i>{service.name}</p>
               <h2 className={H2} id="list-title" data-reveal>Find the Right Service.</h2>
             </div>
-            <ul className="m-0 grid grid-cols-1 gap-x-[clamp(24px,3vw,48px)] p-0 sm:grid-cols-2" data-rise>
-              {service.items.map((x) => {
-                const id = slugify(x);
-                return (
-                  <li
-                    key={x}
-                    id={id}
-                    data-target={target === id ? '' : undefined}
-                    className="group flex items-center gap-[14px] border-b border-line px-1 py-[18px] font-display text-[clamp(16px,1.3vw,18px)] font-semibold leading-[1.3] tracking-[-.015em] text-navy transition-colors duration-500 [scroll-margin-top:140px] data-target:rounded-xl data-target:bg-mint-soft data-target:px-3"
-                  >
+            <ul className="m-0 list-none grid grid-cols-1 gap-x-[clamp(24px,3vw,48px)] border-t border-line p-0 sm:grid-cols-2" data-rise>
+              {service.items.map((x) => (
+                <li key={x} id={slugify(x)} className="border-b border-line">
+                  <Link href={servicePath(service, x)} className="group flex items-center gap-[14px] px-1 py-[18px] font-display text-[clamp(16px,1.3vw,18px)] font-semibold leading-[1.3] tracking-[-.015em] text-navy">
                     <i className="grid size-7 flex-none place-items-center rounded-full border border-mint-line bg-mint-soft text-emerald-ink"><SvgIcon id="i-check" className="size-[14px] [stroke-width:2.6]" /></i>
-                    <span className="transition-transform duration-500 ease-out-expo group-hover:translate-x-1.5">{x}</span>
-                  </li>
-                );
-              })}
+                    <span className="flex-1 transition-transform duration-500 ease-out-expo group-hover:translate-x-1.5">{x}</span>
+                    <i className="grid size-[34px] flex-none place-items-center rounded-full border border-line-2 text-navy transition-colors duration-[.35s] group-hover:border-emerald group-hover:bg-emerald">
+                      <SvgIcon id="i-arrow" className="size-[15px] -rotate-45 transition-transform duration-[.45s] ease-out-expo group-hover:rotate-0" />
+                    </i>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           <aside className="rounded-[22px] border border-line bg-off p-[26px] lg:sticky lg:top-[112px]" data-reveal>
@@ -176,7 +155,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
             <p className={EYEBROW} data-reveal><i className="dot"></i>Services</p>
             <h2 className={H2} id="more-title" data-reveal>More Services</h2>
           </div>
-          <ul className="m-0 grid grid-cols-1 gap-x-[clamp(24px,3vw,48px)] border-t border-line p-0 sm:grid-cols-2 lg:grid-cols-3" data-rise>
+          <ul className="m-0 list-none grid grid-cols-1 gap-x-[clamp(24px,3vw,48px)] border-t border-line p-0 sm:grid-cols-2 lg:grid-cols-3" data-rise>
             {others.map((s) => (
               <li key={s.slug} className="border-b border-line">
                 <Link href={servicePath(s)} className="group flex items-center gap-[14px] px-1 py-[18px] font-display text-[17px] font-semibold leading-[1.3] tracking-[-.015em] text-navy">

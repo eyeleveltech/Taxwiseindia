@@ -46,6 +46,18 @@ test.describe('Landing Page E2E Tests', () => {
     await expect(page).toHaveURL(/\/contact#contact-form$/);   // every Get Started lands on the form
   });
 
+  test('The Services menu lists every service and opens its page', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'the services menu is a desktop hover menu');
+    await page.goto('/', { waitUntil: 'networkidle' });
+    const nav = page.getByRole('navigation', { name: 'Primary', exact: true });
+    await nav.getByRole('link', { name: 'Services' }).hover();
+    const panel = page.locator('[data-menu-panel]');
+    await expect(panel.locator('a[href^="/services/"]')).toHaveCount(46 + 7);
+    await panel.getByRole('link', { name: 'GST Registration', exact: true }).click();
+    await expect(page).toHaveURL(/\/services\/gst-tax\/gst-registration$/);
+    await expect(page.locator('h1')).toHaveText('GST Registration');
+  });
+
   test('Navigation links route to appropriate pages', async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
 

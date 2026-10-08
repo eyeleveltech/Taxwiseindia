@@ -34,7 +34,7 @@ export default function RefundPolicyPage() {
       <p>
         To initiate a review, please email{' '}
         <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>{' '}
-        with your Service Reference Number and reason for cancellation. Approved refunds are credited to the source payment method within 5–7 banking days.
+        with your Service Reference Number and reason for cancellation. Approved refunds are credited to the source payment method within 5-7 banking days.
       </p>
     </LegalPage>
   );

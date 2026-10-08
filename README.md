@@ -33,7 +33,7 @@ taxwise-nextjs/
 │   ├── page.tsx                  # Home landing page assembling all 11 animated sections
 │   ├── globals.css               # Base resets, shared primitives (.wrap .sec .btn .key .eyebrow .note .glass .coin), keyframes
 │   ├── tailwind.css              # Tailwind v4 theme tokens (palette, fonts, easing) + utilities
-│   ├── services/                 # Services index and seven detail pages via [slug]/
+│   ├── services/                 # Services index, seven category pages ([slug]/) and 46 service pages ([slug]/[item]/)
 │   ├── about/                    # About Us page
 │   ├── contact/                  # Contact page with interactive WhatsApp inquiry form
 │   ├── careers/                  # Careers & job openings
@@ -47,7 +47,7 @@ taxwise-nextjs/
 │   └── disclaimer/               # Legal regulatory disclaimer
 ├── components/
 │   ├── layout/                   # Header, Footer, FooterGiant, ProgressBar, SmoothScroll, IconSprite
-│   ├── services/                 # ServicesIndex (list + ServicesOrbit), ServicePage (detail template + ServiceHeroScene 3D)
+│   ├── services/                 # ServicesIndex (list + ServicesOrbit), ServicePage (category + ServiceHeroScene 3D), ServiceItemPage (one service)
 │   ├── company/                  # CompanyMotion shell + shared class strings for About/Contact
 │   ├── content/                  # ContentPage primitives for guides, updates, careers and legal pages
 │   ├── sections/                 # 11 Landing page sections (Hero, Services, Why, FAQ, etc.)
@@ -59,6 +59,7 @@ taxwise-nextjs/
 ├── lib/
 │   ├── constants.ts              # Centralized data for services, FAQs, and business contact info
 │   ├── services.ts               # Service catalog, promise steps and legacy link mappings
+│   ├── service-details.ts        # Per-service content (summary, documents, steps, timeline) — DRAFT, verify before launch
 │   └── metadata.ts               # Shared SEO metadata & JSON-LD schemas
 └── public/
     └── assets/                   # Brand marks, favicon, and graphic assets
@@ -103,7 +104,7 @@ All primary company parameters are centralized in [`lib/constants.ts`](lib/const
 
 - **WhatsApp URL**: Modify `WHATSAPP_URL` to update the WhatsApp link across all buttons and forms.
 - **Contact Details**: Update `CONTACT_INFO` for phone numbers, email addresses, and office location.
-- **Service Catalog**: Edit `SERVICE_CATALOG` in [`lib/services.ts`](lib/services.ts) to update the seven services and their items. `LEGACY_SERVICE_LINKS` maps the eight previous routes; permanent redirects are configured in `next.config.ts`.
+- **Service Catalog**: Edit `SERVICE_CATALOG` in [`lib/services.ts`](lib/services.ts) to update the seven categories and their items; each item's page content (summary, documents, steps, timeline, optional price) lives in [`lib/service-details.ts`](lib/service-details.ts). `LEGACY_SERVICE_LINKS` maps the eight previous routes; permanent redirects are configured in `next.config.ts`.
 - **Service Components**: `components/services/` contains the index (with the seven-service orbit) and the single detail-page template (with the service's 3D sculpture).
 - **Interactive service artwork**: `ServiceHeroScene.tsx` (the hero of every `/services/[slug]` page) lazy-loads `lib/service-sculpture.ts`, which builds seven Three.js sculptures locally. Scenes support drag/rotation controls, pause, reduced motion, and a static fallback when WebGL is unavailable.
 
@@ -129,7 +130,8 @@ Playwright checks desktop and mobile views against the local production server.
 ### Services and company pages
 
 - `/services` is a concise seven-category overview: the list on the right and the orbit on the left (all seven services on one ring; it walks through them on its own, follows hover/focus, and every tile links to its page). The 46 detailed offerings live on their dedicated category pages.
-- `/services/[slug]` is a clean detail page: hero copy beside the service's Three.js sculpture (drag / arrow keys rotate, Space pauses, reduced-motion aware, icon fallback without WebGL), the service's items as a ruled check list (deep links like `#payroll` highlight a row), the four process steps, the other six services, FAQ and CTA.
+- `/services/[slug]` is a clean category page: hero copy beside the category's Three.js sculpture (drag / arrow keys rotate, Space pauses, reduced-motion aware, icon fallback without WebGL), the services it covers as buttons, the four process steps, the other six categories and the CTA.
+- `/services/[slug]/[item]` is one of the 46 service pages (one template, generated from `lib/service-details.ts`): summary, the documents checklist, the process steps, the rest of the category and the CTA. "Get Started" opens the contact form with the service and a message pre-filled. The header's Services menu lists all 46.
 - `/about` introduces the company approach; `/contact` provides a WhatsApp draft form. `?service=trademark-ip` (or another catalog slug) preselects the service.
 - Main Get Started buttons route to Contact. The form opens a draft; it does not send a message or submit to a backend.
 - Company page motion and styles live in `components/company/`. Configure the real phone number and WhatsApp destination in `lib/constants.ts` before using inquiries in production.

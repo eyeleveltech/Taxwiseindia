@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CONTACT_INFO, WHATSAPP_URL } from '@/lib/constants';
-import { SERVICE_CATALOG } from '@/lib/services';
+import { SERVICE_CATALOG, slugify } from '@/lib/services';
 import SvgIcon from '@/components/ui/SvgIcon';
 import ContactForm from '@/components/ui/ContactForm';
 import CompanyMotion from '@/components/company/CompanyMotion';
@@ -16,9 +16,12 @@ const METHOD = 'group flex items-center gap-3 border-b border-line py-5 sm:gap-4
 const METHOD_ICON = 'grid size-[43px] flex-none place-items-center rounded-full border border-line-2 text-emerald-ink transition-colors group-hover:border-emerald group-hover:bg-emerald group-hover:text-navy [&_.i]:size-5';
 const LABEL = 'mb-1.5 block font-display text-[9px] font-semibold tracking-[.13em] text-muted';
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[] }> }) {
-  const { service } = await searchParams;
-  const initialService = SERVICE_CATALOG.some((item) => item.slug === service) ? service as string : 'general';
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[]; item?: string | string[] }> }) {
+  const { service, item } = await searchParams;
+  const category = SERVICE_CATALOG.find((s) => s.slug === service);
+  const initialService = category ? category.slug : 'general';
+  const itemName = category?.items.find((x) => slugify(x) === item);
+  const initialMessage = itemName ? `I'm interested in ${itemName}.` : '';
 
   return (
     <CompanyMotion>
@@ -52,7 +55,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             </div>
           </div>
 
-          <div data-intro><ContactForm key={initialService} initialService={initialService} /></div>
+          <div data-intro><ContactForm key={`${initialService}-${itemName ?? ''}`} initialService={initialService} initialMessage={initialMessage} /></div>
         </div>
       </section>
 

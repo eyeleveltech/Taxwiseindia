@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
           <div>
-            <Link className="flex items-center gap-2.5" href="/" aria-label="TaxwiseIndia — back to top">
+            <Link className="flex items-center gap-2.5" href="/" aria-label="TaxwiseIndia, back to top">
               <Image className="h-auto w-[38px]" src="/assets/tw-mark.png" alt="" width={326} height={256} />
               <Image className="h-auto w-[146px]" src="/assets/tw-wordmark-dark.png" alt="TaxwiseIndia" width={803} height={96} />
             </Link>

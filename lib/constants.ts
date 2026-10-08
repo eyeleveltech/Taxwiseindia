@@ -39,7 +39,7 @@ export const CONTACT_INFO = {
   phone: '+91 (0) 00000 00000',
   email: 'hello@taxwiseindia.com',
   address: 'Commercial Tower, Sector 62, Noida, Uttar Pradesh, 201309',
-  hours: 'Mon – Sat: 9:30 AM – 7:00 PM IST',
+  hours: 'Mon - Sat: 9:30 AM - 7:00 PM IST',
   whatsapp: WHATSAPP_URL,
 };
 
@@ -55,9 +55,9 @@ export const SERVICES: Service[] = [
 ];
 
 export const FAQ_ITEMS: FAQItem[] = [
-  { id: 'fa1', question: 'What services does TaxwiseIndia provide?', answer: 'GST services, income tax, business registration, accounting, MSME services, company compliance, payroll and tax advisory — tax, accounting and compliance in one place.' },
+  { id: 'fa1', question: 'What services does TaxwiseIndia provide?', answer: 'GST services, income tax, business registration, accounting, MSME services, company compliance, payroll and tax advisory: tax, accounting and compliance in one place.' },
   { id: 'fa2', question: 'How does the process work?', answer: 'Tell us what you need and our team handles the necessary process. We keep you informed about important progress and requirements, complete the process and keep you informed about what\'s next.' },
-  { id: 'fa3', question: 'Will I receive updates after making payment?', answer: 'Yes. Once you\'ve trusted us with the work, staying informed is our responsibility — not yours. We keep you posted with every move.' },
+  { id: 'fa3', question: 'Will I receive updates after making payment?', answer: 'Yes. Once you\'ve trusted us with the work, staying informed is our responsibility, not yours. We keep you posted with every move.' },
   { id: 'fa4', question: 'How do I submit my documents?', answer: 'Once you tell us what you need, our team lets you know which documents are required and how to share them.' },
   { id: 'fa5', question: 'How long does my service take?', answer: 'It depends on the service. We tell you what to expect before we start and keep you updated at every step.' },
   { id: 'fa6', question: 'Can TaxwiseIndia handle ongoing compliance?', answer: 'Yes. We support ongoing statutory and regulatory requirements, along with tax and accounting, under one roof.' },

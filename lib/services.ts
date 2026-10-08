@@ -59,17 +59,18 @@ export const slugify = (s: string) =>
 
 export const findService = (slug: string) => SERVICE_CATALOG.find((s) => s.slug === slug);
 
+/** `/services/<category>` or, for one of its items, `/services/<category>/<item>` — every item has its own page. */
 export const servicePath = (service: ServiceCategory, item?: string) =>
-  `/services/${service.slug}${item ? `#${slugify(item)}` : ''}`;
+  `/services/${service.slug}${item ? `/${slugify(item)}` : ''}`;
 
 /** The homepage's eight service cards map onto the catalogue (and the old routes redirect the same way). */
 export const LEGACY_SERVICE_LINKS: Record<string, string> = {
   'gst-services': '/services/gst-tax',
-  'income-tax': '/services/gst-tax#income-tax-filing',
+  'income-tax': '/services/gst-tax/income-tax-filing',
   'company-registration': '/services/business-registration',
   'accounting': '/services/accounting-payroll',
-  'msme-registration': '/services/licenses-registrations#msme-udyam',
+  'msme-registration': '/services/licenses-registrations/msme-udyam',
   'business-compliance': '/services/compliance',
-  'payroll': '/services/accounting-payroll#payroll',
-  'tax-advisory': '/services/gst-tax#tax-advisory',
+  'payroll': '/services/accounting-payroll/payroll',
+  'tax-advisory': '/services/gst-tax/tax-advisory',
 };

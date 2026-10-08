@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { SITE_URL } from './constants';
 
 export const siteMetadata: Metadata = {
-  title: 'TaxwiseIndia — Tax & Compliance, Without the Chase',
+  title: 'TaxwiseIndia | Tax & Compliance, Without the Chase',
   description:
-    'GST, income tax, accounting and business compliance services in India. TaxwiseIndia handles the work — and keeps you updated at every step.',
+    'GST, income tax, accounting and business compliance services in India. TaxwiseIndia handles the work and keeps you updated at every step.',
   metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: '/',
@@ -12,9 +12,9 @@ export const siteMetadata: Metadata = {
   openGraph: {
     type: 'website',
     url: SITE_URL,
-    title: 'TaxwiseIndia — Tax & Compliance, Without the Chase',
+    title: 'TaxwiseIndia | Tax & Compliance, Without the Chase',
     description:
-      'From GST and income tax to accounting and business compliance, TaxwiseIndia handles the work — and keeps you updated at every step.',
+      'From GST and income tax to accounting and business compliance, TaxwiseIndia handles the work and keeps you updated at every step.',
     images: [{ url: `${SITE_URL}/assets/tw-wordmark-dark.png` }],
   },
   twitter: {
@@ -37,7 +37,7 @@ export const professionalServiceJsonLd = {
   logo: `${SITE_URL}/assets/apple-touch-icon.png`,
   slogan: 'Tax & Compliance, Without the Chase.',
   description:
-    'Tax, accounting and business compliance services in India — GST, income tax, business registration, accounting, MSME, company compliance, payroll and tax advisory.',
+    'Tax, accounting and business compliance services in India: GST, income tax, business registration, accounting, MSME, company compliance, payroll and tax advisory.',
   areaServed: { '@type': 'Country', name: 'India' },
   knowsAbout: [
     'GST services',
@@ -60,7 +60,7 @@ export const faqPageJsonLd = {
       name: 'What services does TaxwiseIndia provide?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'GST services, income tax, business registration, accounting, MSME services, company compliance, payroll and tax advisory — tax, accounting and compliance in one place.',
+        text: 'GST services, income tax, business registration, accounting, MSME services, company compliance, payroll and tax advisory: tax, accounting and compliance in one place.',
       },
     },
     {
@@ -76,7 +76,7 @@ export const faqPageJsonLd = {
       name: 'Will I receive updates after making payment?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Once you\'ve trusted us with the work, staying informed is our responsibility — not yours. We keep you posted with every move.',
+        text: 'Yes. Once you\'ve trusted us with the work, staying informed is our responsibility, not yours. We keep you posted with every move.',
       },
     },
     {

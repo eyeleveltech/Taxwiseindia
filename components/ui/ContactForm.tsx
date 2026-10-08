@@ -9,8 +9,8 @@ const FIELD = 'w-full min-w-0 rounded-[9px] border border-line bg-off px-[13px] 
 const LABEL = 'mb-2 block font-display text-[11px] font-semibold text-navy-2 [&_span]:font-normal [&_span]:text-muted';
 
 /** Drafts a WhatsApp message from the form and opens it — the visitor presses Send themselves. */
-export default function ContactForm({ initialService = 'general' }: { initialService?: string }) {
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: initialService, message: '' });
+export default function ContactForm({ initialService = 'general', initialMessage = '' }: { initialService?: string; initialMessage?: string }) {
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: initialService, message: initialMessage });
   const [draftUrl, setDraftUrl] = useState('');
   const update = (field: keyof typeof formData, value: string) => setFormData((previous) => ({ ...previous, [field]: value }));
 

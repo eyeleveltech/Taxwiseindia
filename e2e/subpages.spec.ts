@@ -15,7 +15,7 @@ test.describe('Sub-pages & Interaction Tests', () => {
     await expect(page.locator('#catalog article a')).toHaveCount(7);
     await expect(page.locator('#catalog article ul')).toHaveCount(0);
     await expect(page.getByRole('navigation', { name: 'Service categories' })).toHaveCount(0);
-    await expect(page.getByText('GST Registration', { exact: true })).toHaveCount(0);
+    await expect(page.locator('main').getByText('GST Registration', { exact: true })).toHaveCount(0);   // (the header menu lists it)
     if (isMobile) await page.locator('#gst-tax a').tap();
     else await page.locator('#gst-tax a').click();
     await expect(page).toHaveURL(/\/services\/gst-tax$/, { timeout: 15000 });
@@ -52,22 +52,29 @@ test.describe('Sub-pages & Interaction Tests', () => {
     await page.goto('/services/gst-tax', { waitUntil: 'domcontentloaded' });
     await expect(page).toHaveTitle(/GST & Tax \| TaxwiseIndia/);
     await expect(page.locator('h1')).toHaveText('GST & Tax');
+    await page.locator('#list').scrollIntoViewIfNeeded();   // rows rise in as the list arrives
     await expect(page.locator('#gst-registration')).toBeVisible();
     await expect(page.locator('#more a[href^="/services/"]')).toHaveCount(6);
     const whatsappBtn = page.locator('main a[href*="wa.me"]').first();
     await expect(whatsappBtn).toBeVisible();
   });
 
-  test('Service items are a plain list; a deep link marks its row', async ({ page }) => {
-    await page.goto('/services/trademark-ip#trademark-renewal', { waitUntil: 'networkidle' });
-    await expect(page.locator('#list li')).toHaveCount(7);
-    await expect(page.locator('#trademark-renewal')).toHaveAttribute('data-target', '');
-    await expect(page.locator('#trademark-search')).not.toHaveAttribute('data-target', '');
-    // sub-services are names only — no links, buttons or pages of their own
-    await expect(page.locator('#list ul a, #list ul button')).toHaveCount(0);   // (the aside beside the list holds the CTAs)
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await expect(page.locator('h1')).toHaveText('Trademark & Intellectual Property');
-    await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toHaveCount(0);
+  test('Every service in a category opens its own page', async ({ page }) => {
+    await page.goto('/services/trademark-ip', { waitUntil: 'networkidle' });
+    await page.locator('#list').scrollIntoViewIfNeeded();
+    await expect(page.locator('#list ul a')).toHaveCount(7);
+    await page.locator('#trademark-renewal a').click();
+    await expect(page).toHaveURL(/\/services\/trademark-ip\/trademark-renewal$/);
+    await expect(page.locator('h1')).toHaveText('Trademark Renewal');
+    await expect(page.locator('#process li')).toHaveCount(3);
+    await expect(page.locator('#related a[href^="/services/trademark-ip/"]')).toHaveCount(6);
+    await expect(page.locator('main').getByRole('link', { name: 'Get Started', exact: true }).first()).toHaveAttribute('href', '/contact?service=trademark-ip&item=trademark-renewal#contact-form');
+  });
+
+  test('A service page pre-fills the contact form', async ({ page }) => {
+    await page.goto('/contact?service=gst-tax&item=gst-registration', { waitUntil: 'networkidle' });
+    await expect(page.getByLabel("I'm interested in")).toHaveValue('gst-tax');
+    await expect(page.getByLabel('A little about what you need')).toHaveValue("I'm interested in GST Registration.");
   });
 
   test('Service page shows its own 3D sculpture with keyboard rotation and no visible controls', async ({ page }) => {
@@ -105,7 +112,7 @@ test.describe('Sub-pages & Interaction Tests', () => {
 
   test('Old service routes redirect into the service pages', async ({ page }) => {
     await page.goto('/payroll', { waitUntil: 'domcontentloaded' });
-    await expect(page).toHaveURL(/\/services\/accounting-payroll#payroll$/);
+    await expect(page).toHaveURL(/\/services\/accounting-payroll\/payroll$/);
   });
 
   test('Contact page loads with interactive form and validates input fields', async ({ page }) => {

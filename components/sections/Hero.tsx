@@ -115,7 +115,7 @@ export default function Hero() {
             <span className="bg-[linear-gradient(#63E6BE,#63E6BE)] bg-[position:0_90%] bg-[size:calc(var(--hl)*100%)_.26em] bg-no-repeat px-[.04em]">Without the Chase.</span>
           </h1>
           <p className="mt-[22px] max-w-[32em] text-[clamp(16px,1.2vw,18px)] leading-[1.65]" data-intro data-hero-sub>
-            From GST and income tax to accounting and business compliance, TaxwiseIndia handles the work — and keeps you updated at every step.
+            From GST and income tax to accounting and business compliance, TaxwiseIndia handles the work and keeps you updated at every step.
           </p>
           <div className="mt-[30px] flex flex-wrap gap-3 max-sm:[&>.btn]:flex-[1_1_100%]" data-intro data-hero-ctas>
             <Link className="btn btn-primary btn-lg" href="/contact#contact-form">Get Started <svg className="i arr"><use href="#i-arrow" /></svg></Link>

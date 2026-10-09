@@ -19,14 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" className={`${inter.variable} ${jakarta.variable} motion`}>
-      <head>
+    <html lang="en-IN" className={`${inter.variable} ${jakarta.variable} motion`} suppressHydrationWarning>
+      <head suppressHydrationWarning>
         <script 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceJsonLd) }}
         />
       </head>
-      <body id="top">
+      <body id="top" suppressHydrationWarning>
         <IconSprite />
         <a className="skip" href="#main">Skip to content</a>
         <SmoothScroll />

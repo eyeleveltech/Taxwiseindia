@@ -19,6 +19,16 @@ export default function CompanyMotion({ children }: { children: ReactNode }) {
     gsap.utils.toArray<HTMLElement>('[data-company-reveal]').forEach((element) => {   // the shared sections animate their own [data-reveal]
       gsap.from(element, { y: 35, autoAlpha: 0, duration: 0.9, ease: 'expo.out', scrollTrigger: { trigger: element, start: 'top 90%', once: true } });
     });
+    gsap.utils.toArray<HTMLElement>('[data-company-stagger-parent]').forEach((parent) => {
+      gsap.from(parent.querySelectorAll('[data-company-stagger]'), {
+        y: 35,
+        autoAlpha: 0,
+        duration: 0.9,
+        stagger: 0.15,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: parent, start: 'top 90%', once: true }
+      });
+    });
     const has = (sel: string) => !!root.current?.querySelector(sel);   // not every page has every piece
     if (has('[data-company-art]')) gsap.to('[data-company-art]', { y: -22, rotateY: 9, ease: 'none', scrollTrigger: { trigger: root.current, start: 'top top', end: '600 top', scrub: 1 } });
     if (has('[data-company-ring]')) gsap.to('[data-company-ring]', { rotation: 360, duration: 70, ease: 'none', repeat: -1 });

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!service) return {};
   return {
     title: `${service.name} | TaxwiseIndia`,
-    description: service.desc ?? `${service.name}: ${service.items.join(', ')}.`,
+    description: service.tagline ?? `${service.name}: ${service.items.join(', ')}.`,
   };
 }
 

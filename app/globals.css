@@ -53,8 +53,14 @@ html.lenis,html.lenis body{height:auto}
 /* ---------- Type ---------- */
 .eyebrow{display:inline-flex;align-items:center;gap:10px;min-height:32px;margin:0;padding:7px 14px 7px 11px;border:1px solid var(--line-2);border-radius:99px;background:#fff;font:600 11px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--navy)}
 .eyebrow .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--emerald);box-shadow:0 0 0 4px rgba(22,184,120,.16)}
-.h2{margin:20px 0 0;font-size:clamp(30px,3.3vw,46px);line-height:1.1;letter-spacing:-.03em;font-weight:700;text-wrap:balance}
-.lead{margin:18px 0 0;max-width:34em;font-size:clamp(16px,1.2vw,18px);line-height:1.65}
+.h1{margin:24px 0;font-size:clamp(38px,4.6vw,62px);line-height:1.08;letter-spacing:-.035em;font-weight:700;color:var(--navy);text-wrap:balance}
+.h2{margin:20px 0 0;font-size:clamp(30px,3.3vw,46px);line-height:1.1;letter-spacing:-.03em;font-weight:700;color:var(--navy);text-wrap:balance}
+.lead{margin:18px 0 0;max-width:34em;font-size:clamp(16px,1.2vw,18px);line-height:1.65;color:var(--body)}
+.em{font-style:normal;color:var(--emerald-ink)}
+.text-link{display:inline-flex;align-items:center;gap:12px;font:600 13px/1 var(--display);color:var(--emerald-ink);transition:color .25s}
+.text-link:hover{color:var(--navy)}
+.text-link .i{width:15px;height:15px;transition:transform .4s var(--ease)}
+.text-link:hover .i{transform:translateX(4px)}
 /* SplitText line masks */
 .split > div,.hero h1 > div{padding-bottom:.12em;margin-bottom:-.12em}
 

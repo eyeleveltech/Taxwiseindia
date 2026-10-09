@@ -15,8 +15,8 @@ import { SERVICE_CATALOG, ServiceCategory, servicePath, slugify } from '@/lib/se
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const EYEBROW = 'eyebrow';
-const H2 = 'mt-[18px] font-display text-[clamp(28px,2.9vw,40px)] font-bold leading-[1.12] tracking-[-.03em] text-navy text-balance';
-const SEC_HEAD = 'mb-[clamp(32px,4vw,48px)] max-w-[640px]';
+const H2 = 'mt-4.5 font-display text-[clamp(28px,2.9vw,40px)] font-bold leading-[1.12] tracking-[-.03em] text-navy text-balance';
+const SEC_HEAD = 'mb-[clamp(32px,4vw,48px)] max-w-160';
 const SEC = 'py-[clamp(72px,9vw,120px)]';
 
 /**
@@ -55,29 +55,30 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
     <main id="main" ref={root} className="bg-white">
       {/* ============ hero ============ */}
       <section
-        className="relative overflow-clip pt-[clamp(120px,11.5vw,150px)] pb-[clamp(56px,6vw,80px)] before:absolute before:left-1/2 before:top-[-40%] before:size-[1200px] before:-ml-[140px] before:rounded-full before:bg-off max-lg:before:top-[-60%] max-lg:before:-ml-[600px]"
+        className="relative overflow-clip pt-[clamp(120px,11.5vw,150px)] pb-[clamp(56px,6vw,80px)] before:absolute before:left-1/2 before:top-[-40%] before:size-300 before:-ml-35 before:rounded-full before:bg-off max-lg:before:top-[-60%] max-lg:before:-ml-150"
         aria-labelledby="page-title"
       >
         <div className="wrap relative z-10 grid grid-cols-1 items-center gap-[clamp(32px,5vw,80px)] lg:grid-cols-2">
           <div>
             <h1 className="font-display text-[clamp(34px,3.9vw,54px)] font-bold leading-[1.06] tracking-[-.035em] text-navy text-balance" id="page-title" data-intro>{service.name}</h1>
-            {service.desc && <p className="mt-[18px] max-w-[30em] text-[clamp(16px,1.2vw,18px)] leading-[1.65]" data-intro>{service.desc}</p>}
+            {service.tagline && <p className="mt-4.5 max-w-[30em] font-medium text-[clamp(16px,1.2vw,18px)] leading-[1.5]" data-intro>{service.tagline}</p>}
+            {service.description && <p className="mt-3.5 max-w-[32em] text-[clamp(15px,1.1vw,16.5px)] leading-[1.65] text-navy-2" data-intro>{service.description}</p>}
             <div className="mt-7 flex flex-wrap gap-3 max-sm:[&>.btn]:flex-[1_1_100%]" data-intro>
               <Link href={`/contact?service=${service.slug}#contact-form`} className="btn btn-primary btn-lg">Get Started <SvgIcon id="i-arrow" className="i arr" /></Link>
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg"><SvgIcon id="i-phone" className="i" />Talk to an Expert</a>
             </div>
-            <ul className="mt-[26px] flex flex-wrap gap-x-6 gap-y-[10px] p-0 font-sans text-[14px] font-medium leading-[1.3] text-navy-2" data-intro>
+            <ul className="mt-6.5 flex flex-wrap gap-x-6 gap-y-2.5 p-0 font-sans text-[14px] font-medium leading-[1.3] text-navy-2" data-intro>
               <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald [stroke-width:2.4]" />{service.items.length} Services</li>
               <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald [stroke-width:2.4]" />Proactive Customer Updates</li>
             </ul>
           </div>
 
           {/* the category's own sculpture (drag to rotate), on a slowly turning ring */}
-          <div className="relative mx-auto w-full max-w-[560px] max-lg:mt-2" data-stage>
+          <div className="relative mx-auto w-full max-w-140 max-lg:mt-2" data-stage>
             <i className="pointer-events-none absolute inset-0 m-auto aspect-square w-[min(100%,520px)] rounded-full border-[1.5px] border-dashed border-emerald/35" data-stage-ring aria-hidden="true">
               <i className="absolute -top-[7px] left-1/2 -ml-[6.5px] size-[13px] rounded-full bg-emerald shadow-[0_0_0_5px_rgba(22,184,120,.18)]" />
             </i>
-            <ServiceHeroScene service={service} message={service.desc ?? 'We keep you posted with every move.'} variant="detail" />
+            <ServiceHeroScene service={service} message={service.tagline ?? 'We keep you posted with every move.'} variant="detail" />
           </div>
         </div>
       </section>
@@ -88,7 +89,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
           <ul className="m-0 flex flex-wrap gap-x-10 gap-y-4 p-0 py-6" data-rise>
             {TRUST_ITEMS.map((t) => (
               <li key={t.text} className="flex items-center gap-3 font-display text-[14.5px] font-medium leading-[1.35] text-navy">
-                <SvgIcon id="i-check" className="size-[18px] text-emerald [stroke-width:2.4]" />
+                <SvgIcon id="i-check" className="size-4.5 text-emerald [stroke-width:2.4]" />
                 {t.bold ? <span><b className="font-extrabold text-emerald-ink">{t.bold}</b>{t.text.slice(t.bold.length)}</span> : t.text}
               </li>
             ))}
@@ -100,30 +101,67 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
       <section className={SEC} id="list" aria-labelledby="list-title">
         <div className="wrap grid grid-cols-1 items-start gap-[clamp(32px,5vw,72px)] lg:grid-cols-[minmax(0,1fr)_320px]">
           <div>
-            <div className={SEC_HEAD}>
+            <div className="text-[clamp(16px,1.2vw,17.5px)] leading-[1.75] text-navy-2" data-reveal>
+              {service.overview.map((p, i) => <p key={i} className="mb-4 last:mb-0">{p}</p>)}
+            </div>
+
+            <div className="mt-[clamp(48px,6vw,72px)] rounded-2xl bg-navy p-[clamp(28px,4vw,48px)]" data-reveal>
+              <h3 className="mb-3 flex items-center gap-2.5 font-display text-[clamp(18px,1.6vw,22px)] font-bold tracking-[-.02em] text-emerald">
+                <SvgIcon id="i-shield" className="size-5 shrink-0" /> Why It Matters
+              </h3>
+              <p className="text-[clamp(15px,1.1vw,16.5px)] leading-[1.75] text-white/80">{service.whyItMatters}</p>
+            </div>
+
+            <div className="mt-[clamp(48px,6vw,72px)]" data-reveal>
+              <h3 className="font-display text-[clamp(22px,2vw,28px)] font-bold leading-[1.2] tracking-[-.02em] text-navy">What We Do</h3>
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {service.whatWeDo.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 rounded-xl border border-line bg-off px-5 py-4">
+                    <SvgIcon id="i-check" className="mt-0.5 size-4.5 shrink-0 text-emerald [stroke-width:2.4]" />
+                    <span className="font-display text-[15px] font-semibold leading-[1.4] tracking-[-.01em] text-navy">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-[clamp(48px,6vw,72px)]" data-reveal>
+              <h3 className="mb-5 font-display text-[clamp(22px,2vw,28px)] font-bold leading-[1.2] tracking-[-.02em] text-navy">Who This Is For</h3>
+              <div className="mb-5 flex flex-wrap gap-3">
+                {['Startups', 'SMEs', 'Large Enterprises'].map((tag) => (
+                  <span key={tag} className="rounded-full border border-emerald/30 bg-mint-soft px-4 py-1.5 font-display text-[13.5px] font-semibold text-emerald-ink">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <p className="text-[clamp(15px,1.1vw,16.5px)] leading-[1.75] text-navy-2">
+                {service.whoThisIsFor.replace(/\n\n---$/, '').trim()}
+              </p>
+            </div>
+
+            <div className={`mt-[clamp(80px,9vw,120px)] ${SEC_HEAD}`}>
               <p className={EYEBROW} data-reveal><i className="dot"></i>{service.name}</p>
               <h2 className={H2} id="list-title" data-reveal>Find the Right Service.</h2>
             </div>
             <ul className="m-0 list-none grid grid-cols-1 gap-x-[clamp(24px,3vw,48px)] border-t border-line p-0 sm:grid-cols-2" data-rise>
               {service.items.map((x) => (
                 <li key={x} id={slugify(x)} className="border-b border-line">
-                  <Link href={servicePath(service, x)} className="group flex items-center gap-[14px] px-1 py-[18px] font-display text-[clamp(16px,1.3vw,18px)] font-semibold leading-[1.3] tracking-[-.015em] text-navy">
-                    <i className="grid size-7 flex-none place-items-center rounded-full border border-mint-line bg-mint-soft text-emerald-ink"><SvgIcon id="i-check" className="size-[14px] [stroke-width:2.6]" /></i>
+                  <Link href={servicePath(service, x)} className="group flex items-center gap-3.5 px-1 py-4.5 font-display text-[clamp(16px,1.3vw,18px)] font-semibold leading-[1.3] tracking-[-.015em] text-navy">
+                    <i className="grid size-7 flex-none place-items-center rounded-full border border-mint-line bg-mint-soft text-emerald-ink"><SvgIcon id="i-check" className="size-3.5 [stroke-width:2.6]" /></i>
                     <span className="flex-1 transition-transform duration-500 ease-out-expo group-hover:translate-x-1.5">{x}</span>
-                    <i className="grid size-[34px] flex-none place-items-center rounded-full border border-line-2 text-navy transition-colors duration-[.35s] group-hover:border-emerald group-hover:bg-emerald">
-                      <SvgIcon id="i-arrow" className="size-[15px] -rotate-45 transition-transform duration-[.45s] ease-out-expo group-hover:rotate-0" />
+                    <i className="grid size-8.5 flex-none place-items-center rounded-full border border-line-2 text-navy transition-colors duration-[.35s] group-hover:border-emerald group-hover:bg-emerald">
+                      <SvgIcon id="i-arrow" className="size-3.75 -rotate-45 transition-transform duration-[.45s] ease-out-expo group-hover:rotate-0" />
                     </i>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <aside className="rounded-[22px] border border-line bg-off p-[26px] lg:sticky lg:top-[112px]" data-reveal>
+          <aside className="rounded-[22px] border border-line bg-off p-6.5 lg:sticky lg:top-[112px]" data-reveal>
             <span className="key key-lg"><SvgIcon id="i-phone" /></span>
-            <h3 className="mt-[18px] font-display text-[19px] font-semibold leading-[1.3] tracking-[-.02em] text-navy">Talk to an Expert</h3>
+            <h3 className="mt-4.5 font-display text-[19px] font-semibold leading-[1.3] tracking-[-.02em] text-navy">Talk to an Expert</h3>
             <p className="mt-2 text-[14.5px] leading-[1.6]">We keep you posted with every move.</p>
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-[18px] w-full">Talk to an Expert <SvgIcon id="i-arrow" className="i arr" /></a>
-            <Link href={`/contact?service=${service.slug}#contact-form`} className="btn btn-ghost mt-[10px] w-full">Get Started</Link>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-4.5 w-full">Talk to an Expert <SvgIcon id="i-arrow" className="i arr" /></a>
+            <Link href={`/contact?service=${service.slug}#contact-form`} className="btn btn-ghost mt-2.5 w-full">Get Started</Link>
           </aside>
         </div>
       </section>
@@ -139,7 +177,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
             {HOW_STEPS.map((step) => (
               <li key={step.number} className="relative">
                 <span className="block font-display text-[12.5px] font-semibold tracking-[.1em] text-emerald-ink">{step.number}</span>
-                <span className="key mt-[18px]"><SvgIcon id={step.icon} /></span>
+                <span className="key mt-4.5"><SvgIcon id={step.icon} /></span>
                 <h3 className="mt-5 font-display text-[17.5px] font-semibold leading-[1.3] tracking-[-.015em] text-navy">{step.title}</h3>
                 <p className="mt-2 text-[15px] leading-[1.6]">{step.description}</p>
               </li>
@@ -158,11 +196,11 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
           <ul className="m-0 list-none grid grid-cols-1 gap-x-[clamp(24px,3vw,48px)] border-t border-line p-0 sm:grid-cols-2 lg:grid-cols-3" data-rise>
             {others.map((s) => (
               <li key={s.slug} className="border-b border-line">
-                <Link href={servicePath(s)} className="group flex items-center gap-[14px] px-1 py-[18px] font-display text-[17px] font-semibold leading-[1.3] tracking-[-.015em] text-navy">
+                <Link href={servicePath(s)} className="group flex items-center gap-3.5 px-1 py-4.5 font-display text-[17px] font-semibold leading-[1.3] tracking-[-.015em] text-navy">
                   <i className="key key-sm"><SvgIcon id={s.icon} /></i>
                   <span className="flex-1 transition-transform duration-500 ease-out-expo group-hover:translate-x-1.5">{s.name}</span>
-                  <i className="grid size-[34px] flex-none place-items-center rounded-full border border-line-2 text-navy transition-colors duration-[.35s] group-hover:border-emerald group-hover:bg-emerald">
-                    <SvgIcon id="i-arrow" className="size-[15px] -rotate-45 transition-transform duration-[.45s] ease-out-expo group-hover:rotate-0" />
+                  <i className="grid size-8.5 flex-none place-items-center rounded-full border border-line-2 text-navy transition-colors duration-[.35s] group-hover:border-emerald group-hover:bg-emerald">
+                    <SvgIcon id="i-arrow" className="size-3.75 -rotate-45 transition-transform duration-[.45s] ease-out-expo group-hover:rotate-0" />
                   </i>
                 </Link>
               </li>

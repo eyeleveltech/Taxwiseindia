@@ -3,9 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SvgIcon from '@/components/ui/SvgIcon';
 import AsciiFluid from '@/components/ui/ascii-fluid';
-import Interactive3DCard from '@/components/ui/interactive-3d-card';
 import CompanyMotion from '@/components/company/CompanyMotion';
-import { EM, H2 } from '@/components/company/styles';
 import FinalCTA from '@/components/sections/FinalCTA';
 import { TRUST_ITEMS, WHATSAPP_URL } from '@/lib/constants';
 import { SERVICE_CATALOG, STEPS, servicePath } from '@/lib/services';
@@ -43,56 +41,35 @@ const DIRECTORS = [
 ];
 
 const STEP_ICONS = ['i-card', 'i-play', 'i-work', 'i-bell', 'i-check'];
-const TILE = 'grid aspect-square w-full place-items-center rounded-[22px] border border-mint-line bg-mint-soft text-emerald-ink shadow-[0_5px_0_#C2EEDC] [&_.i]:size-[38%] [&_.i]:stroke-[1.6]';
-
 /** About: a centred editorial hero with the trust strip, a split story with the "one place" tile board, the promise rail, a ledger of values and a services index. */
 export default function AboutPage() {
   return (
     <CompanyMotion>
       {/* ============ hero ============ */}
-      <section className="relative overflow-hidden bg-white pb-[clamp(40px,5vw,64px)] pt-32 lg:pt-40" aria-labelledby="page-title">
+      <section className="relative overflow-hidden bg-white pb-[clamp(40px,5vw,64px)] pt-24 lg:pt-28" aria-labelledby="page-title">
         <AsciiFluid theme="light" color="#16B878" className="opacity-40" />
         <div className="wrap relative z-10">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8 items-center">
-            <div className="max-w-215 text-left">
-              <p className="eyebrow" data-intro><i className="dot"></i>About TaxwiseIndia</p>
-              <h1 id="page-title" className="mt-6 font-display text-[clamp(38px,5.2vw,72px)] font-bold leading-[1.04] tracking-[-.04em] text-navy text-balance" data-intro>
-                We didn&apos;t start with a service.<br /><span className="text-emerald-ink font-bold">We started with a problem.</span>
-              </h1>
-              <div className="mt-6 max-w-[42em] text-[clamp(16px,1.25vw,19px)] leading-[1.7]" data-intro>
-                <p>For years, we watched businesses struggle with something that should have been simple. Tax. Accounting. Compliance. Legal processes. Registrations.</p>
-                <p className="mt-4">The problem was rarely the service itself. It was everything around it: <strong>Unclear communication. Slow processes. Lack of ownership. Repeated follow-ups. And customers being left to navigate the process on their own.</strong></p>
-                <p className="mt-4">We saw these challenges from close range — not from a boardroom, but through years of working within the industry and understanding how businesses and customers actually experience these services. That experience became the foundation for <strong>TaxwiseIndia.</strong></p>
-              </div>
-              <div className="mt-9 flex flex-wrap justify-start gap-3 max-sm:[&>.btn]:flex-[1_1_100%]" data-intro>
-                <Link href="/contact#contact-form" className="btn btn-primary btn-lg">Get Started <SvgIcon id="i-arrow" className="i arr" /></Link>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-lg border-2 border-mint-line bg-mint-soft text-navy hover:bg-mint"><SvgIcon id="i-phone" className="i" />Talk to an Expert</a>
-              </div>
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+            <p className="eyebrow" data-intro><i className="dot"></i>About TaxwiseIndia</p>
+            <h1 id="page-title" className="mt-6 font-display text-[clamp(38px,5.2vw,72px)] font-bold leading-[1.04] tracking-[-.04em] text-navy text-balance" data-intro>
+              We didn&apos;t start with a service.<br /><span className="text-emerald-ink font-bold">We started with a problem.</span>
+            </h1>
+            <div className="mt-6 max-w-3xl text-[clamp(16px,1.25vw,19px)] leading-[1.7]" data-intro>
+              <p>For years, we saw businesses struggle with fragmented services, unclear communication, and lack of ownership in tax and compliance.</p>
+              <p className="mt-4">TaxwiseIndia was built to solve this. We combine deep industry expertise with streamlined processes to deliver a professional, accountable, and transparent experience for your business.</p>
             </div>
-            
-            <div className="relative w-full aspect-square max-w-125 mx-auto lg:mx-0 lg:ml-auto perspective-distant" data-intro>
-              <Interactive3DCard className="w-full h-full" maxRotation={15} scaleOnHover={1.03}>
-                <div className="absolute inset-0 rounded-4xl overflow-hidden shadow-[0_12px_40px_-12px_rgba(7,26,43,.15)] border border-line">
-                  <Image 
-                    src="/assets/about-hero.jpg" 
-                    alt="Modern abstract illustration" 
-                    fill 
-                    className="object-cover"
-                    priority 
-                  />
-                </div>
-              </Interactive3DCard>
-              {/* decorative blur element behind the image */}
-              <div className="absolute -inset-4 bg-emerald/20 blur-[60px] -z-10 rounded-full" />
+            <div className="mt-10 flex flex-wrap justify-center gap-4 max-sm:[&>.btn]:flex-[1_1_100%]" data-intro>
+              <Link href="/contact#contact-form" className="btn btn-primary btn-lg">Get Started <SvgIcon id="i-arrow" className="i arr" /></Link>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-lg border-2 border-mint-line bg-mint-soft text-navy hover:bg-mint"><SvgIcon id="i-phone" className="i" />Talk to an Expert</a>
             </div>
           </div>
 
-          <ul className="m-0 mt-[clamp(48px,6vw,80px)] grid list-none grid-cols-1 gap-y-5 border-y border-line p-0 py-7 sm:grid-cols-2 sm:gap-y-6 lg:grid-cols-4 lg:gap-0" data-intro>
+          <ul className="m-0 mt-12 lg:mt-16 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
             {TRUST_ITEMS.map((t) => (
-              <li key={t.text} className="flex items-center gap-3.5 lg:border-l lg:border-line lg:px-7 lg:first:border-l-0 lg:first:pl-0">
-                <span className="key key-sm"><SvgIcon id="i-check" /></span>
-                <span className="font-display text-[16px] font-semibold leading-[1.3] text-navy">
-                  {t.bold ? <><b className="font-extrabold text-emerald-ink">{t.bold}</b>{t.text.slice(t.bold.length)}</> : t.text}
+              <li key={t.text} className="flex items-start gap-4 rounded-2xl border border-line bg-off p-5 transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_-8px_rgba(7,26,43,.08)]" data-intro>
+                <span className="key key-sm shrink-0 bg-white"><SvgIcon id="i-check" /></span>
+                <span className="font-display text-[15px] font-semibold leading-snug text-navy">
+                  {t.bold ? <><b className="font-extrabold text-emerald-ink block text-[16px] mb-0.5">{t.bold}</b>{t.text.slice(t.bold.length)}</> : t.text}
                 </span>
               </li>
             ))}
@@ -105,26 +82,29 @@ export default function AboutPage() {
         <div className="wrap grid grid-cols-1 items-center gap-[clamp(32px,6vw,96px)] lg:grid-cols-2">
           <div>
             <p className="eyebrow" data-company-reveal><i className="dot"></i>The Foundation</p>
-            <h2 id="story-title" className={`${H2} mt-5`} data-company-reveal>Two Perspectives.<br /><em className={EM}>One Purpose.</em></h2>
+            <h2 id="story-title" className="h2 mt-5" data-company-reveal>Two Perspectives.<br /><em className="em">One Purpose.</em></h2>
             <div className="mt-8 grid gap-6" data-company-reveal>
               <p className="m-0 border-l-2 border-emerald pl-5 text-[16.5px] leading-[1.75]">TaxwiseIndia is founded by <strong>Basheer A and Manzoor Rahman</strong>, two professionals bringing different areas of experience together with one shared objective:</p>
               <p className="m-0 border-l-2 border-emerald pl-5 text-[16.5px] leading-[1.75] font-semibold text-navy">To build a more transparent, responsive and modern way for businesses to manage their tax and compliance requirements.</p>
             </div>
           </div>
 
-          {/* everything in one place: the seven services around the mark */}
-          <div className="relative mx-auto w-full max-w-130" aria-hidden="true" data-company-reveal>
-            <i className="pointer-events-none absolute inset-0 m-auto aspect-square w-[82%] rounded-full bg-mint/30" />
-            <i className="pointer-events-none absolute inset-0 m-auto aspect-square w-[104%] rounded-full border-[1.5px] border-dashed border-emerald/35" data-company-ring>
-              <i className="absolute -top-1.75 left-1/2 ml-[-6.5px] size-3.25 rounded-full bg-emerald shadow-[0_0_0_5px_rgba(22,184,120,.18)]" />
-            </i>
-            <div className="relative grid grid-cols-4 gap-3 rounded-4xl border border-line bg-white p-5 shadow-[0_1px_2px_rgba(7,26,43,.04),0_40px_70px_-40px_rgba(7,26,43,.35)] sm:gap-4 sm:p-7">
-              {SERVICE_CATALOG.slice(0, 3).map((s) => <span key={s.slug} className={TILE}><SvgIcon id={s.icon} /></span>)}
-              <span className="grid aspect-square w-full place-items-center rounded-[22px] border border-emerald bg-white shadow-[0_5px_0_#16B878]" data-company-float>
-                <Image src="/assets/tw-mark.png" alt="" width={326} height={256} className="w-1/2" />
-              </span>
-              {SERVICE_CATALOG.slice(3).map((s) => <span key={s.slug} className={TILE}><SvgIcon id={s.icon} /></span>)}
+          {/* everything in one place: bento grid layout */}
+          <div className="relative mx-auto w-full max-w-130 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4" aria-hidden="true" data-company-reveal>
+            {/* Centerpiece (2x2) */}
+            <div className="col-span-2 sm:col-span-2 row-span-2 flex flex-col items-center justify-center rounded-[28px] border border-emerald bg-white p-8 shadow-[0_12px_40px_-12px_rgba(22,184,120,.15)] relative overflow-hidden group">
+              <div className="absolute inset-0 bg-mint-soft/30 group-hover:bg-mint-soft/60 transition-colors duration-500"></div>
+              <Image src="/assets/tw-mark.png" alt="" width={326} height={256} className="w-1/2 relative z-10" data-company-float />
+              <div className="relative z-10 mt-6 text-center font-display font-bold text-emerald-ink text-[18px]">All-in-one Platform</div>
             </div>
+            
+            {/* Small service tiles */}
+            {SERVICE_CATALOG.slice(0, 5).map((s) => (
+              <div key={s.slug} className="flex flex-col items-center justify-center gap-3 rounded-[22px] border border-mint-line bg-mint-soft p-5 text-emerald-ink shadow-[0_4px_0_#C2EEDC] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_8px_0_#C2EEDC]">
+                <SvgIcon id={s.icon} className="size-8 stroke-[1.6]" />
+                <span className="text-center font-display text-[13.5px] font-semibold leading-tight">{s.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -133,21 +113,34 @@ export default function AboutPage() {
       <section className="sec bg-off" aria-labelledby="promise-title">
         <div className="wrap">
           <p className="eyebrow" data-company-reveal><i className="dot"></i>The Taxwise Promise</p>
-          <h2 id="promise-title" className={`${H2} mt-5 max-w-[16em]`} data-company-reveal>We believe the relationship shouldn&apos;t end after payment.</h2>
-          <div className="mt-6 max-w-[44em] text-[16px] leading-[1.7]" data-company-reveal>
+          <h2 id="promise-title" className="h2 mt-5 max-w-[16em]" data-company-reveal>We believe the relationship shouldn&apos;t end after payment.</h2>
+          <div className="lead mt-6 max-w-[44em]" data-company-reveal>
             <p>One of the biggest gaps we identified in the industry was simple: <strong>Customers shouldn&apos;t have to chase their service provider for every update.</strong></p>
             <p className="mt-4">When you choose TaxwiseIndia, our responsibility doesn&apos;t end when the payment is made. We believe it begins there. We aim to keep you informed, follow up on your requirements, communicate progress and help you understand what is happening at every important stage.</p>
             <p className="mt-4 text-emerald-ink font-medium">Because professional service shouldn&apos;t feel like: &ldquo;I paid. Now I have to follow up.&rdquo;<br/>It should feel like: &ldquo;They&apos;re handling it. They&apos;ll keep me informed.&rdquo;</p>
           </div>
-          <ol className="relative mt-12 grid list-none grid-cols-2 gap-x-4 gap-y-10 rounded-[28px] border border-line bg-white p-7 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6 lg:p-10 lg:before:absolute lg:before:left-10 lg:before:right-10 lg:before:top-15 lg:before:h-0.5 lg:before:bg-line" data-company-reveal>
-            {STEPS.map((step, i) => (
-              <li key={step} className="relative">
-                <span className="key key-sm relative z-10"><SvgIcon id={STEP_ICONS[i]} /></span>
-                <span className="mt-5 block font-display text-[11px] font-bold tracking-[.14em] text-emerald-ink">STEP 0{i + 1}</span>
-                <b className="mt-1.5 block font-display text-[clamp(15px,1.2vw,17px)] font-bold tracking-[.06em] text-navy">{step}</b>
-              </li>
-            ))}
-          </ol>
+          <div className="relative mt-12 rounded-4xl border border-line bg-white p-8 lg:p-12 shadow-[0_8px_30px_-12px_rgba(7,26,43,.05)] overflow-hidden" data-company-reveal data-company-stagger-parent>
+            {/* The continuous horizontal rail */}
+            <div className="absolute top-22 left-16 right-16 hidden h-0.5 bg-line lg:block" aria-hidden="true" />
+            
+            <ol className="relative m-0 flex list-none flex-col gap-8 p-0 lg:flex-row lg:gap-6">
+              {STEPS.map((step, i) => (
+                <li key={step} className="relative flex-1 group" data-company-stagger>
+                  <div className="flex flex-col lg:items-center">
+                    {/* Icon Node */}
+                    <span className="key key-sm relative z-10 mb-6 bg-off transition-[border-color,background-color,color] duration-500 group-hover:bg-mint-soft group-hover:border-emerald group-hover:text-emerald-ink">
+                      <SvgIcon id={STEP_ICONS[i]} />
+                    </span>
+                    {/* Content */}
+                    <div className="w-full rounded-[20px] border border-line bg-off p-6 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1 hover:border-emerald hover:shadow-[0_12px_24px_-16px_rgba(22,184,120,.25)] lg:text-center">
+                      <span className="block font-display text-[11.5px] font-bold tracking-[.14em] text-emerald-ink">STEP 0{i + 1}</span>
+                      <b className="mt-2 block font-display text-[15px] font-bold leading-[1.3] text-navy">{step}</b>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 
@@ -156,7 +149,7 @@ export default function AboutPage() {
         <div className="wrap grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-16">
           <div className="lg:sticky lg:top-35">
             <p className="eyebrow" data-company-reveal><i className="dot"></i>Leadership</p>
-            <h2 id="approach-title" className={`${H2} mt-5`} data-company-reveal>Experience built the foundation.<br /><em className={EM}>Vision builds what comes next.</em></h2>
+            <h2 id="approach-title" className="h2 mt-5" data-company-reveal>Experience built the foundation.<br /><em className="em">Vision builds what comes next.</em></h2>
             <div className="mt-6 grid gap-4 text-[15px] leading-[1.6] max-w-[28em]" data-company-reveal>
               <p>Basheer understands the <strong>industry from the ground level.</strong></p>
               <p>Manzoor brings the <strong>strategic and research-driven perspective.</strong></p>
@@ -189,7 +182,7 @@ export default function AboutPage() {
           {/* Left Column: Story & Promise */}
           <div className="max-w-160">
             <p className="eyebrow" data-company-reveal><i className="dot"></i>Why TaxwiseIndia?</p>
-            <h2 id="glance-title" className={`${H2} mt-5`} data-company-reveal>Fixing the parts that shouldn&apos;t have been broken.</h2>
+            <h2 id="glance-title" className="h2 mt-5" data-company-reveal>Fixing the parts that shouldn&apos;t have been broken.</h2>
             <div className="mt-6 text-[16px] leading-[1.7]" data-company-reveal>
               <p>Because we aren&apos;t trying to reinvent professional services for the sake of it. We&apos;re combining years of industry exposure with research, technology and a customer-first approach to create a company that businesses can rely on — not just when they need a service, but throughout the journey.</p>
             </div>

@@ -20,7 +20,7 @@ test.describe('Sub-pages & Interaction Tests', () => {
     else await page.locator('#gst-tax a').click();
     await expect(page).toHaveURL(/\/services\/gst-tax$/, { timeout: 15000 });
     await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toHaveCount(0);
-    await page.locator('#list').scrollIntoViewIfNeeded();   // rows rise in as the list arrives
+    await page.locator('#list ul').scrollIntoViewIfNeeded();   // rows rise in as the list arrives
     await expect(page.locator('#gst-registration')).toBeVisible();
   });
 
@@ -52,7 +52,7 @@ test.describe('Sub-pages & Interaction Tests', () => {
     await page.goto('/services/gst-tax', { waitUntil: 'domcontentloaded' });
     await expect(page).toHaveTitle(/GST & Tax \| TaxwiseIndia/);
     await expect(page.locator('h1')).toHaveText('GST & Tax');
-    await page.locator('#list').scrollIntoViewIfNeeded();   // rows rise in as the list arrives
+    await page.locator('#list ul').scrollIntoViewIfNeeded();   // rows rise in as the list arrives
     await expect(page.locator('#gst-registration')).toBeVisible();
     await expect(page.locator('#more a[href^="/services/"]')).toHaveCount(6);
     const whatsappBtn = page.locator('main a[href*="wa.me"]').first();
@@ -61,7 +61,7 @@ test.describe('Sub-pages & Interaction Tests', () => {
 
   test('Every service in a category opens its own page', async ({ page }) => {
     await page.goto('/services/trademark-ip', { waitUntil: 'networkidle' });
-    await page.locator('#list').scrollIntoViewIfNeeded();
+    await page.locator('#list ul').scrollIntoViewIfNeeded();
     await expect(page.locator('#list ul a')).toHaveCount(7);
     await page.locator('#trademark-renewal a').click();
     await expect(page).toHaveURL(/\/services\/trademark-ip\/trademark-renewal$/);
@@ -69,6 +69,25 @@ test.describe('Sub-pages & Interaction Tests', () => {
     await expect(page.locator('#process li')).toHaveCount(3);
     await expect(page.locator('#related a[href^="/services/trademark-ip/"]')).toHaveCount(6);
     await expect(page.locator('main').getByRole('link', { name: 'Get Started', exact: true }).first()).toHaveAttribute('href', '/contact?service=trademark-ip&item=trademark-renewal#contact-form');
+  });
+
+  test('A service page shows its plans, and a plan opens the contact form with it selected', async ({ page }) => {
+    await page.goto('/services/gst-tax/gst-registration', { waitUntil: 'networkidle' });
+    await expect(page.locator('main')).not.toContainText('NaN');
+    await page.locator('#plans [data-rise]').scrollIntoViewIfNeeded();   // the cards rise in as they arrive
+    const plan = page.locator('#plans article').first();
+    await expect(plan).toBeVisible();
+    const name = await plan.locator('h3').innerText();
+    await plan.getByRole('link', { name: 'Get Started' }).click();
+    await expect(page).toHaveURL(/\/contact\?service=gst-tax&item=gst-registration&plan=/);
+    await expect(page.getByLabel('A little about what you need')).toHaveValue(`I'm interested in GST Registration (${name} plan).`);
+  });
+
+  test('A category page shows the entry plan of every service', async ({ page }) => {
+    await page.goto('/services/gst-tax', { waitUntil: 'networkidle' });
+    await expect(page.locator('#plans article')).toHaveCount(7);
+    await expect(page.locator('main')).not.toContainText('NaN');
+    await expect(page.locator('#plans a[href="/services/gst-tax/gst-registration#plans"]')).toHaveCount(1);
   });
 
   test('A service page pre-fills the contact form', async ({ page }) => {

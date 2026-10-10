@@ -11,6 +11,9 @@ import FinalCTA from '@/components/sections/FinalCTA';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { WHATSAPP_URL, HOW_STEPS, TRUST_ITEMS } from '@/lib/constants';
 import { SERVICE_CATALOG, ServiceCategory, servicePath, slugify } from '@/lib/services';
+import { CATEGORY_HIGHLIGHTS } from '@/lib/service-details';
+import { SERVICE_PRICING, startingPlan } from '@/lib/pricing-data';
+import { StartingPlanCard, planHref, inr } from '@/components/ui/pricing';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -21,11 +24,15 @@ const SEC = 'py-[clamp(72px,9vw,120px)]';
 
 /**
  * /services/[slug] — one service category, kept clean (reference: contiant.com): copy and the category's 3D
- * sculpture in the hero, the trust row, the services it covers (each a button to its own page), how
+ * sculpture in the hero, the trust row, each service's entry plan, the services it covers (each a button to its own page), how
  * TaxwiseIndia works, the other six categories and the final CTA. Styled with Tailwind; copy from the brief.
  */
 export default function ServicePage({ service }: { service: ServiceCategory }) {
   const others = SERVICE_CATALOG.filter((s) => s.slug !== service.slug);
+  const highlights = CATEGORY_HIGHLIGHTS[service.slug];
+  // each service's entry plan, and the cheapest of those for the hero's "from" line
+  const entries = service.items.flatMap((x) => { const plan = startingPlan(slugify(x)); return plan ? [{ name: x, plan }] : []; });
+  const from = entries.reduce<(typeof entries)[number]['plan'] | undefined>((a, e) => (!a || e.plan.price < a.price ? e.plan : a), undefined);
   const reduce = useReducedMotion();
   const root = useRef<HTMLElement>(null);
 
@@ -62,13 +69,22 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
           <div>
             <h1 className="font-display text-[clamp(34px,3.9vw,54px)] font-bold leading-[1.06] tracking-[-.035em] text-navy text-balance" id="page-title" data-intro>{service.name}</h1>
             {service.tagline && <p className="mt-4.5 max-w-[30em] font-medium text-[clamp(16px,1.2vw,18px)] leading-[1.5]" data-intro>{service.tagline}</p>}
-            {service.description && <p className="mt-3.5 max-w-[32em] text-[clamp(15px,1.1vw,16.5px)] leading-[1.65] text-navy-2" data-intro>{service.description}</p>}
+            {highlights ? (
+              <ul className="m-0 mt-5 grid max-w-[34em] list-none gap-2.5 p-0" data-intro>
+                {highlights.map((h) => (
+                  <li key={h} className="flex items-start gap-3 text-[clamp(15px,1.05vw,16px)] leading-normal text-navy">
+                    <i className="mt-0.5 grid size-5 flex-none place-items-center rounded-full border border-mint-line bg-mint-soft text-emerald-ink"><SvgIcon id="i-check" className="size-3 stroke-3" /></i>{h}
+                  </li>
+                ))}
+              </ul>
+            ) : service.description && <p className="mt-3.5 max-w-[32em] text-[clamp(15px,1.1vw,16.5px)] leading-[1.65] text-navy-2" data-intro>{service.description}</p>}
             <div className="mt-7 flex flex-wrap gap-3 max-sm:[&>.btn]:flex-[1_1_100%]" data-intro>
               <Link href={`/contact?service=${service.slug}#contact-form`} className="btn btn-primary btn-lg">Get Started <SvgIcon id="i-arrow" className="i arr" /></Link>
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg"><SvgIcon id="i-phone" className="i" />Talk to an Expert</a>
             </div>
             <ul className="mt-6.5 flex flex-wrap gap-x-6 gap-y-2.5 p-0 font-sans text-[14px] font-medium leading-[1.3] text-navy-2" data-intro>
               <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald [stroke-width:2.4]" />{service.items.length} Services</li>
+              {from && <li className="flex"><a href="#plans" className="flex items-center gap-2 underline-offset-4 hover:text-emerald-ink hover:underline"><SvgIcon id="i-card" className="size-4 text-emerald [stroke-width:2.4]" />Plans from {inr(from.price)}{from.govtFee && ' + Govt. Fee'}</a></li>}
               <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald [stroke-width:2.4]" />Proactive Customer Updates</li>
             </ul>
           </div>
@@ -97,11 +113,38 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
         </div>
       </section>
 
+      {/* ============ every service's entry plan, through to its full plans (as on the service pages) ============ */}
+      {entries.length > 0 && (
+        <section className={`${SEC} bg-off`} id="plans" aria-labelledby="plans-title">
+          <div className="wrap">
+            <div className={SEC_HEAD}>
+              <p className={EYEBROW} data-reveal><i className="dot"></i>Plans &amp; pricing</p>
+              <h2 className={H2} id="plans-title" data-reveal>Packages for Every {service.name} Service</h2>
+              <p className="mt-4 text-[16px] leading-[1.7]" data-reveal>Start with the entry plan, or compare every plan on the service&apos;s own page.</p>
+            </div>
+            <div className="grid grid-cols-1 items-stretch gap-[clamp(16px,1.8vw,24px)] sm:grid-cols-2 lg:grid-cols-3" data-rise>
+              {entries.map(({ name, plan }) => (
+                <StartingPlanCard
+                  key={name}
+                  title={name}
+                  plan={plan}
+                  href={planHref(service.slug, slugify(name), plan)}
+                  plansHref={`${servicePath(service, name)}#plans`}
+                  planCount={SERVICE_PRICING[slugify(name)]?.length ?? 1}
+                />
+              ))}
+            </div>
+            <p className="mt-8 text-[13.5px] leading-[1.6] text-muted">Prices are our professional fees. &ldquo;Govt. Fee&rdquo; is the statutory charge paid to the government, billed at actuals where the service requires one.</p>
+          </div>
+        </section>
+      )}
+
       {/* ============ the services in this category; each opens its own page ============ */}
       <section className={SEC} id="list" aria-labelledby="list-title">
         <div className="wrap grid grid-cols-1 items-start gap-[clamp(32px,5vw,72px)] lg:grid-cols-[minmax(0,1fr)_320px]">
           <div>
             <div className="text-[clamp(16px,1.2vw,17.5px)] leading-[1.75] text-navy-2" data-reveal>
+              {highlights && service.description && <p className="mb-5 font-display text-[clamp(18px,1.5vw,21px)] font-semibold leading-[1.5] tracking-[-.015em] text-navy">{service.description}</p>}
               {service.overview.map((p, i) => <p key={i} className="mb-4 last:mb-0">{p}</p>)}
             </div>
 

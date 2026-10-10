@@ -19,13 +19,22 @@ test.describe('Landing Page E2E Tests', () => {
     await expect(page.locator('#testimonials')).toBeVisible();
   });
 
-  test('Services navigation opens the services directory', async ({ page, isMobile }) => {
+  test('Each of the seven services has its own place in the navigation', async ({ page, isMobile }) => {
     await page.goto('/', { waitUntil: 'networkidle' });
-    if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
-    const nav = page.getByRole('navigation', { name: isMobile ? 'Mobile' : 'Primary', exact: true });
-    await nav.getByRole('link', { name: 'Services', exact: true }).click();
-    await expect(page).toHaveURL(/\/services$/);
-    await expect(page.locator('h1')).toContainText('Everything Your');
+    if (isMobile) {
+      await page.getByRole('button', { name: 'Open menu' }).click();
+      const nav = page.getByRole('navigation', { name: 'Mobile', exact: true });
+      await expect(nav.locator('button[aria-expanded]')).toHaveCount(7);
+      await nav.getByRole('button', { name: 'GST & Tax', exact: true }).click();
+      await nav.getByRole('link', { name: 'All GST & Tax services' }).click();
+    } else {
+      const nav = page.getByRole('navigation', { name: 'Primary', exact: true });
+      await expect(nav.getByRole('link', { name: 'Services', exact: true })).toHaveCount(0);   // one entry per service instead
+      await expect(nav.locator(':scope > ul > li > a')).toHaveCount(7);
+      await nav.getByRole('link', { name: 'GST & Tax', exact: true }).click();
+    }
+    await expect(page).toHaveURL(/\/services\/gst-tax$/);
+    await expect(page.locator('h1')).toHaveText('GST & Tax');
     if (isMobile) await expect(page.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false');
   });
 
@@ -46,14 +55,26 @@ test.describe('Landing Page E2E Tests', () => {
     await expect(page).toHaveURL(/\/contact#contact-form$/);   // every Get Started lands on the form
   });
 
-  test('The Services menu lists every service and opens its page', async ({ page, isMobile }) => {
-    test.skip(isMobile, 'the services menu is a desktop hover menu');
+  test('Each service opens its own dropdown on hover or focus', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'the dropdowns are a desktop menu');
     await page.goto('/', { waitUntil: 'networkidle' });
+    await expect(page.locator('[data-menu-panel] a[href^="/services/"]')).toHaveCount(46 + 7);
     const nav = page.getByRole('navigation', { name: 'Primary', exact: true });
-    await nav.getByRole('link', { name: 'Services' }).hover();
-    const panel = page.locator('[data-menu-panel]');
-    await expect(panel.locator('a[href^="/services/"]')).toHaveCount(46 + 7);
-    await panel.getByRole('link', { name: 'GST Registration', exact: true }).click();
+    const gst = page.locator('#menu-gst-tax');
+
+    // keyboard: focus opens it, Escape closes it
+    await nav.getByRole('link', { name: 'Compliance', exact: true }).focus();
+    await expect(page.locator('#menu-compliance').getByRole('link')).toHaveCount(7 + 1);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#menu-compliance').getByRole('link')).toHaveCount(0);
+
+    // hover: one dropdown at a time
+    await nav.getByRole('link', { name: 'GST & Tax', exact: true }).hover();
+    await expect(gst.getByRole('link')).toHaveCount(7 + 1);
+    await nav.getByRole('link', { name: 'Legal', exact: true }).hover();
+    await expect(gst.getByRole('link')).toHaveCount(0);
+    await nav.getByRole('link', { name: 'GST & Tax', exact: true }).hover();
+    await gst.getByRole('link', { name: 'GST Registration', exact: true }).click();
     await expect(page).toHaveURL(/\/services\/gst-tax\/gst-registration$/);
     await expect(page.locator('h1')).toHaveText('GST Registration');
   });

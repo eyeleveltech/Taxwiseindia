@@ -5,6 +5,7 @@
 export interface ServiceCategory {
   slug: string;
   name: string;
+  /** The label in the header nav, where seven full names don't fit on one line. */
   shortName?: string;
   icon: string;
   tagline: string;
@@ -22,7 +23,7 @@ export const SERVICE_CATALOG: ServiceCategory[] = [
   {
     "slug": "business-registration",
     "name": "Business Registration",
-    "shortName": "Setup",
+    "shortName": "Business Setup",
     "icon": "i-biz",
     "tagline": "Structuring corporate foundations with absolute statutory precision.",
     "description": "Establish your business with the right legal structure, from Private Limited Company and LLP incorporation to partnership and MSME registration. Get support with documentation and statutory filings to build a compliant foundation.",
@@ -54,7 +55,7 @@ export const SERVICE_CATALOG: ServiceCategory[] = [
   {
     "slug": "gst-tax",
     "name": "GST & Tax",
-    "shortName": "Tax",
+    "shortName": "GST & Tax",
     "icon": "i-gst",
     "tagline": "Rigorous tax optimization and unimpeachable regulatory compliance.",
     "description": "Ensure complete compliance with direct and indirect tax regimes. We manage your entire taxation lifecycle—from GST registration, return filings, and ITC reconciliation to corporate income tax planning and TDS computations.",
@@ -118,7 +119,7 @@ export const SERVICE_CATALOG: ServiceCategory[] = [
   {
     "slug": "trademark-ip",
     "name": "Trademark & Intellectual Property",
-    "shortName": "IP & Trademark",
+    "shortName": "Trademark & IP",
     "icon": "i-tm",
     "tagline": "Securing and defending your commercial identity and innovation capital.",
     "description": "Protect your brand and innovation with robust intellectual property registration. We manage the entire IP lifecycle, including comprehensive trademark clearance, copyright registration, patent advisory, and international filing strategies to secure your assets.",

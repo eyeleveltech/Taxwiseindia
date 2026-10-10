@@ -12,8 +12,8 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { WHATSAPP_URL, TRUST_ITEMS } from '@/lib/constants';
 import { ServiceCategory, servicePath, slugify } from '@/lib/services';
 import type { ServiceDetail } from '@/lib/service-details';
-import { Pricing } from '@/components/ui/pricing';
-import { SERVICE_PRICING } from '@/lib/pricing-data';
+import { Pricing, inr } from '@/components/ui/pricing';
+import { SERVICE_PRICING, startingPlan } from '@/lib/pricing-data';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -31,6 +31,8 @@ export default function ServiceItemPage({ service, name, detail }: { service: Se
   const siblings = service.items.filter((x) => x !== name);
   const ask = `${WHATSAPP_URL}?text=${encodeURIComponent(`Hello TaxwiseIndia, I'm interested in ${name}.`)}`;
   const start = `/contact?service=${service.slug}&item=${slug}#contact-form`;
+  const plans = SERVICE_PRICING[slug];
+  const from = startingPlan(slug);
 
   useGSAP(() => {
     if (reduce) { gsap.set('[data-intro], [data-card]', { autoAlpha: 1 }); return; }
@@ -66,6 +68,15 @@ export default function ServiceItemPage({ service, name, detail }: { service: Se
             <Link href={servicePath(service)} className="eyebrow transition-colors hover:border-navy" data-intro><SvgIcon id={service.icon} className="size-3.75 text-emerald-ink" />{service.name}</Link>
             <h1 className="mt-5.5 font-display text-[clamp(34px,3.9vw,54px)] font-bold leading-[1.06] tracking-[-.035em] text-navy text-balance" id="page-title" data-intro>{name}</h1>
             {detail && <p className="mt-4.5 max-w-[32em] text-[clamp(16px,1.2vw,18px)] leading-[1.65]" data-intro>{detail.summary}</p>}
+            {detail?.highlights && (
+              <ul className="m-0 mt-5 grid max-w-[34em] list-none gap-2.5 p-0" data-intro>
+                {detail.highlights.map((h) => (
+                  <li key={h} className="flex items-start gap-3 text-[clamp(15px,1.05vw,16px)] leading-normal text-navy">
+                    <i className="mt-0.5 grid size-5 flex-none place-items-center rounded-full border border-mint-line bg-mint-soft text-emerald-ink"><SvgIcon id="i-check" className="size-3 stroke-3" /></i>{h}
+                  </li>
+                ))}
+              </ul>
+            )}
             <div className="mt-7 flex flex-wrap gap-3 max-sm:[&>.btn]:flex-[1_1_100%]" data-intro>
               <Link href={start} className="btn btn-primary btn-lg">Get Started <SvgIcon id="i-arrow" className="i arr" /></Link>
               <a href={ask} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg"><SvgIcon id="i-phone" className="i" />Talk to an Expert</a>
@@ -74,7 +85,7 @@ export default function ServiceItemPage({ service, name, detail }: { service: Se
               <ul className="mt-6.5 flex flex-wrap gap-x-6 gap-y-2.5 p-0 font-sans text-[14px] font-medium leading-[1.3] text-navy-2" data-intro>
                 {detail.timeline && <li className="flex items-center gap-2"><SvgIcon id="i-play" className="size-4 text-emerald stroke-[2.4]" />{detail.timeline}</li>}
                 <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald stroke-[2.4]" />{detail.steps.length} steps, updates at each one</li>
-                {detail.price && <li className="flex items-center gap-2"><SvgIcon id="i-card" className="size-4 text-emerald stroke-[2.4]" />{detail.price}</li>}
+                {from && <li className="flex"><a href="#plans" className="flex items-center gap-2 underline-offset-4 hover:text-emerald-ink hover:underline"><SvgIcon id="i-card" className="size-4 text-emerald stroke-[2.4]" />Plans from {inr(from.price)}{from.govtFee && ' + Govt. Fee'}</a></li>}
               </ul>
             )}
           </div>
@@ -118,6 +129,20 @@ export default function ServiceItemPage({ service, name, detail }: { service: Se
           </ul>
         </div>
       </section>
+
+      {/* ============ plans: every tier of this service, side by side ============ */}
+      {plans && (
+        <section className={`${SEC} bg-off`} id="plans" aria-labelledby="plans-title">
+          <div className="wrap">
+            <div className="mx-auto mb-[clamp(36px,4.5vw,56px)] max-w-160 text-center">
+              <p className="eyebrow" data-reveal><i className="dot"></i>Plans &amp; pricing</p>
+              <h2 className={H2} id="plans-title" data-reveal>Choose Your {name} Plan</h2>
+              <p className="mt-4 text-[16px] leading-[1.7]" data-reveal>Fees agreed up front, and updates at every step whichever plan you pick.</p>
+            </div>
+            <Pricing plans={plans} service={service.slug} item={slug} />
+          </div>
+        </section>
+      )}
 
       {/* ============ how it works ============ */}
       {detail && (
@@ -165,12 +190,6 @@ export default function ServiceItemPage({ service, name, detail }: { service: Se
           </ul>
         </div>
       </section>
-
-      {SERVICE_PRICING[slug] && (
-        <section className="border-t border-line relative overflow-hidden bg-white">
-          <Pricing plans={SERVICE_PRICING[slug]} title="Clear, Predictable Pricing" />
-        </section>
-      )}
 
       <FinalCTA />
     </main>

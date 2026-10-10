@@ -1,335 +1,2030 @@
-import { type PricingPlan } from '@/components/ui/pricing';
-
 /**
- * TaxWiseIndia service pricing (46 services).
- * Price strings intentionally include '+ Govt. Fees*' on every plan as requested.
- * Important: government/statutory charges apply only where the service legally requires them; they are not charged for every service.
- * When Vakilsearch published a price/package, that amount is used as a competitor reference.
- * Where no fixed Vakilsearch fee was publicly verified, amounts are suggested TaxWiseIndia benchmark prices, NOT Vakilsearch quotes.
- * Confirm all fees, scope, taxes and statutory charges before publishing/accepting orders.
+ * TaxwiseIndia service pricing — 46 services, 1 to 4 plans each, cheapest first.
+ *
+ * Where Vakilsearch (now branded Zolvit, still served at vakilsearch.com) publishes a package
+ * table for the matching service, the plans mirror it as of 2026-10-09: same tiers, same offer
+ * price (`price`) and struck-through price (`originalPrice`), same "+ Govt. Fee" treatment, and
+ * equivalent deliverables. Vakilsearch/Zolvit platform features (their app, invoicing module,
+ * bundled software licences, guarantees, ratings) are left out.
+ * Where no matching Vakilsearch package exists, the plans are TaxwiseIndia benchmark prices.
+ *
+ * Every price and scope here must be confirmed by TaxwiseIndia before launch. Prices are
+ * professional fees only; government/statutory fees (`govtFee: true`) and taxes are extra.
  */
+export interface PricingPlan {
+  /** Tier name shown on the card, e.g. 'Starter', 'Standard', 'Premium'. */
+  name: string;
+  /** Who should pick this plan — the "Choose this if" line. One short sentence. */
+  bestFor: string;
+  /** Professional fee in rupees. */
+  price: number;
+  /** Struck-through "was" price, only when the source shows one. */
+  originalPrice?: number;
+  /** true → the card shows "+ Govt. Fee" (statutory charges are extra). */
+  govtFee: boolean;
+  /** Billing period; omit for a one-time fee. */
+  period?: 'month' | 'quarter' | 'year';
+  features: string[];
+  /** The highlighted plan — exactly one per service when it has 2+ plans. */
+  popular?: boolean;
+}
+
 export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
+  /* ---------- Business Registration ---------- */
 
-  // Private Limited Company — Vakilsearch published package prices.
+  // Source: https://vakilsearch.com/private-limited-company-registration (2026-10-09)
   'private-limited-company': [
-    { name: "Starter", price: "999 + Govt. Fees*", period: "project", features: ["Company name approval support", "DSC for 2 directors", "MOA & AOA preparation", "Certificate of Incorporation", "PAN + TAN", "Status tracking", "Government / statutory fees extra where applicable*"], description: "Company incorporation with filing and post-registration support.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "1499 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Dedicated filing expert", "Compliance starter kit", "Priority support", "Compliance reminders and invoicing", "Government / statutory fees extra where applicable*"], description: "Company incorporation with filing and post-registration support.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "3499 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Priority filing support", "Trademark registration support", "MSME/Udyam registration support", "Business setup guidance", "Government / statutory fees extra where applicable*"], description: "Company incorporation with filing and post-registration support.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You only need the company incorporated, with no add-ons.',
+      price: 999,
+      originalPrice: 1499,
+      govtFee: true,
+      features: [
+        'Company name approval',
+        'MOA and AOA drafting',
+        'Certificate of Incorporation',
+        'PAN and TAN',
+        'ESI and PF registration',
+        'Post-incorporation compliance reminders',
+        'Updates at every step',
+      ],
+    },
+    {
+      name: 'Standard',
+      bestFor: 'Most founders: a guided, done-for-you company setup.',
+      price: 1499,
+      originalPrice: 2999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Dedicated filing expert',
+        'Document review before filing',
+        'Compliance starter kit',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want your brand protected and MSME benefits in place from day one.',
+      price: 3499,
+      originalPrice: 4999,
+      govtFee: true,
+      features: [
+        'Everything in Standard',
+        'Priority filing',
+        'Trademark registration for your brand',
+        'MSME (Udyam) registration',
+        'Guidance on government schemes and benefits',
+        'Incorporation + trademark filing in 8–14 days',
+      ],
+    },
   ],
 
-  // LLP Registration — Vakilsearch published package prices.
+  // Source: https://vakilsearch.com/llp-registration (2026-10-09)
   'llp-registration': [
-    { name: "Starter", price: "999 + Govt. Fees*", period: "project", features: ["Name reservation support", "LLP incorporation form filing", "LLP incorporation certificate", "LLP agreement filing", "PAN + TAN", "Government / statutory fees extra where applicable*"], description: "LLP formation with optional priority processing and first-year compliance support.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "2499 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Priority name reservation", "Expedited DSC processing", "Faster LLP agreement filing", "Government / statutory fees extra where applicable*"], description: "LLP formation with optional priority processing and first-year compliance support.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "10999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Senior CA/CS strategy call", "Year-one Form 8 and Form 11 filing support", "DIR-3 KYC support for 2 partners", "Government / statutory fees extra where applicable*"], description: "LLP formation with optional priority processing and first-year compliance support.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Standard',
+      bestFor: 'Partners who just need the LLP registered with the essentials.',
+      price: 999,
+      originalPrice: 1999,
+      govtFee: true,
+      features: [
+        'LLP name reservation',
+        'LLP incorporation form filing',
+        'LLP Incorporation Certificate',
+        'LLP agreement filing',
+        'PAN and TAN',
+        'Post-incorporation compliance reminders',
+        'Updates at every step',
+      ],
+    },
+    {
+      name: 'Fastrack',
+      bestFor: 'Partners on a deadline who need priority name reservation and faster filings.',
+      price: 2499,
+      originalPrice: 3599,
+      govtFee: true,
+      features: [
+        'Everything in Standard',
+        'Priority name reservation',
+        'Expedited DSC processing',
+        'Faster LLP agreement filing',
+        'Compliance starter kit',
+      ],
+    },
+    {
+      name: 'Premium',
+      bestFor: 'Partners who want year one handled: registration, compliance, tax and books.',
+      price: 10999,
+      originalPrice: 21999,
+      govtFee: true,
+      features: [
+        'Everything in Fastrack',
+        '30-minute strategy call with a senior CA/CS',
+        'Form 8 and Form 11 filing (year 1)',
+        'DIR-3 KYC for 2 partners',
+        'Income tax filing (turnover up to ₹20 lakh)',
+        'Accounting and bookkeeping (up to 100 transactions)',
+        'Financial statement preparation',
+      ],
+      popular: true,
+    },
   ],
 
-  // OPC Registration — Vakilsearch published package prices; confirm individual package inclusions at checkout.
+  // Source: https://vakilsearch.com/one-person-company-registration (2026-10-09)
   'opc-registration': [
-    { name: "Starter", price: "999 + Govt. Fees*", period: "project", features: ["Name approval support", "MOA & AOA", "Incorporation certificate", "PAN + TAN", "Government / statutory fees extra where applicable*"], description: "One Person Company registration for single founders, with optional additional setup support.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "1499 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Dedicated filing expert", "Compliance starter kit", "Priority support", "Government / statutory fees extra where applicable*"], description: "One Person Company registration for single founders, with optional additional setup support.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "3499 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Priority filing support", "MSME registration support", "Trademark/business setup support", "Government / statutory fees extra where applicable*"], description: "One Person Company registration for single founders, with optional additional setup support.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Solo founders who only need the OPC incorporated, with no add-ons.',
+      price: 999,
+      originalPrice: 1499,
+      govtFee: true,
+      features: [
+        'Company name approval',
+        'MOA and AOA drafting',
+        'Certificate of Incorporation',
+        'PAN and TAN',
+        'ESI and PF registration',
+        'Post-incorporation compliance reminders',
+        'Updates at every step',
+      ],
+    },
+    {
+      name: 'Standard',
+      bestFor: 'Most solo founders: a guided, done-for-you OPC setup.',
+      price: 1499,
+      originalPrice: 2999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Dedicated filing expert',
+        'Document review before filing',
+        'Compliance starter kit',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want your brand protected and MSME benefits in place from day one.',
+      price: 3499,
+      originalPrice: 4999,
+      govtFee: true,
+      features: [
+        'Everything in Standard',
+        'Priority filing',
+        'Trademark registration for your brand',
+        'MSME (Udyam) registration',
+        'Guidance on government schemes and benefits',
+      ],
+    },
   ],
 
-  // Partnership Firm — Vakilsearch published package prices.
+  // Source: https://vakilsearch.com/partnership-firm-registration (2026-10-09). Source notes "Doc. charges applicable" (deed stamp paper/notary).
   'partnership-firm': [
-    { name: "Starter", price: "2499 + Govt. Fees*", period: "project", features: ["Expert-assisted process", "Partnership deed drafting", "Deed submission assistance", "Firm PAN support", "Government / statutory fees extra where applicable*"], description: "Partnership formation with optional GST, filing and accounting support.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "4999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "GST registration support", "GSTR-1 and GSTR-3B filing for 12 months (up to 300 transactions)", "One-year accounting software", "Government / statutory fees extra where applicable*"], description: "Partnership formation with optional GST, filing and accounting support.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "8999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Dedicated account manager", "Trademark registration support", "One-year ITR filing support (published scope limit applies)", "Government / statutory fees extra where applicable*"], description: "Partnership formation with optional GST, filing and accounting support.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You only need the partnership deed drafted and the firm registered.',
+      price: 2499,
+      originalPrice: 3339,
+      govtFee: true,
+      features: [
+        'Expert-assisted process',
+        'Partnership deed drafted in 3 days',
+        'Deed submitted to the local Registrar on your behalf',
+        'PAN for the firm',
+      ],
+    },
+    {
+      name: 'Standard',
+      bestFor: 'You want the firm registered plus GST registration and a year of returns.',
+      price: 4999,
+      originalPrice: 7149,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'GST registration',
+        'GSTR-1 and GSTR-3B for 12 months (up to 300 transactions)',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Premium',
+      bestFor: 'You want registration, GST, trademark and the first ITR all handled.',
+      price: 8999,
+      originalPrice: 13899,
+      govtFee: true,
+      features: [
+        'Everything in Standard',
+        'Dedicated account manager',
+        'Trademark registration for your brand',
+        'ITR filing for one financial year (turnover up to ₹10 lakh)',
+      ],
+    },
   ],
 
-  // Sole Proprietorship — Vakilsearch published starting/package prices; starting offer may have conditions and applicable tax.
+  // Source: https://vakilsearch.com/sole-proprietorship-registration (2026-10-09). Source shows no "+ Govt. Fee" (GST/Udyam registration is free).
   'sole-proprietorship': [
-    { name: "Starter", price: "499 + Govt. Fees*", period: "project", features: ["Expert-assisted documentation", "GST or Udyam/MSME registration support (scope-dependent)", "Basic registration guidance", "Government / statutory fees extra where applicable*"], description: "Registration and compliance support for sole proprietors. Starting offer and inclusions should be confirmed before purchase.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "3499 + Govt. Fees*", period: "project", features: ["Everything in Starter", "GST registration support", "Udyam/MSME registration support", "GST filing for 12 months (up to 300 transactions)", "Government / statutory fees extra where applicable*"], description: "Registration and compliance support for sole proprietors. Starting offer and inclusions should be confirmed before purchase.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "5999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "GST filing for 12 months (up to 500 transactions)", "ITR filing support", "Expanded tax-compliance assistance", "Government / statutory fees extra where applicable*"], description: "Registration and compliance support for sole proprietors. Starting offer and inclusions should be confirmed before purchase.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You need one registration (GST or MSME) to start trading as a proprietor.',
+      price: 499,
+      originalPrice: 999,
+      govtFee: false,
+      features: [
+        'Expert-assisted process',
+        'GST or MSME (Udyam) registration (any one)',
+      ],
+    },
+    {
+      name: 'Standard',
+      bestFor: 'You want both registrations plus a year of GST returns.',
+      price: 3499,
+      originalPrice: 4999,
+      govtFee: false,
+      features: [
+        'Expert-assisted process',
+        'GST registration',
+        'MSME (Udyam) registration',
+        'GST return filing for 12 months (up to 300 transactions)',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Premium',
+      bestFor: 'You want registrations, a year of GST returns and your ITR covered.',
+      price: 5999,
+      originalPrice: 8260,
+      govtFee: false,
+      features: [
+        'Expert-assisted process',
+        'GST registration',
+        'MSME (Udyam) registration',
+        'GST return filing for 12 months (up to 500 transactions)',
+        'Income tax return filing',
+      ],
+    },
   ],
 
-  // Startup India — TaxWiseIndia suggested benchmark prices; Vakilsearch professional-assistance fee was not publicly fixed. DPIIT recognition itself is free.
+  // No Vakilsearch package found (https://vakilsearch.com/startup-india-registration shows a lead form only, even after scrolling) —
+  // TaxwiseIndia benchmark; confirm before launch. DPIIT recognition itself carries no government fee.
   'startup-india': [
-    { name: "Starter", price: "2999 + Govt. Fees*", period: "project", features: ["DPIIT recognition eligibility check", "Document checklist", "Application preparation support", "Application status guidance", "Government / statutory fees extra where applicable*"], description: "DPIIT recognition support, including eligibility review, document preparation and application follow-up. The government recognition application itself is free.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "5999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Expanded application/document review", "Startup scheme and benefit guidance", "Recognition follow-up", "Government / statutory fees extra where applicable*"], description: "DPIIT recognition support, including eligibility review, document preparation and application follow-up. The government recognition application itself is free.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "9999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Tax-benefit application guidance", "IPR benefit guidance", "Startup compliance consultation", "Government / statutory fees extra where applicable*"], description: "DPIIT recognition support, including eligibility review, document preparation and application follow-up. The government recognition application itself is free.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You want to check DPIIT eligibility and get the application filed.',
+      price: 2999,
+      govtFee: false,
+      features: [
+        'DPIIT recognition eligibility check',
+        'Document checklist',
+        'Application preparation and filing',
+        'Application status guidance',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want a stronger application and guidance on startup schemes.',
+      price: 5999,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Detailed application and document review',
+        'Guidance on startup schemes and benefits',
+        'Recognition follow-up',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'You also plan to claim the tax exemption and IPR benefits.',
+      price: 9999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'Tax-exemption (Section 80-IAC) application guidance',
+        'IPR benefit guidance',
+        'Startup compliance consultation',
+      ],
+    },
   ],
 
-  // Section 8 Company — Vakilsearch published package prices; confirm exact package scope and statutory charges.
+  // Source: https://vakilsearch.com/ngo/registration/section-8 (2026-10-09)
   'section-8-company': [
-    { name: "Starter", price: "999 + Govt. Fees*", period: "project", features: ["Initial consultation", "Name reservation support", "NGO incorporation checklist", "Government / statutory fees extra where applicable*"], description: "Section 8 non-profit company incorporation with optional NGO compliance support.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "2999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Section 8 company formation guidance", "Documentation and filing assistance", "Incorporation follow-up", "Government / statutory fees extra where applicable*"], description: "Section 8 non-profit company incorporation with optional NGO compliance support.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "14999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Expanded NGO compliance support", "12A/80G application guidance", "FCRA-readiness guidance where eligible", "Government / statutory fees extra where applicable*"], description: "Section 8 non-profit company incorporation with optional NGO compliance support.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You want structure advice and your NGO name reserved before incorporating.',
+      price: 999,
+      originalPrice: 1499,
+      govtFee: true,
+      features: [
+        'Expert-assisted process',
+        'Guidance on the right NGO structure',
+        'Name suggestions',
+        'Name approval within 7 working days',
+      ],
+    },
+    {
+      name: 'Standard',
+      bestFor: 'You are ready to incorporate your Section 8 company.',
+      price: 2999,
+      originalPrice: 3999,
+      govtFee: true,
+      features: [
+        'Expert-assisted process',
+        'DSC in 24 hours',
+        'DIN for directors',
+        'Name reservation in 5 days',
+        'SPICe+ form filing in 7 days',
+        'Certificate of Incorporation',
+        'Company PAN and TAN',
+        'NGO DARPAN registration',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Premium',
+      bestFor: 'You want incorporation, 12A/80G and the first year of compliance handled.',
+      price: 14999,
+      originalPrice: 29999,
+      govtFee: true,
+      features: [
+        'Everything in Standard',
+        'Dedicated account manager',
+        'Name reservation in 3 days',
+        'Section 12A and 80G applications within 14 days of formation',
+        'e-Anudaan registration',
+        'Accounting for one financial year (up to 300 transactions)',
+        'Audit for one financial year (up to 300 transactions)',
+        'ITR filing for one financial year',
+        'Transaction and tax advisory by a professional auditor',
+      ],
+    },
   ],
 
-  // GST Registration — Vakilsearch published package prices; applicable taxes and any stamp-paper charges may be extra.
+  /* ---------- GST & Tax ---------- */
+
+  // Source: https://vakilsearch.com/gst-registration (2026-10-09). Source shows no "+ Govt. Fee" (GST registration has no government fee).
   'gst-registration': [
-    { name: "Starter", price: "399 + Govt. Fees*", period: "project", features: ["GST application filing support", "Documentation checklist", "ARN/status tracking", "GST registration certificate support", "Government / statutory fees extra where applicable*"], description: "GST registration support from application filing to certificate follow-up. Approval remains subject to GST authority verification.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "1999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Priority filing support", "Eligible Rule 14A workflow", "MSME registration support", "Compliance checklist and GST expert support", "Government / statutory fees extra where applicable*"], description: "GST registration support from application filing to certificate follow-up. Approval remains subject to GST authority verification.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "3499 + Govt. Fees*", period: "project", features: ["Everything in Pro", "GST registration and Udyam support", "GST filing for 12 months within published transaction/turnover limits", "Compliance review", "Government / statutory fees extra where applicable*"], description: "GST registration support from application filing to certificate follow-up. Approval remains subject to GST authority verification.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Standard',
+      bestFor: 'You want your GST application filed within 48 hours.',
+      price: 599,
+      originalPrice: 999,
+      govtFee: false,
+      features: [
+        'GST application filed within 48 hours',
+        'GST registration support',
+        'ARN tracking and updates at every step',
+        'GST Registration Certificate',
+        'Support over chat',
+      ],
+    },
+    {
+      name: 'Premium',
+      bestFor: 'You need a fast-track, error-free application filed within 24 hours.',
+      price: 1999,
+      originalPrice: 3999,
+      govtFee: false,
+      features: [
+        'GST application filed within 24 hours',
+        'Priority ARN generation',
+        'Registration under Rule 14A where eligible',
+        'Document check for an error-free application',
+        'GSTIN issuance support',
+        'GST Registration Certificate',
+        'MSME (Udyam) registration',
+        'GST compliance checklist',
+        'Dedicated GST expert',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Elite',
+      bestFor: 'You want GST registration plus a full year of return filing.',
+      price: 4999,
+      originalPrice: 7999,
+      govtFee: false,
+      features: [
+        'Expert-assisted GST registration',
+        'GST Registration Certificate',
+        'MSME (Udyam) registration',
+        'GST returns for 12 months (300 transactions, ₹20 lakh turnover)',
+        'Quarterly GST health check',
+        'Dedicated compliance manager',
+      ],
+    },
   ],
 
-  // GST Return Filing — Vakilsearch published package prices; page states taxes are additional.
+  // Source: https://vakilsearch.com/gst-return-filing (2026-10-09). Source shows "+ Taxes", not a government fee.
   'gst-return-filing': [
-    { name: "Starter", price: "999 + Govt. Fees*", period: "quarter", features: ["Expert-assisted GSTR-1 and GSTR-3B filing", "Three-month filing period", "Starter scope is for nil transactions", "Government / statutory fees extra where applicable*"], description: "Recurring GST return filing. Package scope depends on filing period, transactions and turnover limits.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "2999 + Govt. Fees*", period: "year", features: ["GSTR-1 and GSTR-3B for 12 months", "GST registration included where stated", "Up to published transaction/turnover limit", "Government / statutory fees extra where applicable*"], description: "Recurring GST return filing. Package scope depends on filing period, transactions and turnover limits.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "4999 + Govt. Fees*", period: "year", features: ["GSTR-1 and GSTR-3B for 12 months", "Higher published transaction/turnover limit", "One financial year of ITR filing within published scope", "Government / statutory fees extra where applicable*"], description: "Recurring GST return filing. Package scope depends on filing period, transactions and turnover limits.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Standard',
+      bestFor: 'You want to try us for one quarter of nil-return filing.',
+      price: 999,
+      originalPrice: 1499,
+      govtFee: false,
+      period: 'quarter',
+      features: [
+        'Expert-assisted process',
+        'GSTR-1 and GSTR-3B filing for 3 months (nil returns only)',
+      ],
+    },
+    {
+      name: 'Premium',
+      bestFor: 'Small businesses that want a full year of GSTR-1 and GSTR-3B filed.',
+      price: 2999,
+      originalPrice: 4599,
+      govtFee: false,
+      period: 'year',
+      features: [
+        'Expert-assisted process',
+        'GSTR-1 and GSTR-3B filing for 12 months',
+        'Up to 200 transactions or ₹10 lakh turnover',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Elite',
+      bestFor: 'Growing businesses that want GST returns and the ITR in one plan.',
+      price: 4999,
+      originalPrice: 7499,
+      govtFee: false,
+      period: 'year',
+      features: [
+        'Dedicated account manager',
+        'Expert-assisted process',
+        'GSTR-1 and GSTR-3B filing for 12 months',
+        'Up to 300 transactions or ₹30 lakh turnover',
+        'ITR filing for one financial year (turnover up to ₹30 lakh)',
+      ],
+    },
   ],
 
-  // Income Tax Filing — ₹2,499 starting professional fee is published by Vakilsearch; higher tiers are TaxWiseIndia benchmark suggestions, not verified Vakilsearch package prices.
+  // Lite + Standard: https://vakilsearch.com/ca-consultation (same cards on /chartered-accountant-services; /income-tax-return-filing-online
+  // itself shows only a lead form "@ ₹2,499 + Tax") (2026-10-09). Pro + Enterprise: no Vakilsearch package found — TaxwiseIndia benchmark; confirm before launch.
   'income-tax-filing': [
-    { name: "Starter", price: "2499 + Govt. Fees*", period: "project", features: ["Expert-assisted ITR filing", "Salaried / standard individual return support", "CA assistance", "Government / statutory fees extra where applicable*"], description: "CA-assisted income tax return filing. Complex business income, audit work, notices or advanced tax planning may require a separate quote.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "4999 + Govt. Fees*", period: "project", features: ["Higher-complexity individual or business return filing", "Business/profession income support", "Additional schedules and document review", "Government / statutory fees extra where applicable*"], description: "CA-assisted income tax return filing. Complex business income, audit work, notices or advanced tax planning may require a separate quote.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "14999 + Govt. Fees*", period: "project", features: ["Company and corporate income tax return support", "Company ITR support", "Audit/tax-planning coordination where separately agreed", "Government / statutory fees extra where applicable*"], description: "CA-assisted income tax return filing. Complex business income, audit work, notices or advanced tax planning may require a separate quote.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Lite',
+      bestFor: 'Salaried individuals filing a simple ITR-1 return.',
+      price: 1499,
+      originalPrice: 1999,
+      govtFee: false,
+      features: [
+        'Tax computation',
+        'Form 16 import and review',
+        'ITR-1 preparation and filing',
+        'Email support',
+      ],
+    },
+    {
+      name: 'Standard',
+      bestFor: 'Salary plus a house property, capital gains or interest income.',
+      price: 2499,
+      originalPrice: 3845,
+      govtFee: false,
+      features: [
+        'Everything in Lite',
+        'Deductions and exemptions claimed (80C, 80D, HRA and more)',
+        'Income from one house property',
+        'Capital gains from shares or mutual funds computed',
+        'Income from other sources (interest and similar)',
+        'Priority email and chat support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Proprietors and professionals with business or professional income.',
+      price: 4999,
+      govtFee: false,
+      features: [
+        'Return for business or professional income',
+        'Additional schedules prepared',
+        'Document review by a CA',
+      ],
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Companies that need their corporate income tax return filed.',
+      price: 14999,
+      govtFee: false,
+      features: [
+        'Company income tax return preparation and filing',
+        'Audit and tax-planning coordination where agreed',
+      ],
+    },
   ],
 
-  // TDS Return Filing — TaxWiseIndia suggested benchmark prices; Vakilsearch service page describes filing support but no fixed public professional fee was verified.
+  // No Vakilsearch package found (https://vakilsearch.com/tds-return-filing shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
   'tds-return-filing': [
-    { name: "Starter", price: "1499 + Govt. Fees*", period: "quarter", features: ["Quarterly TDS return preparation and filing", "Challan/document review", "Basic filing support", "Government / statutory fees extra where applicable*"], description: "Quarterly TDS return preparation, submission and compliance assistance. Final scope depends on deductee volume, corrections and filing period.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "3499 + Govt. Fees*", period: "quarter", features: ["Everything in Starter", "Higher deductee-volume allowance", "Form 16/16A support where applicable", "Revision support", "Government / statutory fees extra where applicable*"], description: "Quarterly TDS return preparation, submission and compliance assistance. Final scope depends on deductee volume, corrections and filing period.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "7999 + Govt. Fees*", period: "quarter", features: ["Everything in Pro", "High-volume deductee support", "TDS discrepancy follow-up", "Dedicated compliance support", "Government / statutory fees extra where applicable*"], description: "Quarterly TDS return preparation, submission and compliance assistance. Final scope depends on deductee volume, corrections and filing period.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Small deductors filing one quarterly TDS return.',
+      price: 1499,
+      govtFee: false,
+      period: 'quarter',
+      features: [
+        'Quarterly TDS return preparation and filing',
+        'Challan and document review',
+        'Filing support',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Businesses with more deductees that also need Form 16/16A.',
+      price: 3499,
+      govtFee: false,
+      period: 'quarter',
+      features: [
+        'Everything in Starter',
+        'Higher deductee volume',
+        'Form 16/16A where applicable',
+        'Revision support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'High-volume deductors that need discrepancies followed up.',
+      price: 7999,
+      govtFee: false,
+      period: 'quarter',
+      features: [
+        'Everything in Pro',
+        'High-volume deductee support',
+        'TDS discrepancy follow-up',
+        'Dedicated compliance support',
+      ],
+    },
   ],
 
-  // GST LUT — TaxWiseIndia suggested benchmark prices; Vakilsearch page did not publish a fixed professional fee.
+  // No Vakilsearch package found (https://vakilsearch.com/lut-gst shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
+  // LUT filing itself carries no government fee.
   'gst-lut': [
-    { name: "Starter", price: "1999 + Govt. Fees*", period: "project", features: ["LUT eligibility/document checklist", "Form RFD-11 preparation", "GST portal filing assistance", "Government / statutory fees extra where applicable*"], description: "Letter of Undertaking (LUT) filing support for eligible exporters, including RFD-11 preparation, portal filing and acknowledgement follow-up.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "3999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Acknowledgement and status follow-up", "Expert consultation", "Government / statutory fees extra where applicable*"], description: "Letter of Undertaking (LUT) filing support for eligible exporters, including RFD-11 preparation, portal filing and acknowledgement follow-up.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "6999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Renewal reminder/support", "Export compliance consultation", "Dedicated follow-up", "Government / statutory fees extra where applicable*"], description: "Letter of Undertaking (LUT) filing support for eligible exporters, including RFD-11 preparation, portal filing and acknowledgement follow-up.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Exporters who need this year’s LUT filed on the GST portal.',
+      price: 1999,
+      govtFee: false,
+      features: [
+        'LUT eligibility and document checklist',
+        'Form RFD-11 preparation',
+        'GST portal filing',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Exporters who want the filing plus acknowledgement follow-up.',
+      price: 3999,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Acknowledgement and status follow-up',
+        'Expert consultation',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Regular exporters who want renewals and export advice covered.',
+      price: 6999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'Renewal reminder and support',
+        'Export compliance consultation',
+        'Dedicated follow-up',
+      ],
+    },
   ],
 
-  // GST Cancellation — TaxWiseIndia suggested benchmark prices; no fixed Vakilsearch professional fee was verified.
+  // No Vakilsearch package found (https://vakilsearch.com/gst-cancellation shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
+  // GST cancellation carries no government fee.
   'gst-cancellation': [
-    { name: "Starter", price: "2999 + Govt. Fees*", period: "project", features: ["Eligibility and document check", "Cancellation application preparation", "Portal filing/status follow-up", "Government / statutory fees extra where applicable*"], description: "GST cancellation application and closure support. Pending returns, ITC reversals or notices may change scope and cost.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "5999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Pending return checklist", "Final-return guidance where applicable", "Priority support", "Government / statutory fees extra where applicable*"], description: "GST cancellation application and closure support. Pending returns, ITC reversals or notices may change scope and cost.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "11999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Complex cancellation case review", "Notice/ITC issue coordination", "Dedicated expert support", "Government / statutory fees extra where applicable*"], description: "GST cancellation application and closure support. Pending returns, ITC reversals or notices may change scope and cost.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'A simple voluntary cancellation with no pending issues.',
+      price: 2999,
+      govtFee: false,
+      features: [
+        'Eligibility and document check',
+        'Cancellation application preparation',
+        'Portal filing and status follow-up',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You also need pending returns and the final return sorted.',
+      price: 5999,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Pending-return checklist',
+        'Final return (GSTR-10) guidance',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Complex cases involving notices or ITC reversal.',
+      price: 11999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'Complex cancellation case review',
+        'Notice and ITC issue coordination',
+        'Dedicated expert support',
+      ],
+    },
   ],
 
-  // Tax Advisory — TaxWiseIndia suggested benchmark prices; Vakilsearch did not publish a fixed tax-advisory package price.
+  // Starter: https://vakilsearch.com/chartered-accountant-services — "₹799 ₹499 for a 30-minute CA consultation" (2026-10-09).
+  // Pro + Enterprise: no Vakilsearch package found — TaxwiseIndia benchmark; confirm before launch.
   'tax-advisory': [
-    { name: "Starter", price: "1499 + Govt. Fees*", period: "project", features: ["Focused tax consultation", "Basic query review", "Action-point summary", "Government / statutory fees extra where applicable*"], description: "Tax consultation and planning support, with the scope tailored to the transaction, tax issue and required support frequency.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "4999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Written advisory note", "Tax-planning review", "Follow-up session", "Government / statutory fees extra where applicable*"], description: "Tax consultation and planning support, with the scope tailored to the transaction, tax issue and required support frequency.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "14999 + Govt. Fees*", period: "month", features: ["Monthly advisory retainer", "Transaction/tax-structure review", "Ongoing tax query support", "Dedicated advisor subject to scope", "Government / statutory fees extra where applicable*"], description: "Tax consultation and planning support, with the scope tailored to the transaction, tax issue and required support frequency.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You have a specific tax question and want a CA’s view quickly.',
+      price: 499,
+      originalPrice: 799,
+      govtFee: false,
+      features: [
+        '30-minute consultation with a CA',
+        'Review of your tax query',
+        'Action-point summary',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want a tax-planning review and written advice.',
+      price: 4999,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Written advisory note',
+        'Tax-planning review',
+        'Follow-up session',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Businesses that want a tax advisor on call every month.',
+      price: 14999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Monthly advisory retainer',
+        'Transaction and tax-structure review',
+        'Ongoing tax query support',
+        'Dedicated advisor',
+      ],
+    },
   ],
 
-  // ROC Annual Filing — Published Vakilsearch annual-compliance package prices used as the closest matching service; government filing fees billed extra.
+  /* ---------- Compliance ---------- */
+
+  // Source: https://vakilsearch.com/online-accounting-compliance-service ("Annual Compliance Services" / "Mandatory Annual Filings") (2026-10-09).
+  // Vakilsearch has no ROC-only package; the same three tiers back company-compliance below.
   'roc-annual-filing': [
-    { name: "Starter", price: "6988 + Govt. Fees*", period: "year", features: ["AOC-4 and MGT-7 annual filing support", "Auditor appointment filing support", "DIR-3 KYC for up to 2 directors", "Board/AGM documentation", "Government / statutory fees extra where applicable*"], description: "Annual MCA/ROC filing and corporate compliance support. Government filing fees and statutory charges are extra.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "11988 + Govt. Fees*", period: "year", features: ["Everything in Starter", "Bookkeeping up to published annual transaction limit", "Ledger/journal maintenance", "Bank reconciliation and financial statements", "Government / statutory fees extra where applicable*"], description: "Annual MCA/ROC filing and corporate compliance support. Government filing fees and statutory charges are extra.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "15588 + Govt. Fees*", period: "year", features: ["Everything in Pro", "GSTR-1/3B filing support", "GST reconciliation and monitoring", "Dedicated account manager/dashboard", "Government / statutory fees extra where applicable*"], description: "Annual MCA/ROC filing and corporate compliance support. Government filing fees and statutory charges are extra.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Essential',
+      bestFor: 'Your books are handled elsewhere; you need every ROC filing done on time.',
+      price: 6988,
+      originalPrice: 9983,
+      govtFee: true,
+      period: 'year',
+      features: [
+        'AOC-4 filing (financial statements)',
+        'MGT-7 filing (annual return)',
+        'ADT-1 auditor appointment',
+        'DIR-3 KYC for up to 2 directors',
+        'INC-20A commencement of business',
+        'Board meeting and AGM documentation',
+        'Statutory registers maintained',
+        'Secretarial compliance support all year',
+        'Compliance calendar set up at onboarding',
+      ],
+    },
+    {
+      name: 'Plus',
+      bestFor: 'Early-stage companies with no accountant (under ₹10 lakh turnover).',
+      price: 11988,
+      originalPrice: 17126,
+      govtFee: true,
+      period: 'year',
+      features: [
+        'Everything in Essential',
+        'Bookkeeping, up to 200 transactions a year',
+        'Turnover up to ₹10 lakh',
+        'Ledger maintenance and journal entries',
+        'Bank reconciliation for the year',
+        'Balance sheet and profit & loss prepared',
+        'Accounting support through the year',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Complete',
+      bestFor: 'GST-registered companies that want filings, books and GST in one plan.',
+      price: 15588,
+      originalPrice: 20785,
+      govtFee: true,
+      period: 'year',
+      features: [
+        'Everything in Plus',
+        'GSTR-1 and GSTR-3B filing',
+        'GST reconciliation against GSTR-2B',
+        'GST compliance monitoring all year',
+        'GST advisory on rates and notices',
+        'Dedicated account manager',
+      ],
+    },
   ],
 
-  // Company Compliance — Vakilsearch published annual-compliance prices; government filing fees are additional.
+  // Source: https://vakilsearch.com/company-compliance (2026-10-09) — same package table as roc-annual-filing.
   'company-compliance': [
-    { name: "Starter", price: "6988 + Govt. Fees*", period: "year", features: ["MCA/ROC annual filings", "Auditor appointment support", "DIR-3 KYC for up to 2 directors", "Board/AGM documents and statutory registers", "Government / statutory fees extra where applicable*"], description: "Annual corporate compliance with optional bookkeeping and GST support. Statutory filing fees are charged at actuals.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "11988 + Govt. Fees*", period: "year", features: ["Everything in Starter", "Bookkeeping within published transaction/turnover limits", "Ledger/journal maintenance", "Bank reconciliation and financial statements", "Government / statutory fees extra where applicable*"], description: "Annual corporate compliance with optional bookkeeping and GST support. Statutory filing fees are charged at actuals.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "15588 + Govt. Fees*", period: "year", features: ["Everything in Pro", "GST return support and reconciliation", "Ongoing GST monitoring/advisory", "Dedicated account manager and dashboard", "Government / statutory fees extra where applicable*"], description: "Annual corporate compliance with optional bookkeeping and GST support. Statutory filing fees are charged at actuals.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Essential',
+      bestFor: 'You have an accountant and need the secretarial side fully handled.',
+      price: 6988,
+      originalPrice: 9983,
+      govtFee: true,
+      period: 'year',
+      features: [
+        'AOC-4 filing (financial statements)',
+        'MGT-7 filing (annual return)',
+        'ADT-1 auditor appointment',
+        'DIR-3 KYC for up to 2 directors',
+        'INC-20A commencement of business',
+        'Board meeting and AGM documentation',
+        'Statutory registers maintained',
+        'Secretarial compliance support all year',
+        'Compliance calendar set up at onboarding',
+      ],
+    },
+    {
+      name: 'Plus',
+      bestFor: 'Early-stage companies that also need their books kept for the year.',
+      price: 11988,
+      originalPrice: 17126,
+      govtFee: true,
+      period: 'year',
+      features: [
+        'Everything in Essential',
+        'Bookkeeping, up to 200 transactions a year',
+        'Turnover up to ₹10 lakh',
+        'Ledger maintenance and journal entries',
+        'Bank reconciliation for the year',
+        'Balance sheet and profit & loss prepared',
+        'Accounting support through the year',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Complete',
+      bestFor: 'GST-registered companies that want compliance, books and GST together.',
+      price: 15588,
+      originalPrice: 20785,
+      govtFee: true,
+      period: 'year',
+      features: [
+        'Everything in Plus',
+        'GSTR-1 and GSTR-3B filing',
+        'GST reconciliation against GSTR-2B',
+        'GST compliance monitoring all year',
+        'GST advisory on rates and notices',
+        'Dedicated account manager',
+      ],
+    },
   ],
 
-  // Director KYC — TaxWiseIndia suggested benchmark prices; Vakilsearch professional fee not publicly listed. Government KYC filing is free when filed by due date; late penalty is separate.
+  // No Vakilsearch package found (https://vakilsearch.com/director-kyc-filing shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
+  // DIR-3 KYC is free when filed by the due date; the late-filing penalty is separate.
   'director-kyc': [
-    { name: "Starter", price: "999 + Govt. Fees*", period: "project", features: ["DIR-3 KYC document checklist", "Form validation support", "Electronic submission and acknowledgement", "Government / statutory fees extra where applicable*"], description: "DIR-3 KYC preparation and filing support. Statutory penalties, if any, are separate and are not included in the professional fee.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "1999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Additional director support (defined scope)", "DSC/update assistance where applicable", "Government / statutory fees extra where applicable*"], description: "DIR-3 KYC preparation and filing support. Statutory penalties, if any, are separate and are not included in the professional fee.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "3999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Multiple-director case coordination", "Late-filing/notice assistance quoted by complexity", "Government / statutory fees extra where applicable*"], description: "DIR-3 KYC preparation and filing support. Statutory penalties, if any, are separate and are not included in the professional fee.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'One director filing DIR-3 KYC before the due date.',
+      price: 999,
+      govtFee: false,
+      features: [
+        'DIR-3 KYC document checklist',
+        'Form validation',
+        'Electronic submission and acknowledgement',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Companies filing KYC for more than one director.',
+      price: 1999,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Additional directors (defined scope)',
+        'DSC and detail-update assistance where needed',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Multiple directors, or a late filing that needs sorting out.',
+      price: 3999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'Multiple-director coordination',
+        'Late-filing and notice assistance',
+      ],
+    },
   ],
 
-  // Company Changes — TaxWiseIndia suggested benchmark prices; Vakilsearch quotes vary by the type of corporate change.
+  // No Vakilsearch equivalent: Vakilsearch prices each change separately (add/remove director, name, capital, objects)
+  // and those pages show lead forms only — TaxwiseIndia benchmark; confirm before launch.
   'company-changes': [
-    { name: "Starter", price: "2999 + Govt. Fees*", period: "project", features: ["Resolution and document checklist", "Basic MCA/ROC change filing support", "Status tracking", "Government / statutory fees extra where applicable*"], description: "Corporate changes such as directors, name, authorised capital or business objects. Government filing/stamp fees depend on the change.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "5999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Director appointment/removal filing support", "Form DIR-12 support where applicable", "Priority coordination", "Government / statutory fees extra where applicable*"], description: "Corporate changes such as directors, name, authorised capital or business objects. Government filing/stamp fees depend on the change.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "11999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Capital/objects/MOA-AOA change coordination", "Complex change documentation", "Dedicated compliance expert", "Government / statutory fees extra where applicable*"], description: "Corporate changes such as directors, name, authorised capital or business objects. Government filing/stamp fees depend on the change.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'A single routine change filed with the ROC.',
+      price: 2999,
+      govtFee: true,
+      features: [
+        'Resolution and document checklist',
+        'MCA/ROC change filing',
+        'Updates at every step',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Director appointments, resignations or removals.',
+      price: 5999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Director appointment/removal filing',
+        'Form DIR-12 where applicable',
+        'Priority coordination',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Capital, objects or MOA/AOA changes that need more paperwork.',
+      price: 11999,
+      govtFee: true,
+      features: [
+        'Everything in Pro',
+        'Capital, objects and MOA/AOA change coordination',
+        'Complex change documentation',
+        'Dedicated compliance expert',
+      ],
+    },
   ],
 
-  // Registered Office Change — TaxWiseIndia suggested benchmark prices; Vakilsearch page did not publish a fixed professional price.
+  // No Vakilsearch package found (https://vakilsearch.com/change-registered-office-company-address shows a lead form only) —
+  // TaxwiseIndia benchmark; confirm before launch.
   'registered-office-change': [
-    { name: "Starter", price: "2499 + Govt. Fees*", period: "project", features: ["Local-limit address change checklist", "INC-22/document preparation support", "Filing status updates", "Government / statutory fees extra where applicable*"], description: "Registered-office change filing support. Government, publication and stamp charges depend on the jurisdiction and type of move.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "6999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Within-state address change guidance", "Board/shareholder documentation as required", "Priority support", "Government / statutory fees extra where applicable*"], description: "Registered-office change filing support. Government, publication and stamp charges depend on the jurisdiction and type of move.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "14999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Inter-state shift coordination where applicable", "Regional Director process support where required", "Dedicated compliance expert", "Government / statutory fees extra where applicable*"], description: "Registered-office change filing support. Government, publication and stamp charges depend on the jurisdiction and type of move.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Moving within the same city or local limits.',
+      price: 2499,
+      govtFee: true,
+      features: [
+        'Address-change document checklist',
+        'Form INC-22 and supporting documents',
+        'Updates at every step',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Moving to another city within the same state.',
+      price: 6999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Within-state address change guidance',
+        'Board and shareholder resolutions as required',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Shifting the registered office to another state.',
+      price: 14999,
+      govtFee: true,
+      features: [
+        'Everything in Pro',
+        'Inter-state shift coordination',
+        'Regional Director process support where required',
+        'Dedicated compliance expert',
+      ],
+    },
   ],
 
-  // Share Transfer — TaxWiseIndia suggested benchmark prices; Vakilsearch publishes a ₹999 consultation, not a fixed full-service transfer price.
+  // No Vakilsearch package found (https://vakilsearch.com/share-transfer-services offers only a ₹999 30-min consultation) —
+  // TaxwiseIndia benchmark; confirm before launch.
   'share-transfer': [
-    { name: "Starter", price: "3499 + Govt. Fees*", period: "project", features: ["Share-transfer document checklist", "SH-4 execution guidance", "Basic filing/transfer coordination", "Government / statutory fees extra where applicable*"], description: "Share-transfer documentation and process support. Stamp duty, valuation and foreign-remittance requirements may be additional.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "7999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Valuation/stamp-duty coordination where needed", "Priority support", "Document verification", "Government / statutory fees extra where applicable*"], description: "Share-transfer documentation and process support. Stamp duty, valuation and foreign-remittance requirements may be additional.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "15999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Complex/cross-border transfer coordination", "FEMA reporting guidance where applicable", "Dedicated company-secretarial support", "Government / statutory fees extra where applicable*"], description: "Share-transfer documentation and process support. Stamp duty, valuation and foreign-remittance requirements may be additional.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'A straightforward transfer between existing resident shareholders.',
+      price: 3499,
+      govtFee: true,
+      features: [
+        'Share-transfer document checklist',
+        'Form SH-4 execution guidance',
+        'Transfer filing and coordination',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Transfers that need valuation or stamp-duty work.',
+      price: 7999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Valuation and stamp-duty coordination',
+        'Document verification',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Complex or cross-border transfers with FEMA reporting.',
+      price: 15999,
+      govtFee: true,
+      features: [
+        'Everything in Pro',
+        'Complex and cross-border transfer coordination',
+        'FEMA reporting guidance where applicable',
+        'Dedicated company-secretarial support',
+      ],
+    },
   ],
 
-  // Company Closure — TaxWiseIndia suggested professional-service benchmark prices; Vakilsearch publishes an indicative total strike-off estimate, not a fixed checkout quote.
+  // No Vakilsearch package found (/strike-off-company, /winding-up-of-company and /closure-of-private-limited-company show lead forms
+  // and an indicative cost table only) — TaxwiseIndia benchmark; confirm before launch.
   'company-closure': [
-    { name: "Starter", price: "4999 + Govt. Fees*", period: "project", features: ["Closure eligibility review", "STK-2/document checklist", "Affidavit and indemnity drafting support", "Government / statutory fees extra where applicable*"], description: "Company strike-off or closure support. The professional fee and government charges depend on pending filings, liabilities and whether winding-up is required.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "9999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Pending ROC filing coordination", "Account/record closure checklist", "Priority follow-up", "Government / statutory fees extra where applicable*"], description: "Company strike-off or closure support. The professional fee and government charges depend on pending filings, liabilities and whether winding-up is required.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "19999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Complex closure/winding-up consultation", "Creditor/liquidator coordination where required", "Dedicated legal/compliance expert", "Government / statutory fees extra where applicable*"], description: "Company strike-off or closure support. The professional fee and government charges depend on pending filings, liabilities and whether winding-up is required.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'An inactive company with no liabilities applying for strike-off.',
+      price: 4999,
+      govtFee: true,
+      features: [
+        'Closure eligibility review',
+        'Form STK-2 and document checklist',
+        'Affidavit and indemnity bond drafting',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Pending ROC filings need clearing before the company can close.',
+      price: 9999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Pending ROC filing coordination',
+        'Account and record closure checklist',
+        'Priority follow-up',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Complex closures or winding up with creditors involved.',
+      price: 19999,
+      govtFee: true,
+      features: [
+        'Everything in Pro',
+        'Complex closure and winding-up consultation',
+        'Creditor and liquidator coordination where required',
+        'Dedicated legal and compliance expert',
+      ],
+    },
   ],
 
-  // Trademark Registration — Vakilsearch publishes ₹1,499 Standard and ₹1,999 Express professional fees; higher tier is a TaxWiseIndia benchmark suggestion. Government filing fees are extra per class.
+  /* ---------- Trademark & Intellectual Property ---------- */
+
+  // Source: https://vakilsearch.com/trademark-registration (2026-10-09). The card omits "+ Govt. Fee", but the Trade Marks Registry fee per class is extra.
   'trademark-registration': [
-    { name: "Starter", price: "1499 + Govt. Fees*", period: "project", features: ["Trademark search and application support", "Class selection guidance", "Application filing and tracking", "Government / statutory fees extra where applicable*"], description: "Trademark availability review and filing. Government fee is generally ₹4,500 per class for eligible individuals/startups/small enterprises or ₹9,000 for other applicants, plus applicable tax on professional fees.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "1999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Express filing support where available", "Enhanced document review", "Government / statutory fees extra where applicable*"], description: "Trademark availability review and filing. Government fee is generally ₹4,500 per class for eligible individuals/startups/small enterprises or ₹9,000 for other applicants, plus applicable tax on professional fees.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "4999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Expanded brand advisory", "Objection-response preparation allowance subject to scope", "Dedicated IP support", "Government / statutory fees extra where applicable*"], description: "Trademark availability review and filing. Government fee is generally ₹4,500 per class for eligible individuals/startups/small enterprises or ₹9,000 for other applicants, plus applicable tax on professional fees.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Standard',
+      bestFor: 'The regular filing route when you are not in a hurry.',
+      price: 1499,
+      originalPrice: 1999,
+      govtFee: true,
+      features: [
+        '30-minute consultation with a trademark expert',
+        'Trademark class search',
+        'Detailed trademark search to reduce objection risk',
+        'Application filed within 3 days',
+        'Use the ™ symbol within 3–5 days',
+        'Trademark certificate once registered',
+      ],
+    },
+    {
+      name: 'Express',
+      bestFor: 'You want the application filed within hours and the ™ symbol in use fast.',
+      price: 1999,
+      originalPrice: 3332,
+      govtFee: true,
+      features: [
+        'Everything in Standard',
+        'Application filed within 6 hours',
+        'Use the ™ symbol within 1–2 days',
+        'MSME (Udyam) registration on request',
+      ],
+      popular: true,
+    },
   ],
 
-  // Trademark Search — TaxWiseIndia suggested benchmark prices; a free public-register search is available, but standalone Vakilsearch assisted package prices were not verified.
+  // No Vakilsearch package found (Vakilsearch offers a free self-serve search tool, no paid search package) —
+  // TaxwiseIndia benchmark; confirm before launch. A trademark search carries no government fee.
   'trademark-search': [
-    { name: "Starter", price: "499 + Govt. Fees*", period: "project", features: ["Basic wordmark search", "Preliminary availability check", "Summary of obvious matches", "Government / statutory fees extra where applicable*"], description: "Trademark search and preliminary risk review before filing. The statutory filing fee is separate if you proceed to registration.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "1499 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Phonetic and similar-name review", "Logo/device search where requested", "Government / statutory fees extra where applicable*"], description: "Trademark search and preliminary risk review before filing. The statutory filing fee is separate if you proceed to registration.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "3999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Expanded risk review", "Class/brand strategy discussion", "Written search report", "Government / statutory fees extra where applicable*"], description: "Trademark search and preliminary risk review before filing. The statutory filing fee is separate if you proceed to registration.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'A quick check that your word mark is not already taken.',
+      price: 499,
+      govtFee: false,
+      features: [
+        'Word mark search',
+        'Preliminary availability check',
+        'Summary of close matches',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want phonetic and logo matches checked before filing.',
+      price: 1499,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Phonetic and similar-name review',
+        'Logo/device mark search on request',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'A written risk report and class strategy before a brand launch.',
+      price: 3999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'Expanded risk review',
+        'Class and brand strategy discussion',
+        'Written search report',
+      ],
+    },
   ],
 
-  // Trademark Renewal — TaxWiseIndia suggested professional-service prices; Vakilsearch page does not publish a fixed professional package fee. Government renewal e-filing fee is typically ₹9,000 per class.
+  // No Vakilsearch package found (https://vakilsearch.com/trademark-renewal shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
   'trademark-renewal': [
-    { name: "Starter", price: "2499 + Govt. Fees*", period: "project", features: ["TM-R renewal application preparation", "Registration detail/document check", "Filing status follow-up", "Government / statutory fees extra where applicable*"], description: "Trademark renewal and status support. Government renewal fees and late/restoration charges are additional per class where applicable.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "5999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Expiry/grace-period review", "Restoration guidance if eligible", "Government / statutory fees extra where applicable*"], description: "Trademark renewal and status support. Government renewal fees and late/restoration charges are additional per class where applicable.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "9999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Notice/correction coordination", "Multiple-class coordination", "Dedicated IP support", "Government / statutory fees extra where applicable*"], description: "Trademark renewal and status support. Government renewal fees and late/restoration charges are additional per class where applicable.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Renewing a registered mark before it expires.',
+      price: 2499,
+      govtFee: true,
+      features: [
+        'Form TM-R renewal application',
+        'Registration details and document check',
+        'Filing status follow-up',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Your mark is close to or past its expiry date.',
+      price: 5999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Expiry and grace-period review',
+        'Restoration guidance if eligible',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Renewals across several classes, or with corrections to make.',
+      price: 9999,
+      govtFee: true,
+      features: [
+        'Everything in Pro',
+        'Notice and correction coordination',
+        'Multiple-class coordination',
+        'Dedicated IP support',
+      ],
+    },
   ],
 
-  // Trademark Objection — TaxWiseIndia suggested benchmark prices; no fixed Vakilsearch package fee was verified. Published guidance gives broad market ranges for objection response and hearings.
+  // No Vakilsearch package found (https://vakilsearch.com/trademark-objection shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
+  // Replying to an examination report carries no government fee.
   'trademark-objection': [
-    { name: "Starter", price: "2999 + Govt. Fees*", period: "project", features: ["Examination report review", "Draft reply preparation", "Basic document checklist", "Government / statutory fees extra where applicable*"], description: "Trademark objection analysis and response preparation. Hearings, additional evidence and representation may require an expanded quote.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "6999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Custom legal arguments", "Evidence/affidavit preparation support", "Priority review", "Government / statutory fees extra where applicable*"], description: "Trademark objection analysis and response preparation. Hearings, additional evidence and representation may require an expanded quote.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "12999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Hearing preparation/representation subject to scope", "Additional evidence and filing coordination", "Dedicated IP lawyer", "Government / statutory fees extra where applicable*"], description: "Trademark objection analysis and response preparation. Hearings, additional evidence and representation may require an expanded quote.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'A straightforward objection that needs a well-drafted reply.',
+      price: 2999,
+      govtFee: false,
+      features: [
+        'Examination report review',
+        'Reply drafted and filed',
+        'Document checklist',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Objections that need legal arguments and supporting evidence.',
+      price: 6999,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Custom legal arguments',
+        'Evidence and affidavit preparation',
+        'Priority review',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Your application has been listed for a hearing.',
+      price: 12999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'Hearing preparation and representation',
+        'Additional evidence and filing coordination',
+        'Dedicated IP lawyer',
+      ],
+    },
   ],
 
-  // Trademark Rectification — TaxWiseIndia suggested benchmark prices; Vakilsearch public fixed professional price was not verified. Government rectification/opposition filing fees may apply.
+  // No Vakilsearch package found (no rectification page; /ipindia/trademark-opposition shows no package) — TaxwiseIndia benchmark; confirm before launch.
   'trademark-rectification': [
-    { name: "Starter", price: "4999 + Govt. Fees*", period: "project", features: ["Initial rectification assessment", "Notice/application drafting support", "Basic consultation", "Government / statutory fees extra where applicable*"], description: "Trademark register correction, rectification or cancellation support. Government filing fees vary by proceeding and class.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "9999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Evidence preparation", "Filing coordination", "Priority support", "Government / statutory fees extra where applicable*"], description: "Trademark register correction, rectification or cancellation support. Government filing fees vary by proceeding and class.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "19999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Hearing/contested proceeding coordination", "Counter-statement support where needed", "Dedicated IP counsel", "Government / statutory fees extra where applicable*"], description: "Trademark register correction, rectification or cancellation support. Government filing fees vary by proceeding and class.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You want to assess whether a rectification case is worth filing.',
+      price: 4999,
+      govtFee: true,
+      features: [
+        'Initial rectification assessment',
+        'Application drafting',
+        'Consultation',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You are filing a rectification and need evidence prepared.',
+      price: 9999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Evidence preparation',
+        'Filing coordination',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Contested proceedings that may go to a hearing.',
+      price: 19999,
+      govtFee: true,
+      features: [
+        'Everything in Pro',
+        'Hearing and contested-proceeding coordination',
+        'Counter-statement where needed',
+        'Dedicated IP counsel',
+      ],
+    },
   ],
 
-  // Copyright Registration — Vakilsearch location-specific page advertises copyright filing from ₹2,999 + government fees; higher tiers are TaxWiseIndia benchmark suggestions.
+  // Starter: https://vakilsearch.com/copyright-registration-in-delhi — "starts at ₹2,999 + govt fees" (2026-10-09; the national
+  // /copyright-registration page shows a lead form only). Pro + Enterprise: TaxwiseIndia benchmark; confirm before launch.
   'copyright-registration': [
-    { name: "Starter", price: "2999 + Govt. Fees*", period: "project", features: ["Application preparation and filing support", "Work/document verification", "Basic status tracking", "Government / statutory fees extra where applicable*"], description: "Copyright application support for eligible creative works, software and related content. Government fee depends on the type of work; professional fees are additional.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "6999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "NOC/authorisation document support", "Software/code or complex-work documentation", "Priority support", "Government / statutory fees extra where applicable*"], description: "Copyright application support for eligible creative works, software and related content. Government fee depends on the type of work; professional fees are additional.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "12999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Objection-response coordination", "Hearing/document follow-up where required", "Dedicated IP support", "Government / statutory fees extra where applicable*"], description: "Copyright application support for eligible creative works, software and related content. Government fee depends on the type of work; professional fees are additional.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Registering a single literary, artistic or musical work.',
+      price: 2999,
+      govtFee: true,
+      features: [
+        'Application prepared and filed in 5–7 days',
+        'Work and document verification',
+        'Use the © symbol once filed',
+        'Updates at every step',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Software, code or works that need NOCs and authorisations.',
+      price: 6999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'NOC and authorisation documents',
+        'Software/code and complex-work documentation',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Applications that draw an objection or need a hearing.',
+      price: 12999,
+      govtFee: true,
+      features: [
+        'Everything in Pro',
+        'Objection reply coordination',
+        'Hearing and document follow-up where required',
+        'Dedicated IP support',
+      ],
+    },
   ],
 
-  // Patent Registration — Vakilsearch publishes a ₹499 consultation and package starting points around ₹9,999/₹15,999; confirm the exact filing scope. Government patent fees are extra.
+  // Source: https://vakilsearch.com/patent-registration (2026-10-09)
   'patent-registration': [
-    { name: "Starter", price: "499 + Govt. Fees*", period: "project", features: ["Initial patent consultation only", "High-level process/eligibility discussion", "Not a full patent filing package", "Government / statutory fees extra where applicable*"], description: "Patent consultation and filing support. The ₹499 option is consultation-only; filing, examination and other statutory fees are separate.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "9999 + Govt. Fees*", period: "project", features: ["Patentability/basic prior-art search support", "Provisional application drafting/filing support", "Document checklist", "Government / statutory fees extra where applicable*"], description: "Patent consultation and filing support. The ₹499 option is consultation-only; filing, examination and other statutory fees are separate.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "15999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Complete specification support subject to scope", "Filing and prosecution coordination", "Dedicated patent professional", "Government / statutory fees extra where applicable*"], description: "Patent consultation and filing support. The ₹499 option is consultation-only; filing, examination and other statutory fees are separate.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Consultation',
+      bestFor: 'Inventors who want expert guidance before deciding to file.',
+      price: 499,
+      originalPrice: 999,
+      govtFee: true,
+      features: [
+        '30-minute consultation with a registered patent expert',
+        'Preliminary patentability assessment',
+        'Advice on provisional vs complete filing',
+        'Overview of process, timeline and government fees',
+        'Document checklist for the application',
+        'Filing strategy and jurisdiction advice (India/PCT)',
+      ],
+    },
+    {
+      name: 'Standard',
+      bestFor: 'You want a thorough patent search and claims drafted for filing.',
+      price: 9999,
+      originalPrice: 24999,
+      govtFee: true,
+      features: [
+        'Patentability search (Indian and global databases, 130+ countries)',
+        'In-depth technical analysis of the invention',
+        'Strategic advice on filing and claim drafting',
+        'Claims prepared and reviewed for complete filing',
+        'Timeline: 10–12 days',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Premium',
+      bestFor: 'High-value inventions that need fast, senior-attorney drafting.',
+      price: 15999,
+      originalPrice: 31999,
+      govtFee: true,
+      features: [
+        'Advanced patentability analysis and strategy report',
+        'Drafting and filing by a senior patent attorney',
+        'Multiple consultations with patent and technical experts',
+        '2 drafting iterations (further changes charged)',
+        'Timeline: 4–10 days',
+      ],
+    },
   ],
 
-  // MSME / Udyam — TaxWiseIndia suggested professional-service prices; Udyam registration on the government portal is free, and Vakilsearch assisted-service fee was not publicly verified.
+  /* ---------- Licenses & Registrations ---------- */
+
+  // No Vakilsearch package found (https://vakilsearch.com/udyam-registration shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
+  // Udyam registration on the government portal is free.
   'msme-udyam': [
-    { name: "Starter", price: "499 + Govt. Fees*", period: "project", features: ["Udyam registration assistance", "Document/data verification", "Certificate follow-up", "Government / statutory fees extra where applicable*"], description: "Assisted Udyam registration and MSME benefit guidance. Government registration itself is free; optional consulting/support fees are separate.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "1499 + Govt. Fees*", period: "project", features: ["Everything in Starter", "NIC-code and enterprise-detail update support", "Priority document review", "Government / statutory fees extra where applicable*"], description: "Assisted Udyam registration and MSME benefit guidance. Government registration itself is free; optional consulting/support fees are separate.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "2999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "MSME scheme/subsidy guidance", "Tender-readiness checklist", "Dedicated expert consultation", "Government / statutory fees extra where applicable*"], description: "Assisted Udyam registration and MSME benefit guidance. Government registration itself is free; optional consulting/support fees are separate.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You need your Udyam certificate with no fuss.',
+      price: 499,
+      govtFee: false,
+      features: [
+        'Udyam registration filed for you',
+        'Document and data verification',
+        'Udyam certificate follow-up',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want the right NIC codes and enterprise details checked.',
+      price: 1499,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'NIC code and enterprise-detail review',
+        'Priority document review',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'You plan to use MSME schemes, subsidies or tenders.',
+      price: 2999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'MSME scheme and subsidy guidance',
+        'Tender-readiness checklist',
+        'Dedicated expert consultation',
+      ],
+    },
   ],
 
-  // FSSAI Registration — Vakilsearch published package prices; government licence fees and applicable tax should be confirmed at checkout.
+  // No Vakilsearch package found on 2026-10-09 (https://vakilsearch.com/fssai-registration shows a lead form and the government fee
+  // table only; the previous file listed these amounts as Vakilsearch prices) — treat as TaxwiseIndia benchmark; confirm before launch.
   'fssai': [
-    { name: "Starter", price: "799 + Govt. Fees*", period: "project", features: ["Basic FSSAI registration assistance", "Document preparation", "Application tracking", "Government / statutory fees extra where applicable*"], description: "FSSAI registration/licensing help based on business type and eligibility. Government licence fees depend on category and validity.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "2499 + Govt. Fees*", period: "project", features: ["State-level licence support", "Eligibility/document review", "Annual return support where included", "Government / statutory fees extra where applicable*"], description: "FSSAI registration/licensing help based on business type and eligibility. Government licence fees depend on category and validity.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "4499 + Govt. Fees*", period: "project", features: ["Central licence support", "Import/export food compliance guidance", "Dedicated manager support", "Government / statutory fees extra where applicable*"], description: "FSSAI registration/licensing help based on business type and eligibility. Government licence fees depend on category and validity.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Small food businesses that need basic FSSAI registration.',
+      price: 799,
+      govtFee: true,
+      features: [
+        'Basic FSSAI registration',
+        'Document preparation',
+        'Application tracking',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Mid-sized food businesses that need a State FSSAI licence.',
+      price: 2499,
+      govtFee: true,
+      features: [
+        'State FSSAI licence',
+        'Eligibility and document review',
+        'Annual return support where included',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Large, multi-state or import/export food businesses (Central licence).',
+      price: 4499,
+      govtFee: true,
+      features: [
+        'Central FSSAI licence',
+        'Import/export food compliance guidance',
+        'Dedicated manager',
+      ],
+    },
   ],
 
-  // Import Export Code (IEC) — TaxWiseIndia suggested benchmark prices; current fixed Vakilsearch web price was not verified. Government/portal charges, if any, are additional.
+  // No Vakilsearch package found (https://vakilsearch.com/import-export-code shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
   'iec': [
-    { name: "Starter", price: "1499 + Govt. Fees*", period: "project", features: ["IEC application assistance", "Document verification", "Online filing/status follow-up", "Government / statutory fees extra where applicable*"], description: "Importer Exporter Code application and related export setup support. Final costs depend on the scope and current DGFT requirements.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "3499 + Govt. Fees*", period: "project", features: ["Everything in Starter", "IEC modification support where needed", "Priority processing and consultation", "Government / statutory fees extra where applicable*"], description: "Importer Exporter Code application and related export setup support. Final costs depend on the scope and current DGFT requirements.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "6999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "AD code/export setup coordination", "Export-promotion advisory", "Dedicated expert support", "Government / statutory fees extra where applicable*"], description: "Importer Exporter Code application and related export setup support. Final costs depend on the scope and current DGFT requirements.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You need an Import Export Code to start trading abroad.',
+      price: 1499,
+      govtFee: true,
+      features: [
+        'IEC application filed with DGFT',
+        'Document verification',
+        'Filing status follow-up',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want priority processing or an existing IEC updated.',
+      price: 3499,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'IEC modification where needed',
+        'Priority processing and consultation',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Exporters who also need AD code and export set-up support.',
+      price: 6999,
+      govtFee: true,
+      features: [
+        'Everything in Pro',
+        'AD code and export set-up coordination',
+        'Export-promotion advisory',
+        'Dedicated expert support',
+      ],
+    },
   ],
 
-  // ISO Registration — Vakilsearch advertises starting prices from ₹1,499; higher tiers are TaxWiseIndia benchmark suggestions. Verify certification-body/accreditation inclusions.
+  // Starter: https://vakilsearch.com/iso-certification — "packages starting at ₹1,499" (2026-10-09; no package cards shown).
+  // Pro + Enterprise: TaxwiseIndia benchmark; confirm before launch. No government fee; certification-body audit fees are separate.
   'iso-registration': [
-    { name: "Starter", price: "1499 + Govt. Fees*", period: "project", features: ["Initial ISO certification guidance", "Basic document checklist", "Certification-scope discussion", "Government / statutory fees extra where applicable*"], description: "ISO certification preparation and documentation support. Audit and certification-body fees may be separate depending on standard and provider.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "6999 + Govt. Fees*", period: "project", features: ["ISO 9001 or selected-standard documentation support", "Audit preparation guidance", "Priority support", "Government / statutory fees extra where applicable*"], description: "ISO certification preparation and documentation support. Audit and certification-body fees may be separate depending on standard and provider.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "14999 + Govt. Fees*", period: "project", features: ["Multiple-standard coordination (subject to scope)", "Internal audit/documentation support", "Dedicated consultant", "Government / statutory fees extra where applicable*"], description: "ISO certification preparation and documentation support. Audit and certification-body fees may be separate depending on standard and provider.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You want to understand which ISO standard fits and what it takes.',
+      price: 1499,
+      govtFee: false,
+      features: [
+        'ISO certification guidance',
+        'Document checklist',
+        'Certification scope discussion',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You are getting certified to ISO 9001 or one other standard.',
+      price: 6999,
+      govtFee: false,
+      features: [
+        'Documentation for ISO 9001 or one chosen standard',
+        'Audit preparation guidance',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'You need several ISO standards or internal audit support.',
+      price: 14999,
+      govtFee: false,
+      features: [
+        'Multiple-standard coordination',
+        'Internal audit and documentation support',
+        'Dedicated consultant',
+      ],
+    },
   ],
 
-  // Professional Tax — TaxWiseIndia suggested benchmark prices; Vakilsearch current fixed website fee was not verified. State statutory tax is separate.
+  // No Vakilsearch package found (https://vakilsearch.com/professional-tax-registration shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
   'professional-tax': [
-    { name: "Starter", price: "1999 + Govt. Fees*", period: "project", features: ["Professional Tax registration assistance", "State-specific document checklist", "Basic filing guidance", "Government / statutory fees extra where applicable*"], description: "Professional Tax registration and compliance assistance. State-specific tax liabilities and government charges vary by jurisdiction.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "3999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "First applicable return support", "Priority processing", "Government / statutory fees extra where applicable*"], description: "Professional Tax registration and compliance assistance. State-specific tax liabilities and government charges vary by jurisdiction.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "7999 + Govt. Fees*", period: "year", features: ["Everything in Pro", "Ongoing/annual return coordination", "Notice and compliance support", "Dedicated accountant", "Government / statutory fees extra where applicable*"], description: "Professional Tax registration and compliance assistance. State-specific tax liabilities and government charges vary by jurisdiction.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You need Professional Tax registration in one state.',
+      price: 1999,
+      govtFee: true,
+      features: [
+        'Professional Tax registration',
+        'State-specific document checklist',
+        'Filing guidance',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want registration plus your first return filed.',
+      price: 3999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'First applicable return filed',
+        'Priority processing',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Employers who want PT returns and notices handled all year.',
+      price: 7999,
+      govtFee: true,
+      period: 'year',
+      features: [
+        'Everything in Pro',
+        'Ongoing return filing',
+        'Notice and compliance support',
+        'Dedicated accountant',
+      ],
+    },
   ],
 
-  // Shop & Establishment — TaxWiseIndia suggested benchmark prices; current fixed Vakilsearch website price was not verified. State/local charges may apply.
+  // No Vakilsearch package found (https://vakilsearch.com/shop-and-establishment-license shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
   'shop-and-establishment': [
-    { name: "Starter", price: "1999 + Govt. Fees*", period: "project", features: ["State-specific registration assistance", "Documentation checklist", "Application status support", "Government / statutory fees extra where applicable*"], description: "Shop and Establishment registration and related compliance guidance based on location and business type.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "3999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Labour-law compliance guidance", "Priority processing", "Government / statutory fees extra where applicable*"], description: "Shop and Establishment registration and related compliance guidance based on location and business type.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "7999 + Govt. Fees*", period: "year", features: ["Everything in Pro", "Multi-location/state coordination where applicable", "Renewal/compliance tracking", "Dedicated expert", "Government / statutory fees extra where applicable*"], description: "Shop and Establishment registration and related compliance guidance based on location and business type.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'One shop or office that needs its state registration.',
+      price: 1999,
+      govtFee: true,
+      features: [
+        'State-specific registration',
+        'Document checklist',
+        'Application status updates',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want registration plus labour-law compliance guidance.',
+      price: 3999,
+      govtFee: true,
+      features: [
+        'Everything in Starter',
+        'Labour-law compliance guidance',
+        'Priority processing',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Multiple locations, with renewals tracked for the year.',
+      price: 7999,
+      govtFee: true,
+      period: 'year',
+      features: [
+        'Everything in Pro',
+        'Multi-location and multi-state coordination',
+        'Renewal and compliance tracking',
+        'Dedicated expert',
+      ],
+    },
   ],
 
-  // Digital Signature Certificate — Vakilsearch publishes ₹1,999 standalone DSC and a ₹24,999 business-compliance bundle; middle tier is a TaxWiseIndia benchmark suggestion.
+  // Source: https://vakilsearch.com/dsc-registration (2026-10-09). No plan carries a badge there; Standard is marked popular here.
+  // Source shows no "+ Govt. Fee": the DSC itself has no government fee; Elite includes MCA filings, whose fees are extra.
   'digital-signature': [
-    { name: "Starter", price: "1999 + Govt. Fees*", period: "project", features: ["DSC package advertised for two-year validity", "Certificate/application assistance", "Document signing support", "Government / statutory fees extra where applicable*"], description: "Digital signature certificate assistance. The ₹24,999 option is a wider compliance bundle, not a standalone DSC price; identity/issuer requirements apply.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "4999 + Govt. Fees*", period: "project", features: ["Expanded DSC support and issuance coordination", "Sign/encrypt needs review", "Priority issuance coordination", "Government / statutory fees extra where applicable*"], description: "Digital signature certificate assistance. The ₹24,999 option is a wider compliance bundle, not a standalone DSC price; identity/issuer requirements apply.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "24999 + Govt. Fees*", period: "project", features: ["Published DSC + business-compliance/GST bundle", "Auditor appointment and company filings", "DIR-3 KYC support for 2 directors", "Bookkeeping/financial statements within package limits", "Government / statutory fees extra where applicable*"], description: "Digital signature certificate assistance. The ₹24,999 option is a wider compliance bundle, not a standalone DSC price; identity/issuer requirements apply.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Standard',
+      bestFor: 'Individuals or businesses that need a DSC for signing and filings.',
+      price: 1999,
+      originalPrice: 2499,
+      govtFee: false,
+      features: [
+        'DSC valid for 2 years',
+        'Sign unlimited documents',
+        'For individuals or organisations',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Elite',
+      bestFor: 'New companies wanting a DSC plus first-year compliance in one plan.',
+      price: 24999,
+      originalPrice: 29999,
+      govtFee: true,
+      features: [
+        'Everything in Standard',
+        'GST registration',
+        'Auditor appointment and share certificates issued',
+        'INC-20A filing',
+        'DIR-3 KYC for 2 directors',
+        'Accounting and bookkeeping (up to 100 transactions)',
+        'Financial statement preparation',
+        'AOC-4, MGT-7 and ADT-1 filing (turnover up to ₹20 lakh)',
+        'AGM facilitation and statutory registers',
+        'PF and ESI registration',
+        'Income tax filing for one year (turnover up to ₹20 lakh)',
+      ],
+    },
   ],
 
-  // Accounting — Vakilsearch accounting service advertises packages starting at ₹7,999; higher tiers are TaxWiseIndia benchmark suggestions.
+  /* ---------- Accounting & Payroll ---------- */
+
+  // Starter: https://vakilsearch.com/accounting-bookkeeping-services — "Pricing starts from ₹7,999 for accounting packages" (2026-10-09;
+  // no package cards and no billing period shown — the monthly period is carried over from the previous file, confirm it).
+  // Pro + Enterprise: TaxwiseIndia benchmark; confirm before launch.
   'accounting': [
-    { name: "Starter", price: "7999 + Govt. Fees*", period: "month", features: ["Accounting support starting package", "Transaction recording and ledger maintenance", "Basic reports", "Government / statutory fees extra where applicable*"], description: "Accounting and reporting service. Final professional fee depends on transaction volume, turnover, software and reporting scope.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "14999 + Govt. Fees*", period: "month", features: ["Everything in Starter", "Monthly P&L and balance sheet", "Bank reconciliation", "Management reporting", "Government / statutory fees extra where applicable*"], description: "Accounting and reporting service. Final professional fee depends on transaction volume, turnover, software and reporting scope.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "29999 + Govt. Fees*", period: "month", features: ["Everything in Pro", "Higher transaction/turnover scope", "Custom financial reports", "Virtual CFO-style support subject to scope", "Government / statutory fees extra where applicable*"], description: "Accounting and reporting service. Final professional fee depends on transaction volume, turnover, software and reporting scope.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Small businesses that need their books kept and basic reports.',
+      price: 7999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Transaction recording and ledger maintenance',
+        'Basic financial reports',
+        'Updates at every step',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want a monthly P&L, balance sheet and reconciled bank accounts.',
+      price: 14999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Everything in Starter',
+        'Monthly profit & loss and balance sheet',
+        'Bank reconciliation',
+        'Management reporting',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Higher volumes, custom reports and CFO-style support.',
+      price: 29999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Everything in Pro',
+        'Higher transaction and turnover scope',
+        'Custom financial reports',
+        'Virtual CFO-style support',
+      ],
+    },
   ],
 
-  // Bookkeeping — TaxWiseIndia suggested standalone bookkeeping benchmarks; Vakilsearch publishes bookkeeping within accounting/compliance bundles rather than a verified standalone tier table.
+  // No Vakilsearch package found (Vakilsearch sells bookkeeping only inside its accounting/compliance packages) —
+  // TaxwiseIndia benchmark; confirm before launch.
   'bookkeeping': [
-    { name: "Starter", price: "1999 + Govt. Fees*", period: "month", features: ["Transaction recording", "Expense tracking", "Basic ledger upkeep", "Government / statutory fees extra where applicable*"], description: "Bookkeeping and financial record maintenance, with transaction-volume limits and reporting depth selected to fit the business.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "4999 + Govt. Fees*", period: "month", features: ["Everything in Starter", "Accounts payable/receivable tracking", "Monthly summaries", "Bank reconciliation", "Government / statutory fees extra where applicable*"], description: "Bookkeeping and financial record maintenance, with transaction-volume limits and reporting depth selected to fit the business.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "9999 + Govt. Fees*", period: "month", features: ["Everything in Pro", "Higher transaction volume", "Financial statement support", "Dedicated bookkeeper/account review", "Government / statutory fees extra where applicable*"], description: "Bookkeeping and financial record maintenance, with transaction-volume limits and reporting depth selected to fit the business.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You need transactions and expenses recorded every month.',
+      price: 1999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Transaction recording',
+        'Expense tracking',
+        'Ledger upkeep',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You also want payables, receivables and the bank reconciled.',
+      price: 4999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Everything in Starter',
+        'Accounts payable and receivable tracking',
+        'Monthly summaries',
+        'Bank reconciliation',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Higher volumes with financial statements and account reviews.',
+      price: 9999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Everything in Pro',
+        'Higher transaction volume',
+        'Financial statement support',
+        'Dedicated bookkeeper and account review',
+      ],
+    },
   ],
 
-  // Payroll — TaxWiseIndia suggested benchmark prices; no fixed Vakilsearch payroll package price was verified.
+  // No Vakilsearch package found (https://vakilsearch.com/online-payroll-management shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
   'payroll': [
-    { name: "Starter", price: "2999 + Govt. Fees*", period: "month", features: ["Payroll processing for up to 10 employees", "Salary slip generation", "Basic payroll support", "Government / statutory fees extra where applicable*"], description: "Monthly payroll administration. Employee count, pay structure and statutory compliance scope determine final fees.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "6999 + Govt. Fees*", period: "month", features: ["Everything in Starter", "Payroll for up to 50 employees", "TDS/deduction calculations", "Priority support", "Government / statutory fees extra where applicable*"], description: "Monthly payroll administration. Employee count, pay structure and statutory compliance scope determine final fees.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "12999 + Govt. Fees*", period: "month", features: ["Everything in Pro", "Larger workforce processing", "Statutory deduction coordination", "Dedicated payroll manager", "Government / statutory fees extra where applicable*"], description: "Monthly payroll administration. Employee count, pay structure and statutory compliance scope determine final fees.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Teams of up to 10 employees.',
+      price: 2999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Payroll processing for up to 10 employees',
+        'Salary slips',
+        'Payroll support',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'Teams of up to 50 employees with TDS on salaries.',
+      price: 6999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Everything in Starter',
+        'Payroll for up to 50 employees',
+        'TDS and deduction calculations',
+        'Priority support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Larger teams that want statutory deductions coordinated.',
+      price: 12999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Everything in Pro',
+        'Larger workforce processing',
+        'Statutory deduction coordination',
+        'Dedicated payroll manager',
+      ],
+    },
   ],
 
-  // Provident Fund (PF) — TaxWiseIndia suggested benchmark prices; Vakilsearch did not publish a fixed standalone PF professional fee.
+  // No Vakilsearch package found (https://vakilsearch.com/pf-registration shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
+  // EPFO registration has no government fee; PF contributions are the employer's own statutory cost.
   'pf': [
-    { name: "Starter", price: "1999 + Govt. Fees*", period: "month", features: ["PF registration/process assistance", "Monthly challan/document checklist", "Basic compliance support", "Government / statutory fees extra where applicable*"], description: "Provident Fund registration and compliance assistance. Statutory contributions and late charges are additional and separate from service fees.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "4999 + Govt. Fees*", period: "month", features: ["Everything in Starter", "Employee add/remove coordination", "Return/compliance support", "Priority assistance", "Government / statutory fees extra where applicable*"], description: "Provident Fund registration and compliance assistance. Statutory contributions and late charges are additional and separate from service fees.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "9999 + Govt. Fees*", period: "month", features: ["Everything in Pro", "Claim/notice support subject to scope", "Ongoing PF compliance coordination", "Dedicated expert", "Government / statutory fees extra where applicable*"], description: "Provident Fund registration and compliance assistance. Statutory contributions and late charges are additional and separate from service fees.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You need PF registration and help with monthly challans.',
+      price: 1999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'PF registration and process assistance',
+        'Monthly challan and document checklist',
+        'Compliance support',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You want employee joins/exits and returns handled too.',
+      price: 4999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Everything in Starter',
+        'Employee addition and exit coordination',
+        'Return filing and compliance support',
+        'Priority assistance',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Ongoing PF compliance including claims and notices.',
+      price: 9999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Everything in Pro',
+        'Claim and notice support',
+        'Ongoing PF compliance coordination',
+        'Dedicated expert',
+      ],
+    },
   ],
 
-  // Employee State Insurance (ESI) — Vakilsearch publishes indicative costs around ₹1,950 professional fee and packages around ₹5,999; exact scope and DSC cost require confirmation.
+  // No Vakilsearch package found (https://vakilsearch.com/esi-registration shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
+  // ESIC registration has no government fee; contributions are the employer's own statutory cost.
   'esi': [
-    { name: "Starter", price: "1950 + Govt. Fees*", period: "project", features: ["ESI registration assistance", "Employer/employee document checklist", "Portal process guidance", "Government / statutory fees extra where applicable*"], description: "ESI registration and employer compliance assistance. Published numbers are indicative; DSC, statutory contributions and other costs may be extra.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "5999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Employee enrolment support", "Compliance/return guidance", "Government / statutory fees extra where applicable*"], description: "ESI registration and employer compliance assistance. Published numbers are indicative; DSC, statutory contributions and other costs may be extra.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "9999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Expanded workforce/ongoing support", "Notice/incident reporting guidance subject to scope", "Dedicated expert", "Government / statutory fees extra where applicable*"], description: "ESI registration and employer compliance assistance. Published numbers are indicative; DSC, statutory contributions and other costs may be extra.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Employers who need ESI registration.',
+      price: 1950,
+      govtFee: false,
+      features: [
+        'ESI registration',
+        'Employer and employee document checklist',
+        'Portal process guidance',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You also want employees enrolled and returns guided.',
+      price: 5999,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Employee enrolment',
+        'Compliance and return guidance',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Larger workforces that need ongoing ESI support.',
+      price: 9999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'Ongoing support for a larger workforce',
+        'Notice and incident-reporting guidance',
+        'Dedicated expert',
+      ],
+    },
   ],
 
-  // Financial Statements — TaxWiseIndia suggested stand-alone benchmark prices; Vakilsearch financial statements are included in broader accounting/compliance packages, but separate fixed pricing was not verified.
+  // No Vakilsearch package found (financial statements are bundled into its accounting/compliance packages) —
+  // TaxwiseIndia benchmark; confirm before launch.
   'financial-statements': [
-    { name: "Starter", price: "3999 + Govt. Fees*", period: "project", features: ["Profit & Loss and balance sheet preparation", "Basic review", "Document checklist", "Government / statutory fees extra where applicable*"], description: "Preparation support for financial statements. Audit, certification and complex consolidated reporting may need separate professional engagement.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "8999 + Govt. Fees*", period: "project", features: ["Everything in Starter", "Cash-flow statement", "Notes to accounts", "Consultation", "Government / statutory fees extra where applicable*"], description: "Preparation support for financial statements. Audit, certification and complex consolidated reporting may need separate professional engagement.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "19999 + Govt. Fees*", period: "project", features: ["Everything in Pro", "Consolidated/complex statement coordination", "Audit assistance where agreed", "Dedicated CA/accounting support", "Government / statutory fees extra where applicable*"], description: "Preparation support for financial statements. Audit, certification and complex consolidated reporting may need separate professional engagement.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You need a balance sheet and profit & loss for the year.',
+      price: 3999,
+      govtFee: false,
+      features: [
+        'Profit & loss and balance sheet preparation',
+        'Review of your records',
+        'Document checklist',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You need a full set with cash flow statement and notes.',
+      price: 8999,
+      govtFee: false,
+      features: [
+        'Everything in Starter',
+        'Cash flow statement',
+        'Notes to accounts',
+        'Consultation',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Consolidated or complex statements with audit support.',
+      price: 19999,
+      govtFee: false,
+      features: [
+        'Everything in Pro',
+        'Consolidated and complex statements',
+        'Audit assistance where agreed',
+        'Dedicated CA support',
+      ],
+    },
   ],
 
-  // Legal Consultation — Vakilsearch lists ₹399 for a 30-minute consultation, an introductory offer and per-minute options; extended and retainer prices are TaxWiseIndia suggestions.
+  /* ---------- Legal Services ---------- */
+
+  // Starter: https://vakilsearch.com/talk-to-a-lawyer — "Starting at ₹99" for a 30-minute consultation, shown as "₹399 ₹99" (2026-10-09).
+  // Pro + Enterprise: TaxwiseIndia benchmark; confirm before launch.
   'legal-consultation': [
-    { name: "Starter", price: "399 + Govt. Fees*", period: "project", features: ["Published 30-minute legal consultation option", "Initial issue assessment", "General legal guidance", "Government / statutory fees extra where applicable*"], description: "Online consultation with a lawyer/legal expert. Drafting, filing, document review and representation are separate unless specifically included.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "999 + Govt. Fees*", period: "project", features: ["Suggested extended consultation package", "Longer consultation and follow-up Q&A", "Written summary where agreed", "Government / statutory fees extra where applicable*"], description: "Online consultation with a lawyer/legal expert. Drafting, filing, document review and representation are separate unless specifically included.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "9999 + Govt. Fees*", period: "month", features: ["Suggested monthly legal-support retainer", "Routine consultations", "Contract review allowance subject to scope", "Government / statutory fees extra where applicable*"], description: "Online consultation with a lawyer/legal expert. Drafting, filing, document review and representation are separate unless specifically included.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'You want a lawyer’s first view on your issue.',
+      price: 99,
+      originalPrice: 399,
+      govtFee: false,
+      features: [
+        '30-minute consultation with a lawyer',
+        'Initial assessment of your issue',
+        'General legal guidance',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'You need a longer session with follow-up questions answered.',
+      price: 999,
+      govtFee: false,
+      features: [
+        'Extended consultation',
+        'Follow-up Q&A',
+        'Written summary where agreed',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Businesses that want a lawyer on call every month.',
+      price: 9999,
+      govtFee: false,
+      period: 'month',
+      features: [
+        'Monthly legal-support retainer',
+        'Routine consultations',
+        'Contract review allowance',
+      ],
+    },
   ],
 
-  // Legal Agreements — TaxWiseIndia suggested benchmark prices; Vakilsearch provides templates but a fixed bespoke-drafting price was not publicly verified.
+  // No Vakilsearch package found (individual agreement pages show lead forms only) — TaxwiseIndia benchmark; confirm before launch.
+  // Stamp duty on the executed agreement is extra.
   'legal-agreements': [
-    { name: "Starter", price: "1999 + Govt. Fees*", period: "project", features: ["Standard agreement/template assistance", "One round of details/edits", "Basic support", "Government / statutory fees extra where applicable*"], description: "Legal agreement templates and custom drafting support. Bespoke drafting/revisions should be scoped before the final quote.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "4999 + Govt. Fees*", period: "project", features: ["Custom agreement drafting for defined scope", "Multiple edits within agreed limit", "Consultation", "Government / statutory fees extra where applicable*"], description: "Legal agreement templates and custom drafting support. Bespoke drafting/revisions should be scoped before the final quote.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "9999 + Govt. Fees*", period: "project", features: ["Complex/multi-party agreement drafting", "Expanded revisions and negotiation support", "Dedicated legal professional subject to engagement", "Government / statutory fees extra where applicable*"], description: "Legal agreement templates and custom drafting support. Bespoke drafting/revisions should be scoped before the final quote.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'A standard agreement customised to your details.',
+      price: 1999,
+      govtFee: true,
+      features: [
+        'Standard agreement customised to your details',
+        'One round of edits',
+        'Drafting support',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'A custom agreement drafted for your specific deal.',
+      price: 4999,
+      govtFee: true,
+      features: [
+        'Custom agreement drafting',
+        'Multiple edits within an agreed limit',
+        'Consultation',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Complex or multi-party agreements with negotiation support.',
+      price: 9999,
+      govtFee: true,
+      features: [
+        'Complex or multi-party agreement drafting',
+        'Expanded revisions and negotiation support',
+        'Dedicated legal professional',
+      ],
+    },
   ],
 
-  // Business Contracts — TaxWiseIndia suggested benchmark prices; Vakilsearch documents catalogue lists agreement types but no fixed custom-contract package price was verified.
+  // No Vakilsearch package found (/master-service-agreement, /vendor-agreement and /non-disclosure-agreement-nda show lead forms only) —
+  // TaxwiseIndia benchmark; confirm before launch. Stamp duty on the executed contract is extra.
   'business-contracts': [
-    { name: "Starter", price: "2499 + Govt. Fees*", period: "project", features: ["NDA/vendor or basic business agreement", "Standard terms review", "Basic support", "Government / statutory fees extra where applicable*"], description: "Drafting support for NDAs, vendor agreements, shareholder agreements, MOUs and other business contracts. Final pricing depends on complexity and revisions.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "5999 + Govt. Fees*", period: "project", features: ["Custom commercial/partnership contract", "Consultation and defined revision rounds", "Negotiation support subject to scope", "Government / statutory fees extra where applicable*"], description: "Drafting support for NDAs, vendor agreements, shareholder agreements, MOUs and other business contracts. Final pricing depends on complexity and revisions.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "14999 + Govt. Fees*", period: "project", features: ["Complex multi-party/shareholder/JV contract", "Expanded review and drafting", "Dedicated counsel subject to engagement", "Government / statutory fees extra where applicable*"], description: "Drafting support for NDAs, vendor agreements, shareholder agreements, MOUs and other business contracts. Final pricing depends on complexity and revisions.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'An NDA, vendor or other standard business agreement.',
+      price: 2499,
+      govtFee: true,
+      features: [
+        'NDA, vendor or standard business agreement',
+        'Standard terms review',
+        'Drafting support',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'A custom commercial or partnership contract.',
+      price: 5999,
+      govtFee: true,
+      features: [
+        'Custom commercial or partnership contract',
+        'Consultation and defined revision rounds',
+        'Negotiation support',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'Shareholder, JV or other complex multi-party contracts.',
+      price: 14999,
+      govtFee: true,
+      features: [
+        'Complex multi-party, shareholder or JV contract',
+        'Expanded review and drafting',
+        'Dedicated counsel',
+      ],
+    },
   ],
 
-  // Legal Notices — Vakilsearch states a general ₹1,499–₹2,499 range for sending/replying to a legal notice; higher tier is a TaxWiseIndia benchmark suggestion.
+  // No Vakilsearch package found (https://vakilsearch.com/legal-notice shows a lead form; its FAQ quotes a general ₹1,499–₹2,499 range) —
+  // TaxwiseIndia benchmark; confirm before launch. Sending a legal notice carries no government fee.
   'notices': [
-    { name: "Starter", price: "1499 + Govt. Fees*", period: "project", features: ["Legal notice drafting or reply for a standard matter", "Initial information review", "Standard delivery/support subject to terms", "Government / statutory fees extra where applicable*"], description: "Legal notice drafting or replying support. Final professional fee depends on complexity, delivery needs and the lawyer’s scope; statutory/court fees, if any, are additional.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "2499 + Govt. Fees*", period: "project", features: ["Higher-complexity notice or reply", "Lawyer review and revisions", "Case-specific consultation", "Government / statutory fees extra where applicable*"], description: "Legal notice drafting or replying support. Final professional fee depends on complexity, delivery needs and the lawyer’s scope; statutory/court fees, if any, are additional.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "7999 + Govt. Fees*", period: "project", features: ["Complex dispute notice/reply strategy", "Additional document review", "Dedicated legal support subject to written scope", "Government / statutory fees extra where applicable*"], description: "Legal notice drafting or replying support. Final professional fee depends on complexity, delivery needs and the lawyer’s scope; statutory/court fees, if any, are additional.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'Sending or replying to a notice on a standard matter.',
+      price: 1499,
+      govtFee: false,
+      features: [
+        'Legal notice drafted or replied to',
+        'Review of your information',
+        'Notice dispatched on your behalf',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'A more complex notice that needs a lawyer’s review.',
+      price: 2499,
+      govtFee: false,
+      features: [
+        'Higher-complexity notice or reply',
+        'Lawyer review and revisions',
+        'Case-specific consultation',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'A disputed matter that needs a notice strategy.',
+      price: 7999,
+      govtFee: false,
+      features: [
+        'Dispute notice or reply strategy',
+        'Additional document review',
+        'Dedicated legal support',
+      ],
+    },
   ],
 
-  // Legal Documentation — TaxWiseIndia suggested benchmark prices; Vakilsearch document library offers templates but custom drafting prices were not publicly listed.
+  // No Vakilsearch package found (https://vakilsearch.com/legal-documentation-service shows a lead form only) — TaxwiseIndia benchmark; confirm before launch.
+  // Stamp duty, notarisation and registration charges are extra.
   'legal-documentation': [
-    { name: "Starter", price: "499 + Govt. Fees*", period: "project", features: ["Ready-to-use legal document/template assistance", "Basic detail customisation", "Downloadable document support", "Government / statutory fees extra where applicable*"], description: "Templates and tailored legal-document preparation. Notarisation, stamp duty, registration and custom legal review may incur additional charges.", buttonText: "Get Started", href: "#", isPopular: false },
-    { name: "Pro", price: "1999 + Govt. Fees*", period: "project", features: ["Customised affidavit, POA or business document", "Document review and defined revisions", "Notarisation guidance where needed", "Government / statutory fees extra where applicable*"], description: "Templates and tailored legal-document preparation. Notarisation, stamp duty, registration and custom legal review may incur additional charges.", buttonText: "Get Started", href: "#", isPopular: true },
-    { name: "Enterprise", price: "4999 + Govt. Fees*", period: "project", features: ["Complex legal documentation package", "Registration/documentation coordination", "Dedicated expert support subject to scope", "Government / statutory fees extra where applicable*"], description: "Templates and tailored legal-document preparation. Notarisation, stamp duty, registration and custom legal review may incur additional charges.", buttonText: "Contact Sales", href: "#", isPopular: false },
+    {
+      name: 'Starter',
+      bestFor: 'A ready legal document filled in with your details.',
+      price: 499,
+      govtFee: true,
+      features: [
+        'Ready legal document prepared',
+        'Customised with your details',
+        'Delivered ready to sign',
+      ],
+    },
+    {
+      name: 'Pro',
+      bestFor: 'An affidavit, power of attorney or business document drafted.',
+      price: 1999,
+      govtFee: true,
+      features: [
+        'Customised affidavit, POA or business document',
+        'Document review and defined revisions',
+        'Notarisation guidance',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Enterprise',
+      bestFor: 'A set of documents, including registration coordination.',
+      price: 4999,
+      govtFee: true,
+      features: [
+        'Complex legal documentation package',
+        'Registration and documentation coordination',
+        'Dedicated expert support',
+      ],
+    },
   ],
-
 };
+
+/** The cheapest plan of a service, for "from ₹X" labels. */
+export const startingPlan = (slug: string): PricingPlan | undefined =>
+  SERVICE_PRICING[slug]?.reduce((a, b) => (b.price < a.price ? b : a));

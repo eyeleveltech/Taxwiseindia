@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CONTACT_INFO, WHATSAPP_URL } from '@/lib/constants';
 import { SERVICE_CATALOG, slugify } from '@/lib/services';
+import { SERVICE_PRICING } from '@/lib/pricing-data';
 import SvgIcon from '@/components/ui/SvgIcon';
 import ContactForm from '@/components/ui/ContactForm';
 import CompanyMotion from '@/components/company/CompanyMotion';
@@ -15,12 +16,14 @@ const METHOD = 'group flex items-center gap-3 border-b border-line py-5 sm:gap-4
 const METHOD_ICON = 'grid size-[43px] flex-none place-items-center rounded-full border border-line-2 text-emerald-ink transition-colors group-hover:border-emerald group-hover:bg-emerald group-hover:text-navy [&_.i]:size-5';
 const LABEL = 'mb-1.5 block font-display text-[9px] font-semibold tracking-[.13em] text-muted';
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[]; item?: string | string[] }> }) {
-  const { service, item } = await searchParams;
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[]; item?: string | string[]; plan?: string | string[] }> }) {
+  const { service, item, plan } = await searchParams;
   const category = SERVICE_CATALOG.find((s) => s.slug === service);
   const initialService = category ? category.slug : 'general';
   const itemName = category?.items.find((x) => slugify(x) === item);
-  const initialMessage = itemName ? `I'm interested in ${itemName}.` : '';
+  // only a plan the service really has makes it into the message
+  const planName = itemName ? SERVICE_PRICING[slugify(itemName)]?.find((p) => p.name.toLowerCase() === plan)?.name : undefined;
+  const initialMessage = itemName ? `I'm interested in ${itemName}${planName ? ` (${planName} plan)` : ''}.` : '';
 
   return (
     <CompanyMotion>

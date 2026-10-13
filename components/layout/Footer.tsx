@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FOOTER_LINKS } from '@/lib/constants';
+import { FOOTER_LINKS, CONTACT_INFO } from '@/lib/constants';
 import FooterGiant from './FooterGiant';
 
 export default function Footer() {
@@ -14,6 +14,20 @@ export default function Footer() {
               <Image className="h-auto w-[146px]" src="/assets/tw-wordmark-dark.png" alt="TaxwiseIndia" width={803} height={96} />
             </Link>
             <p className="mt-4 max-w-[22em] font-display text-[16px] font-semibold leading-[1.45] tracking-[-.01em] text-navy">Tax &amp; Compliance, Without the Chase.</p>
+            <div className="mt-5 space-y-2 text-[14px]">
+              <p className="m-0 flex items-center gap-2">
+                <span className="text-muted">Direct:</span>
+                <a href={`tel:${CONTACT_INFO.phone.replace(/[^+\d]/g, '')}`} className="font-semibold text-navy transition-colors hover:text-emerald-ink">
+                  {CONTACT_INFO.phone}
+                </a>
+              </p>
+              <p className="m-0 flex items-center gap-2">
+                <span className="text-muted">Email:</span>
+                <a href={`mailto:${CONTACT_INFO.email}`} className="text-body transition-colors hover:text-emerald-ink">
+                  {CONTACT_INFO.email}
+                </a>
+              </p>
+            </div>
           </div>
           <nav className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3" aria-label="Footer">
             {Object.entries(FOOTER_LINKS).map(([category, links]) => (

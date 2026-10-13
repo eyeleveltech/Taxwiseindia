@@ -32,11 +32,11 @@ export interface OwnerCard {
   description: string;
 }
 
-export const WHATSAPP_URL = 'https://wa.me/910000000000';
+export const WHATSAPP_URL = 'https://wa.me/919094998774';
 export const SITE_URL = 'https://taxwiseindia.com';
 
 export const CONTACT_INFO = {
-  phone: '+91 (0) 00000 00000',
+  phone: '+91 9094998774',
   email: 'hello@taxwiseindia.com',
   address: 'Commercial Tower, Sector 62, Noida, Uttar Pradesh, 201309',
   hours: 'Mon - Sat: 9:30 AM - 7:00 PM IST',

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SvgIcon from '@/components/ui/SvgIcon';
 import { cn } from '@/lib/utils';
+import { CONTACT_INFO } from '@/lib/constants';
 import type { PricingPlan } from '@/lib/pricing-data';
 
 export const inr = (n: number) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(n);
@@ -12,18 +13,11 @@ const COLS = ['', 'md:grid-cols-1 max-w-110 mx-auto', 'md:grid-cols-2 max-w-230 
 export const planHref = (service: string, item: string, plan: PricingPlan) =>
   `/contact?service=${service}&item=${item}&plan=${encodeURIComponent(plan.name.toLowerCase())}#contact-form`;
 
-/** "₹1,499 · 33% off" over "₹999 + Govt. Fee", then the billing period. */
+/** "₹999 + Govt. Fee", then the billing period. */
 export function PlanPrice({ plan, compact = false }: { plan: PricingPlan; compact?: boolean }) {
-  const off = plan.originalPrice && plan.originalPrice > plan.price ? Math.round((1 - plan.price / plan.originalPrice) * 100) : 0;
   return (
     <div>
-      {off > 0 && (
-        <p className="m-0 flex items-center gap-2 text-[14px] leading-none">
-          <s className="text-muted">{inr(plan.originalPrice!)}</s>
-          <span className="rounded-full bg-mint-soft px-2 py-1 text-[11.5px] font-bold tracking-[.02em] text-emerald-ink">{off}% off</span>
-        </p>
-      )}
-      <p className={cn('m-0 flex flex-wrap items-baseline gap-x-2', off > 0 && 'mt-2')}>
+      <p className="m-0 flex flex-wrap items-baseline gap-x-2">
         <b className={cn('font-display font-bold leading-none tracking-[-.035em] text-navy', compact ? 'text-[28px]' : 'text-[clamp(34px,3vw,42px)]')}>{inr(plan.price)}</b>
         {plan.govtFee && <span className="text-[14px] font-semibold text-navy-2">+ Govt. Fee</span>}
       </p>
@@ -100,6 +94,10 @@ export function Pricing({ plans, service, item }: { plans: PricingPlan[]; servic
       </div>
       <p className="mx-auto mt-8 max-w-[52em] text-center text-[13.5px] leading-[1.6] text-muted">
         Prices are our professional fees. &ldquo;Govt. Fee&rdquo; is the statutory charge paid to the government, billed at actuals where the service requires one.
+        {' '}Questions or custom requirements? Call us directly at{' '}
+        <a href={`tel:${CONTACT_INFO.phone.replace(/[^+\d]/g, '')}`} className="font-semibold text-navy transition-colors hover:text-emerald-ink">
+          {CONTACT_INFO.phone}
+        </a>.
       </p>
     </>
   );

@@ -11,6 +11,7 @@ import SvgIcon from '@/components/ui/SvgIcon';
 import { useLenis } from '@/hooks/useLenis';
 import { prefersReducedMotion } from '@/hooks/useReducedMotion';
 import { SERVICE_CATALOG, servicePath } from '@/lib/services';
+import { CONTACT_INFO } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -133,7 +134,6 @@ export default function Header() {
               );
             })}
           </ul>
-          <Link href="/about" className={`${LINK} whitespace-nowrap`} onClick={closeMenu} onMouseEnter={hideMenu} aria-current={current('/about')}>About Us</Link>
           <Link className="btn btn-primary btn-sm" href="/contact" onClick={closeMenu} onMouseEnter={hideMenu} aria-current={current('/contact')}>
             Contact <svg className="i arr"><use href="#i-arrow" /></svg>
           </Link>
@@ -192,6 +192,14 @@ export default function Header() {
             })}
           </ul>
           <Link href="/about" className={`${MOBILE_LINK} border-b border-line px-1.5 py-[15px]`} onClick={closeMenu} aria-current={current('/about')}>About Us</Link>
+          <a
+            href={`tel:${CONTACT_INFO.phone.replace(/[^+\d]/g, '')}`}
+            className="flex items-center gap-2 border-b border-line px-1.5 py-[15px] font-display text-[15.5px] font-semibold text-navy transition-colors hover:text-emerald-ink"
+            onClick={closeMenu}
+          >
+            <SvgIcon id="i-phone" className="size-4 text-emerald stroke-[2.2]" />
+            {CONTACT_INFO.phone}
+          </a>
           <Link className="btn btn-primary mt-3.5 shrink-0" href="/contact" onClick={closeMenu} aria-current={current('/contact')}>
             Contact <svg className="i arr"><use href="#i-arrow" /></svg>
           </Link>

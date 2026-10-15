@@ -40,9 +40,9 @@ export default function ServicesIndex() {
 
   return (
     <main id="main" ref={root} className="bg-off text-body">
-      <section id="catalog" className="overflow-x-clip pb-[50px] pt-[115px] sm:pt-[125px] lg:pb-[76px] lg:pt-[150px]" aria-labelledby="page-title">
+      <section id="catalog" className="overflow-x-clip pb-12.5 pt-28.75 sm:pt-31.25 lg:pb-19 lg:pt-37.5" aria-labelledby="page-title">
         <div className="wrap grid grid-cols-1 items-start gap-7 sm:gap-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-[clamp(40px,6vw,90px)]">
-          <div className="min-w-0 sm:max-lg:grid sm:max-lg:grid-cols-2 sm:max-lg:items-start sm:max-lg:gap-x-3 lg:sticky lg:top-[105px]">
+          <div className="min-w-0 sm:max-lg:grid sm:max-lg:grid-cols-2 sm:max-lg:items-start sm:max-lg:gap-x-3 lg:sticky lg:top-26.25">
             <p className="eyebrow sm:max-lg:col-start-1" data-intro><i className="dot"></i>Our Services</p>
             <h1 className="mt-5.5 font-display text-[clamp(38px,9vw,50px)] font-bold leading-[1.08] tracking-[-.035em] text-navy sm:max-lg:col-start-1 sm:text-[46px] lg:text-[clamp(44px,4.4vw,62px)] lg:leading-[1.1]" id="page-title" data-intro>
               Everything Your<br />
@@ -54,7 +54,7 @@ export default function ServicesIndex() {
             <p className="mt-6 max-w-[30em] text-[15px] leading-[1.7] text-body sm:text-base sm:max-lg:col-start-1" data-intro>
               One place for tax, accounting and compliance.<br />Seven services. One team that keeps you updated at every step.
             </p>
-            <div className="mt-8 max-w-[340px] max-sm:mx-auto sm:max-lg:col-start-2 sm:max-lg:row-span-4 sm:max-lg:row-start-1 sm:max-lg:mt-0 sm:max-lg:self-center lg:mt-10 lg:max-w-[460px]" data-intro>
+            <div className="mt-8 max-w-85 max-sm:mx-auto sm:max-lg:col-start-2 sm:max-lg:row-span-4 sm:max-lg:row-start-1 sm:max-lg:mt-0 sm:max-lg:self-center lg:mt-10 lg:max-w-115" data-intro>
               <ServicesOrbit active={active} onHover={hold} onLeave={release} />
             </div>
           </div>
@@ -72,14 +72,14 @@ export default function ServicesIndex() {
                     onBlur={release}
                   >
                     <span className="hidden w-7 flex-none font-display text-[12px] font-bold tracking-[.12em] text-muted transition-colors group-data-active:text-emerald-ink sm:block">{pad(index + 1)}</span>
-                    <span className="grid h-[43px] w-[30px] flex-none place-items-center text-navy-2 transition-[translate,color] duration-[.4s] group-data-active:-translate-y-0.5 group-data-active:text-emerald-ink sm:w-[39px] [&_.i]:size-6 [&_.i]:stroke-[1.35] sm:[&_.i]:size-6.5">
+                    <span className="grid h-10.75 w-7.5 flex-none place-items-center text-navy-2 transition-[translate,color] duration-[.4s] group-data-active:-translate-y-0.5 group-data-active:text-emerald-ink sm:w-9.75 [&_.i]:size-6 [&_.i]:stroke-[1.35] sm:[&_.i]:size-6.5">
                       <SvgIcon id={item.icon} />
                     </span>
                     <div className="min-w-0 flex-1">
-                      <h3 id={`title-${item.slug}`} className="m-0 font-display text-[20px] font-semibold leading-[1.3] tracking-[-.025em] text-navy max-[360px]:text-lg sm:text-[clamp(19px,1.62vw,23px)]">{item.name}</h3>
+                      <h3 id={`title-${item.slug}`} className="m-0 font-display text-[20px] font-semibold leading-[1.3] tracking-tight text-navy max-[360px]:text-lg sm:text-[clamp(19px,1.62vw,23px)]">{item.name}</h3>
                       <p className="mt-1.5 text-xs leading-normal text-muted sm:text-[13px]">{item.tagline ?? `${item.items.length} services`}</p>
                     </div>
-                    <span className="grid size-7.5 flex-none place-items-center rounded-full border border-line-2 text-navy transition-[background-color,border-color,color] duration-[.35s] group-data-active:border-emerald group-data-active:bg-emerald sm:size-[33px] [&_.i]:size-3.75 [&_.i]:-rotate-45 [&_.i]:transition-[rotate] [&_.i]:duration-[.4s] group-data-active:[&_.i]:rotate-0">
+                    <span className="grid size-7.5 flex-none place-items-center rounded-full border border-line-2 text-navy transition-[background-color,border-color,color] duration-[.35s] group-data-active:border-emerald group-data-active:bg-emerald sm:size-8.25 [&_.i]:size-3.75 [&_.i]:-rotate-45 [&_.i]:transition-[rotate] [&_.i]:duration-[.4s] group-data-active:[&_.i]:rotate-0">
                       <SvgIcon id="i-arrow" />
                     </span>
                   </Link>

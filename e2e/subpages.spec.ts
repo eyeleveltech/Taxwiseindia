@@ -111,22 +111,76 @@ test.describe('Sub-pages & Interaction Tests', () => {
     await expect(page.locator('#more a[href^="/services/"]')).toHaveCount(6);
   });
 
-  test('Service CTA selects the contact category and prepares a WhatsApp draft', async ({ page }) => {
-    await page.addInitScript(() => { window.open = (url) => { document.documentElement.dataset.draftUrl = String(url); return null; }; });
+  test('Service CTA selects the contact category and submits inquiry via Web3Forms', async ({ page }) => {
+    await page.route('https://api.web3forms.com/submit', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true, message: 'Form submitted successfully!' }),
+      });
+    });
     await page.goto('/services/trademark-ip', { waitUntil: 'networkidle' });
     await page.locator('main').getByRole('link', { name: 'Get Started', exact: true }).first().click();
     await expect(page).toHaveURL(/contact\?service=trademark-ip#contact-form$/);
     await expect(page.getByLabel("I'm interested in")).toHaveValue('trademark-ip');
-    await expect(page.locator('select option')).toHaveCount(8);
+    await expect(page.locator('select[name="service"] option')).toHaveCount(8);
     await page.getByLabel('Your name').fill('Test User');
     await page.getByLabel('Phone number').fill('+91 99999 88888');
-    await page.getByRole('button', { name: 'Continue in WhatsApp' }).click();
-    await expect(page.getByRole('status')).toContainText('Your message is ready.');
-    await expect(page.getByRole('status')).toContainText('press Send');
-    const draft = await page.locator('html').getAttribute('data-draft-url');
-    expect(decodeURIComponent(draft ?? '')).toContain('Trademark & Intellectual Property');
+    await page.getByRole('button', { name: /Submit Consultation Request/ }).click();
+    await expect(page.getByRole('status')).toContainText('Your message is ready & sent.');
+    await expect(page.getByRole('status')).toContainText('Inquiry Received');
+    const waLink = page.getByRole('link', { name: 'Continue on WhatsApp' });
+    await expect(waLink).toBeVisible();
+    const waHref = await waLink.getAttribute('href');
+    expect(decodeURIComponent(waHref ?? '')).toContain('Trademark & Intellectual Property');
     await page.getByRole('button', { name: 'Edit your details' }).click();
     await expect(page.getByLabel('Your name')).toHaveValue('Test User');
+  });
+
+  test('Contact form adapts to specific service and chosen pricing plan (GST Registration ₹599, ₹1,999, ₹4,999)', async ({ page }) => {
+    let capturedPayload: Record<string, string> = {};
+    await page.route('https://api.web3forms.com/submit', async (route) => {
+      const postData = route.request().postData() || '';
+      // Parse formData or text
+      capturedPayload = { raw: postData };
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true, message: 'Form submitted successfully!' }),
+      });
+    });
+
+    // 1. Visit /contact directly and select GST & Tax -> GST Registration
+    await page.goto('/contact', { waitUntil: 'networkidle' });
+    await page.getByLabel("I'm interested in").selectOption('gst-tax');
+    await expect(page.getByLabel('Specific service in GST & Tax')).toBeVisible();
+    await page.getByLabel('Specific service in GST & Tax').selectOption('gst-registration');
+
+    // Verify all 3 plan pills (Standard ₹599, Premium ₹1,999, Elite ₹4,999) appear
+    await expect(page.locator('[data-plan-pill="standard"]')).toContainText('₹599');
+    await expect(page.locator('[data-plan-pill="premium"]')).toContainText('₹1,999');
+    await expect(page.locator('[data-plan-pill="elite"]')).toContainText('₹4,999');
+
+    // Click ₹599 Standard plan
+    await page.locator('[data-plan-pill="standard"]').click();
+    await expect(page.getByText('Standard Plan Scope:')).toBeVisible();
+
+    // Fill form and submit
+    await page.getByLabel('Your name').fill('Priya Sharma');
+    await page.getByLabel('Phone number').fill('+91 98765 43210');
+    await page.locator('button[type="submit"]').click();
+
+    // Verify success state shows exact service and plan
+    await expect(page.getByRole('status')).toContainText('Inquiry Received');
+    await expect(page.getByRole('status')).toContainText('GST Registration');
+    await expect(page.getByRole('status')).toContainText('Standard');
+    await expect(page.getByRole('status')).toContainText('₹599');
+
+    // Verify WhatsApp link has the plan details
+    const waLink = page.getByRole('link', { name: 'Continue on WhatsApp' });
+    const waHref = await waLink.getAttribute('href');
+    expect(decodeURIComponent(waHref ?? '')).toContain('GST Registration');
+    expect(decodeURIComponent(waHref ?? '')).toContain('Standard plan - ₹599');
   });
 
   test('Old service routes redirect into the service pages', async ({ page }) => {

@@ -103,6 +103,7 @@ npx tsc --noEmit
 All primary company parameters are centralized in [`lib/constants.ts`](lib/constants.ts):
 
 - **WhatsApp URL**: Modify `WHATSAPP_URL` to update the WhatsApp link across all buttons and forms.
+- **Web3Forms Inquiries**: Configured via `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` in `.env.local` to securely deliver contact form leads to your email inbox and Web3Forms dashboard.
 - **Contact Details**: Update `CONTACT_INFO` for phone numbers, email addresses, and office location.
 - **Service Catalog**: Edit `SERVICE_CATALOG` in [`lib/services.ts`](lib/services.ts) to update the seven categories and their items; each item's page content (summary, documents, steps, timeline, optional price) lives in [`lib/service-details.ts`](lib/service-details.ts). `LEGACY_SERVICE_LINKS` maps the eight previous routes; permanent redirects are configured in `next.config.ts`.
 - **Service Components**: `components/services/` contains the index (with the seven-service orbit) and the single detail-page template (with the service's 3D sculpture).

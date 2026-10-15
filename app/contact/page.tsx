@@ -18,12 +18,20 @@ const LABEL = 'mb-1.5 block font-display text-[9px] font-semibold tracking-[.13e
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[]; item?: string | string[]; plan?: string | string[] }> }) {
   const { service, item, plan } = await searchParams;
-  const category = SERVICE_CATALOG.find((s) => s.slug === service);
+  const serviceSlug = Array.isArray(service) ? service[0] : service;
+  const itemSlug = Array.isArray(item) ? item[0] : item;
+  const planSlug = Array.isArray(plan) ? plan[0] : plan;
+
+  const category = SERVICE_CATALOG.find((s) => s.slug === serviceSlug);
   const initialService = category ? category.slug : 'general';
-  const itemName = category?.items.find((x) => slugify(x) === item);
-  // only a plan the service really has makes it into the message
-  const planName = itemName ? SERVICE_PRICING[slugify(itemName)]?.find((p) => p.name.toLowerCase() === plan)?.name : undefined;
-  const initialMessage = itemName ? `I'm interested in ${itemName}${planName ? ` (${planName} plan)` : ''}.` : '';
+  const itemName = category?.items.find((x) => slugify(x) === itemSlug);
+  const initialItem = itemName ? slugify(itemName) : undefined;
+
+  const itemPlans = initialItem ? SERVICE_PRICING[initialItem] : undefined;
+  const matchedPlan = itemPlans?.find((p) => p.name.toLowerCase() === planSlug?.toLowerCase());
+  const initialPlan = matchedPlan ? matchedPlan.name : undefined;
+
+  const initialMessage = itemName ? `I'm interested in ${itemName}${initialPlan ? ` (${initialPlan} plan)` : ''}.` : '';
 
   return (
     <CompanyMotion>
@@ -57,7 +65,15 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             </div>
           </div>
 
-          <div data-intro><ContactForm key={`${initialService}-${itemName ?? ''}`} initialService={initialService} initialMessage={initialMessage} /></div>
+          <div data-intro>
+            <ContactForm
+              key={`${initialService}-${initialItem ?? ''}-${initialPlan ?? ''}`}
+              initialService={initialService}
+              initialItem={initialItem}
+              initialPlan={initialPlan}
+              initialMessage={initialMessage}
+            />
+          </div>
         </div>
       </section>
 

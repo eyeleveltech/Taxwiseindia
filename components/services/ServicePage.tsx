@@ -68,7 +68,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
         <div className="wrap relative z-10 grid grid-cols-1 items-center gap-[clamp(32px,5vw,80px)] lg:grid-cols-2">
           <div>
             <h1 className="font-display text-[clamp(34px,3.9vw,54px)] font-bold leading-[1.06] tracking-[-.035em] text-navy text-balance" id="page-title" data-intro>{service.name}</h1>
-            {service.tagline && <p className="mt-4.5 max-w-[30em] font-medium text-[clamp(16px,1.2vw,18px)] leading-[1.5]" data-intro>{service.tagline}</p>}
+            {service.tagline && <p className="mt-4.5 max-w-[30em] font-medium text-[clamp(16px,1.2vw,18px)] leading-normal" data-intro>{service.tagline}</p>}
             {highlights ? (
               <ul className="m-0 mt-5 grid max-w-[34em] list-none gap-2.5 p-0" data-intro>
                 {highlights.map((h) => (
@@ -83,16 +83,16 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg"><SvgIcon id="i-phone" className="i" />Talk to an Expert</a>
             </div>
             <ul className="mt-6.5 flex flex-wrap gap-x-6 gap-y-2.5 p-0 font-sans text-[14px] font-medium leading-[1.3] text-navy-2" data-intro>
-              <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald [stroke-width:2.4]" />{service.items.length} Services</li>
-              {from && <li className="flex"><a href="#plans" className="flex items-center gap-2 underline-offset-4 hover:text-emerald-ink hover:underline"><SvgIcon id="i-card" className="size-4 text-emerald [stroke-width:2.4]" />Plans from {inr(from.price)}{from.govtFee && ' + Govt. Fee'}</a></li>}
-              <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald [stroke-width:2.4]" />Proactive Customer Updates</li>
+              <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald stroke-[2.4]" />{service.items.length} Services</li>
+              {from && <li className="flex"><a href="#plans" className="flex items-center gap-2 underline-offset-4 hover:text-emerald-ink hover:underline"><SvgIcon id="i-card" className="size-4 text-emerald stroke-[2.4]" />Plans from {inr(from.price)}{from.govtFee && ' + Govt. Fee'}</a></li>}
+              <li className="flex items-center gap-2"><SvgIcon id="i-check" className="size-4 text-emerald stroke-[2.4]" />Proactive Customer Updates</li>
             </ul>
           </div>
 
           {/* the category's own sculpture (drag to rotate), on a slowly turning ring */}
           <div className="relative mx-auto w-full max-w-140 max-lg:mt-2" data-stage>
             <i className="pointer-events-none absolute inset-0 m-auto aspect-square w-[min(100%,520px)] rounded-full border-[1.5px] border-dashed border-emerald/35" data-stage-ring aria-hidden="true">
-              <i className="absolute -top-[7px] left-1/2 -ml-[6.5px] size-[13px] rounded-full bg-emerald shadow-[0_0_0_5px_rgba(22,184,120,.18)]" />
+              <i className="absolute -top-1.75 left-1/2 ml-[-6.5px] size-3.25 rounded-full bg-emerald shadow-[0_0_0_5px_rgba(22,184,120,.18)]" />
             </i>
             <ServiceHeroScene service={service} message={service.tagline ?? 'We keep you posted with every move.'} variant="detail" />
           </div>
@@ -105,7 +105,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
           <ul className="m-0 flex flex-wrap gap-x-10 gap-y-4 p-0 py-6" data-rise>
             {TRUST_ITEMS.map((t) => (
               <li key={t.text} className="flex items-center gap-3 font-display text-[14.5px] font-medium leading-[1.35] text-navy">
-                <SvgIcon id="i-check" className="size-4.5 text-emerald [stroke-width:2.4]" />
+                <SvgIcon id="i-check" className="size-4.5 text-emerald stroke-[2.4]" />
                 {t.bold ? <span><b className="font-extrabold text-emerald-ink">{t.bold}</b>{t.text.slice(t.bold.length)}</span> : t.text}
               </li>
             ))}
@@ -144,7 +144,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
         <div className="wrap grid grid-cols-1 items-start gap-[clamp(32px,5vw,72px)] lg:grid-cols-[minmax(0,1fr)_320px]">
           <div>
             <div className="text-[clamp(16px,1.2vw,17.5px)] leading-[1.75] text-navy-2" data-reveal>
-              {highlights && service.description && <p className="mb-5 font-display text-[clamp(18px,1.5vw,21px)] font-semibold leading-[1.5] tracking-[-.015em] text-navy">{service.description}</p>}
+              {highlights && service.description && <p className="mb-5 font-display text-[clamp(18px,1.5vw,21px)] font-semibold leading-normal tracking-[-.015em] text-navy">{service.description}</p>}
               {service.overview.map((p, i) => <p key={i} className="mb-4 last:mb-0">{p}</p>)}
             </div>
 
@@ -160,7 +160,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
               <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {service.whatWeDo.map((item, i) => (
                   <div key={i} className="flex items-start gap-3 rounded-xl border border-line bg-off px-5 py-4">
-                    <SvgIcon id="i-check" className="mt-0.5 size-4.5 shrink-0 text-emerald [stroke-width:2.4]" />
+                    <SvgIcon id="i-check" className="mt-0.5 size-4.5 shrink-0 text-emerald stroke-[2.4]" />
                     <span className="font-display text-[15px] font-semibold leading-[1.4] tracking-[-.01em] text-navy">{item}</span>
                   </div>
                 ))}
@@ -189,7 +189,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
               {service.items.map((x) => (
                 <li key={x} id={slugify(x)} className="border-b border-line">
                   <Link href={servicePath(service, x)} className="group flex items-center gap-3.5 px-1 py-4.5 font-display text-[clamp(16px,1.3vw,18px)] font-semibold leading-[1.3] tracking-[-.015em] text-navy">
-                    <i className="grid size-7 flex-none place-items-center rounded-full border border-mint-line bg-mint-soft text-emerald-ink"><SvgIcon id="i-check" className="size-3.5 [stroke-width:2.6]" /></i>
+                    <i className="grid size-7 flex-none place-items-center rounded-full border border-mint-line bg-mint-soft text-emerald-ink"><SvgIcon id="i-check" className="size-3.5 stroke-[2.6]" /></i>
                     <span className="flex-1 transition-transform duration-500 ease-out-expo group-hover:translate-x-1.5">{x}</span>
                     <i className="grid size-8.5 flex-none place-items-center rounded-full border border-line-2 text-navy transition-colors duration-[.35s] group-hover:border-emerald group-hover:bg-emerald">
                       <SvgIcon id="i-arrow" className="size-3.75 -rotate-45 transition-transform duration-[.45s] ease-out-expo group-hover:rotate-0" />
@@ -199,7 +199,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
               ))}
             </ul>
           </div>
-          <aside className="rounded-[22px] border border-line bg-off p-6.5 lg:sticky lg:top-[112px]" data-reveal>
+          <aside className="rounded-[22px] border border-line bg-off p-6.5 lg:sticky lg:top-28" data-reveal>
             <span className="key key-lg"><SvgIcon id="i-phone" /></span>
             <h3 className="mt-4.5 font-display text-[19px] font-semibold leading-[1.3] tracking-[-.02em] text-navy">Talk to an Expert</h3>
             <p className="mt-2 text-[14.5px] leading-[1.6]">We keep you posted with every move.</p>
@@ -219,7 +219,7 @@ export default function ServicePage({ service }: { service: ServiceCategory }) {
           <ol className="m-0 list-none grid grid-cols-1 gap-x-[clamp(20px,3vw,40px)] gap-y-8 border-t border-line-2 p-0 pt-7 sm:grid-cols-2 lg:grid-cols-4" data-rise>
             {HOW_STEPS.map((step) => (
               <li key={step.number} className="relative">
-                <span className="block font-display text-[12.5px] font-semibold tracking-[.1em] text-emerald-ink">{step.number}</span>
+                <span className="block font-display text-[12.5px] font-semibold tracking-widest text-emerald-ink">{step.number}</span>
                 <span className="key mt-4.5"><SvgIcon id={step.icon} /></span>
                 <h3 className="mt-5 font-display text-[17.5px] font-semibold leading-[1.3] tracking-[-.015em] text-navy">{step.title}</h3>
                 <p className="mt-2 text-[15px] leading-[1.6]">{step.description}</p>

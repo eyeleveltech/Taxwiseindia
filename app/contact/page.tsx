@@ -1,10 +1,9 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CONTACT_INFO, WHATSAPP_URL } from '@/lib/constants';
-import { SERVICE_CATALOG, slugify } from '@/lib/services';
-import { SERVICE_PRICING } from '@/lib/pricing-data';
 import SvgIcon from '@/components/ui/SvgIcon';
-import ContactForm from '@/components/ui/ContactForm';
+import ContactFormClient from '@/components/ui/ContactFormClient';
 import CompanyMotion from '@/components/company/CompanyMotion';
 
 export const metadata: Metadata = {
@@ -16,23 +15,7 @@ const METHOD = 'group flex items-center gap-3 border-b border-line py-5 sm:gap-4
 const METHOD_ICON = 'grid size-[43px] flex-none place-items-center rounded-full border border-line-2 text-emerald-ink transition-colors group-hover:border-emerald group-hover:bg-emerald group-hover:text-navy [&_.i]:size-5';
 const LABEL = 'mb-1.5 block font-display text-[9px] font-semibold tracking-[.13em] text-muted';
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[]; item?: string | string[]; plan?: string | string[] }> }) {
-  const { service, item, plan } = await searchParams;
-  const serviceSlug = Array.isArray(service) ? service[0] : service;
-  const itemSlug = Array.isArray(item) ? item[0] : item;
-  const planSlug = Array.isArray(plan) ? plan[0] : plan;
-
-  const category = SERVICE_CATALOG.find((s) => s.slug === serviceSlug);
-  const initialService = category ? category.slug : 'general';
-  const itemName = category?.items.find((x) => slugify(x) === itemSlug);
-  const initialItem = itemName ? slugify(itemName) : undefined;
-
-  const itemPlans = initialItem ? SERVICE_PRICING[initialItem] : undefined;
-  const matchedPlan = itemPlans?.find((p) => p.name.toLowerCase() === planSlug?.toLowerCase());
-  const initialPlan = matchedPlan ? matchedPlan.name : undefined;
-
-  const initialMessage = itemName ? `I'm interested in ${itemName}${initialPlan ? ` (${initialPlan} plan)` : ''}.` : '';
-
+export default function ContactPage() {
   return (
     <CompanyMotion>
       <section className="bg-[radial-gradient(ellipse_at_10%_10%,#EAFAF4,#FFFFFF_70%)] pb-12.5 pt-27.5 lg:pb-21.25 lg:pt-37.5">
@@ -66,13 +49,9 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
           </div>
 
           <div data-intro>
-            <ContactForm
-              key={`${initialService}-${initialItem ?? ''}-${initialPlan ?? ''}`}
-              initialService={initialService}
-              initialItem={initialItem}
-              initialPlan={initialPlan}
-              initialMessage={initialMessage}
-            />
+            <Suspense fallback={<div className="min-h-115 rounded-[18px] border border-line bg-white p-5 sm:rounded-[23px] sm:p-7 lg:p-9" />}>
+              <ContactFormClient />
+            </Suspense>
           </div>
         </div>
       </section>

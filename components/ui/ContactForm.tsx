@@ -34,7 +34,7 @@ interface SubmittedDetails {
 
 /**
  * Plan-aware consultation contact form:
- * Dynamically binds Category -> Specific Service Item -> Selected Pricing Tier (e.g., GST Registration ₹599/₹1,999/₹4,999)
+ * Dynamically binds Category -> Specific Service Item -> Selected Pricing Tier (e.g., GST Registration ₹899/₹2,999/₹7,499)
  * and dispatches lead details to Web3Forms and WhatsApp.
  */
 export default function ContactForm({

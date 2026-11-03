@@ -137,7 +137,7 @@ test.describe('Sub-pages & Interaction Tests', () => {
     await expect(page.getByLabel('Your name')).toHaveValue('Test User');
   });
 
-  test('Contact form adapts to specific service and chosen pricing plan (GST Registration ₹599, ₹1,999, ₹4,999)', async ({ page }) => {
+  test('Contact form adapts to specific service and chosen pricing plan (GST Registration ₹899, ₹2,999, ₹7,499)', async ({ page }) => {
     let capturedPayload: Record<string, string> = {};
     await page.route('https://api.web3forms.com/submit', async (route) => {
       const postData = route.request().postData() || '';
@@ -156,12 +156,12 @@ test.describe('Sub-pages & Interaction Tests', () => {
     await expect(page.getByLabel('Specific service in GST & Tax')).toBeVisible();
     await page.getByLabel('Specific service in GST & Tax').selectOption('gst-registration');
 
-    // Verify all 3 plan pills (Standard ₹599, Premium ₹1,999, Elite ₹4,999) appear
-    await expect(page.locator('[data-plan-pill="standard"]')).toContainText('₹599');
-    await expect(page.locator('[data-plan-pill="premium"]')).toContainText('₹1,999');
-    await expect(page.locator('[data-plan-pill="elite"]')).toContainText('₹4,999');
+    // Verify all 3 plan pills (Standard ₹899, Premium ₹2,999, Elite ₹7,499) appear
+    await expect(page.locator('[data-plan-pill="standard"]')).toContainText('₹899');
+    await expect(page.locator('[data-plan-pill="premium"]')).toContainText('₹2,999');
+    await expect(page.locator('[data-plan-pill="elite"]')).toContainText('₹7,499');
 
-    // Click ₹599 Standard plan
+    // Click ₹899 Standard plan
     await page.locator('[data-plan-pill="standard"]').click();
     await expect(page.getByText('Standard Plan Scope:')).toBeVisible();
 
@@ -174,13 +174,13 @@ test.describe('Sub-pages & Interaction Tests', () => {
     await expect(page.getByRole('status')).toContainText('Inquiry Received');
     await expect(page.getByRole('status')).toContainText('GST Registration');
     await expect(page.getByRole('status')).toContainText('Standard');
-    await expect(page.getByRole('status')).toContainText('₹599');
+    await expect(page.getByRole('status')).toContainText('₹899');
 
     // Verify WhatsApp link has the plan details
     const waLink = page.getByRole('link', { name: 'Continue on WhatsApp' });
     const waHref = await waLink.getAttribute('href');
     expect(decodeURIComponent(waHref ?? '')).toContain('GST Registration');
-    expect(decodeURIComponent(waHref ?? '')).toContain('Standard plan - ₹599');
+    expect(decodeURIComponent(waHref ?? '')).toContain('Standard plan - ₹899');
   });
 
   test('Old service routes redirect into the service pages', async ({ page }) => {

@@ -191,10 +191,10 @@ export default function Header() {
               );
             })}
           </ul>
-          <Link href="/about" className={`${MOBILE_LINK} border-b border-line px-1.5 py-[15px]`} onClick={closeMenu} aria-current={current('/about')}>About Us</Link>
+          <Link href="/about" className={`${MOBILE_LINK} border-b border-line px-1.5 py-3.75`} onClick={closeMenu} aria-current={current('/about')}>About Us</Link>
           <a
             href={`tel:${CONTACT_INFO.phone.replace(/[^+\d]/g, '')}`}
-            className="flex items-center gap-2 border-b border-line px-1.5 py-[15px] font-display text-[15.5px] font-semibold text-navy transition-colors hover:text-emerald-ink"
+            className="flex items-center gap-2 border-b border-line px-1.5 py-3.75 font-display text-[15.5px] font-semibold text-navy transition-colors hover:text-emerald-ink"
             onClick={closeMenu}
           >
             <SvgIcon id="i-phone" className="size-4 text-emerald stroke-[2.2]" />

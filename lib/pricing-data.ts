@@ -35,7 +35,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You only need the company incorporated, with no add-ons.',
-      price: 999,
+      price: 1499,
       govtFee: true,
       features: [
         'Company name approval',
@@ -50,7 +50,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'Most founders: a guided, done-for-you company setup.',
-      price: 1499,
+      price: 2249,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -64,7 +64,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want your brand protected and MSME benefits in place from day one.',
-      price: 3499,
+      price: 5249,
       govtFee: true,
       features: [
         'Everything in Standard',
@@ -82,7 +82,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'Partners who just need the LLP registered with the essentials.',
-      price: 999,
+      price: 1499,
       govtFee: true,
       features: [
         'LLP name reservation',
@@ -97,7 +97,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Fastrack',
       bestFor: 'Partners on a deadline who need priority name reservation and faster filings.',
-      price: 2499,
+      price: 3749,
       govtFee: true,
       features: [
         'Everything in Standard',
@@ -110,7 +110,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Premium',
       bestFor: 'Partners who want year one handled: registration, compliance, tax and books.',
-      price: 10999,
+      price: 16499,
       govtFee: true,
       features: [
         'Everything in Fastrack',
@@ -130,7 +130,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Solo founders who only need the OPC incorporated, with no add-ons.',
-      price: 999,
+      price: 1499,
       govtFee: true,
       features: [
         'Company name approval',
@@ -145,7 +145,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'Most solo founders: a guided, done-for-you OPC setup.',
-      price: 1499,
+      price: 2249,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -159,7 +159,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want your brand protected and MSME benefits in place from day one.',
-      price: 3499,
+      price: 5249,
       govtFee: true,
       features: [
         'Everything in Standard',
@@ -176,7 +176,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You only need the partnership deed drafted and the firm registered.',
-      price: 2499,
+      price: 3749,
       govtFee: true,
       features: [
         'Expert-assisted process',
@@ -188,7 +188,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'You want the firm registered plus GST registration and a year of returns.',
-      price: 4999,
+      price: 7499,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -200,7 +200,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Premium',
       bestFor: 'You want registration, GST, trademark and the first ITR all handled.',
-      price: 8999,
+      price: 13499,
       govtFee: true,
       features: [
         'Everything in Standard',
@@ -216,7 +216,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You need one registration (GST or MSME) to start trading as a proprietor.',
-      price: 1299,
+      price: 1949,
       govtFee: true,
       features: [
         'Expert-assisted process',
@@ -226,7 +226,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'You want both registrations plus a year of GST returns.',
-      price: 7999,
+      price: 11999,
       govtFee: true,
       features: [
         'Expert-assisted process',
@@ -239,7 +239,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Premium',
       bestFor: 'You want registrations, a year of GST returns and your ITR covered.',
-      price: 10999,
+      price: 16499,
       govtFee: true,
       features: [
         'Expert-assisted process',
@@ -257,7 +257,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You want to check DPIIT eligibility and get the application filed.',
-      price: 4999,
+      price: 7499,
       govtFee: true,
       features: [
         'DPIIT recognition eligibility check',
@@ -269,7 +269,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want a stronger application and guidance on startup schemes.',
-      price: 7999,
+      price: 11999,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -282,7 +282,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'You also plan to claim the tax exemption and IPR benefits.',
-      price: 12999,
+      price: 19499,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -298,7 +298,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You want structure advice and your NGO name reserved before incorporating.',
-      price: 999,
+      price: 1499,
       govtFee: true,
       features: [
         'Expert-assisted process',
@@ -310,7 +310,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'You are ready to incorporate your Section 8 company.',
-      price: 2999,
+      price: 4499,
       govtFee: true,
       features: [
         'Expert-assisted process',
@@ -327,7 +327,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Premium',
       bestFor: 'You want incorporation, 12A/80G and the first year of compliance handled.',
-      price: 14999,
+      price: 22499,
       govtFee: true,
       features: [
         'Everything in Standard',
@@ -350,7 +350,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'You want your GST application filed within 48 hours.',
-      price: 599,
+      price: 899,
       govtFee: false,
       features: [
         'GST application filed within 48 hours',
@@ -363,7 +363,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Premium',
       bestFor: 'You need a fast-track, error-free application filed within 24 hours.',
-      price: 1999,
+      price: 2999,
       govtFee: false,
       features: [
         'GST application filed within 24 hours',
@@ -381,7 +381,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Elite',
       bestFor: 'You want GST registration plus a full year of return filing.',
-      price: 4999,
+      price: 7499,
       govtFee: false,
       features: [
         'Expert-assisted GST registration',
@@ -399,7 +399,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'You want to try us for one quarter of nil-return filing.',
-      price: 999,
+      price: 1499,
       govtFee: false,
       period: 'quarter',
       features: [
@@ -410,7 +410,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Premium',
       bestFor: 'Small businesses that want a full year of GSTR-1 and GSTR-3B filed.',
-      price: 2999,
+      price: 4499,
       govtFee: false,
       period: 'year',
       features: [
@@ -423,7 +423,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Elite',
       bestFor: 'Growing businesses that want GST returns and the ITR in one plan.',
-      price: 4999,
+      price: 7499,
       govtFee: false,
       period: 'year',
       features: [
@@ -442,7 +442,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Lite',
       bestFor: 'Salaried individuals filing a simple ITR-1 return.',
-      price: 1499,
+      price: 2249,
       govtFee: false,
       features: [
         'Tax computation',
@@ -454,7 +454,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'Salary plus a house property, capital gains or interest income.',
-      price: 2499,
+      price: 3749,
       govtFee: false,
       features: [
         'Everything in Lite',
@@ -469,7 +469,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Proprietors and professionals with business or professional income.',
-      price: 4999,
+      price: 7499,
       govtFee: false,
       features: [
         'Return for business or professional income',
@@ -480,7 +480,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Companies that need their corporate income tax return filed.',
-      price: 14999,
+      price: 22499,
       govtFee: false,
       features: [
         'Company income tax return preparation and filing',
@@ -494,7 +494,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Small deductors filing one quarterly TDS return.',
-      price: 1499,
+      price: 2249,
       govtFee: false,
       period: 'quarter',
       features: [
@@ -506,7 +506,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Businesses with more deductees that also need Form 16/16A.',
-      price: 3499,
+      price: 5249,
       govtFee: false,
       period: 'quarter',
       features: [
@@ -520,7 +520,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'High-volume deductors that need discrepancies followed up.',
-      price: 7999,
+      price: 11999,
       govtFee: false,
       period: 'quarter',
       features: [
@@ -538,7 +538,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Exporters who need this year’s LUT filed on the GST portal.',
-      price: 1999,
+      price: 2999,
       govtFee: false,
       features: [
         'LUT eligibility and document checklist',
@@ -549,7 +549,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Exporters who want the filing plus acknowledgement follow-up.',
-      price: 3999,
+      price: 5999,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -561,7 +561,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Regular exporters who want renewals and export advice covered.',
-      price: 6999,
+      price: 10499,
       govtFee: false,
       features: [
         'Everything in Pro',
@@ -578,7 +578,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'A simple voluntary cancellation with no pending issues.',
-      price: 2999,
+      price: 4499,
       govtFee: false,
       features: [
         'Eligibility and document check',
@@ -589,7 +589,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You also need pending returns and the final return sorted.',
-      price: 5999,
+      price: 8999,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -602,7 +602,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Complex cases involving notices or ITC reversal.',
-      price: 11999,
+      price: 17999,
       govtFee: false,
       features: [
         'Everything in Pro',
@@ -619,7 +619,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You have a specific tax question and want a CA’s view quickly.',
-      price: 499,
+      price: 749,
       govtFee: false,
       features: [
         '30-minute consultation with a CA',
@@ -630,7 +630,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want a tax-planning review and written advice.',
-      price: 4999,
+      price: 7499,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -643,7 +643,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Businesses that want a tax advisor on call every month.',
-      price: 14999,
+      price: 22499,
       govtFee: false,
       period: 'month',
       features: [
@@ -663,7 +663,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Essential',
       bestFor: 'Your books are handled elsewhere; you need every ROC filing done on time.',
-      price: 6988,
+      price: 10482,
       govtFee: true,
       period: 'year',
       features: [
@@ -681,7 +681,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Plus',
       bestFor: 'Early-stage companies with no accountant (under ₹10 lakh turnover).',
-      price: 11988,
+      price: 17982,
       govtFee: true,
       period: 'year',
       features: [
@@ -698,7 +698,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Complete',
       bestFor: 'GST-registered companies that want filings, books and GST in one plan.',
-      price: 15588,
+      price: 23382,
       govtFee: true,
       period: 'year',
       features: [
@@ -717,7 +717,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Essential',
       bestFor: 'You have an accountant and need the secretarial side fully handled.',
-      price: 6988,
+      price: 10482,
       govtFee: true,
       period: 'year',
       features: [
@@ -735,7 +735,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Plus',
       bestFor: 'Early-stage companies that also need their books kept for the year.',
-      price: 11988,
+      price: 17982,
       govtFee: true,
       period: 'year',
       features: [
@@ -752,7 +752,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Complete',
       bestFor: 'GST-registered companies that want compliance, books and GST together.',
-      price: 15588,
+      price: 23382,
       govtFee: true,
       period: 'year',
       features: [
@@ -772,7 +772,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'One director filing DIR-3 KYC before the due date.',
-      price: 999,
+      price: 1499,
       govtFee: false,
       features: [
         'DIR-3 KYC document checklist',
@@ -783,7 +783,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Companies filing KYC for more than one director.',
-      price: 1999,
+      price: 2999,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -795,7 +795,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Multiple directors, or a late filing that needs sorting out.',
-      price: 3999,
+      price: 5999,
       govtFee: false,
       features: [
         'Everything in Pro',
@@ -811,7 +811,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'A single routine change filed with the ROC.',
-      price: 2999,
+      price: 4499,
       govtFee: true,
       features: [
         'Resolution and document checklist',
@@ -822,7 +822,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Director appointments, resignations or removals.',
-      price: 5999,
+      price: 8999,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -835,7 +835,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Capital, objects or MOA/AOA changes that need more paperwork.',
-      price: 11999,
+      price: 17999,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -852,7 +852,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Moving within the same city or local limits.',
-      price: 2499,
+      price: 3749,
       govtFee: true,
       features: [
         'Address-change document checklist',
@@ -863,7 +863,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Moving to another city within the same state.',
-      price: 6999,
+      price: 10499,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -876,7 +876,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Shifting the registered office to another state.',
-      price: 14999,
+      price: 22499,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -893,7 +893,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'A straightforward transfer between existing resident shareholders.',
-      price: 3499,
+      price: 5249,
       govtFee: true,
       features: [
         'Share-transfer document checklist',
@@ -904,7 +904,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Transfers that need valuation or stamp-duty work.',
-      price: 7999,
+      price: 11999,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -917,7 +917,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Complex or cross-border transfers with FEMA reporting.',
-      price: 15999,
+      price: 23999,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -934,7 +934,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'An inactive company with no liabilities applying for strike-off.',
-      price: 4999,
+      price: 7499,
       govtFee: true,
       features: [
         'Closure eligibility review',
@@ -945,7 +945,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Pending ROC filings need clearing before the company can close.',
-      price: 9999,
+      price: 14999,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -958,7 +958,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Complex closures or winding up with creditors involved.',
-      price: 19999,
+      price: 29999,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -976,7 +976,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'The regular filing route when you are not in a hurry.',
-      price: 1499,
+      price: 2249,
       govtFee: true,
       features: [
         '30-minute consultation with a trademark expert',
@@ -990,7 +990,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Express',
       bestFor: 'You want the application filed within hours and the ™ symbol in use fast.',
-      price: 1999,
+      price: 2999,
       govtFee: true,
       features: [
         'Everything in Standard',
@@ -1008,7 +1008,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'A quick check that your word mark is not already taken.',
-      price: 499,
+      price: 749,
       govtFee: false,
       features: [
         'Word mark search',
@@ -1019,7 +1019,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want phonetic and logo matches checked before filing.',
-      price: 1499,
+      price: 2249,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -1031,7 +1031,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'A written risk report and class strategy before a brand launch.',
-      price: 3999,
+      price: 5999,
       govtFee: false,
       features: [
         'Everything in Pro',
@@ -1047,7 +1047,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Renewing a registered mark before it expires.',
-      price: 2499,
+      price: 3749,
       govtFee: true,
       features: [
         'Form TM-R renewal application',
@@ -1058,7 +1058,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Your mark is close to or past its expiry date.',
-      price: 5999,
+      price: 8999,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -1070,7 +1070,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Renewals across several classes, or with corrections to make.',
-      price: 9999,
+      price: 14999,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -1087,7 +1087,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'A straightforward objection that needs a well-drafted reply.',
-      price: 2999,
+      price: 4499,
       govtFee: false,
       features: [
         'Examination report review',
@@ -1098,7 +1098,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Objections that need legal arguments and supporting evidence.',
-      price: 6999,
+      price: 10499,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -1111,7 +1111,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Your application has been listed for a hearing.',
-      price: 12999,
+      price: 19499,
       govtFee: false,
       features: [
         'Everything in Pro',
@@ -1127,7 +1127,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You want to assess whether a rectification case is worth filing.',
-      price: 4999,
+      price: 7499,
       govtFee: true,
       features: [
         'Initial rectification assessment',
@@ -1138,7 +1138,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You are filing a rectification and need evidence prepared.',
-      price: 9999,
+      price: 14999,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -1151,7 +1151,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Contested proceedings that may go to a hearing.',
-      price: 19999,
+      price: 29999,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -1168,7 +1168,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Registering a single literary, artistic or musical work.',
-      price: 2999,
+      price: 4499,
       govtFee: true,
       features: [
         'Application prepared and filed in 5–7 days',
@@ -1180,7 +1180,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Software, code or works that need NOCs and authorisations.',
-      price: 6999,
+      price: 10499,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -1193,7 +1193,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Applications that draw an objection or need a hearing.',
-      price: 12999,
+      price: 19499,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -1209,7 +1209,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Consultation',
       bestFor: 'Inventors who want expert guidance before deciding to file.',
-      price: 499,
+      price: 749,
       govtFee: true,
       features: [
         '30-minute consultation with a registered patent expert',
@@ -1223,7 +1223,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'You want a thorough patent search and claims drafted for filing.',
-      price: 9999,
+      price: 14999,
       govtFee: true,
       features: [
         'Patentability search (Indian and global databases, 130+ countries)',
@@ -1237,7 +1237,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Premium',
       bestFor: 'High-value inventions that need fast, senior-attorney drafting.',
-      price: 15999,
+      price: 23999,
       govtFee: true,
       features: [
         'Advanced patentability analysis and strategy report',
@@ -1257,7 +1257,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You need your Udyam certificate with no fuss.',
-      price: 499,
+      price: 749,
       govtFee: false,
       features: [
         'Udyam registration filed for you',
@@ -1268,7 +1268,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want the right NIC codes and enterprise details checked.',
-      price: 1499,
+      price: 2249,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -1280,7 +1280,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'You plan to use MSME schemes, subsidies or tenders.',
-      price: 2999,
+      price: 4499,
       govtFee: false,
       features: [
         'Everything in Pro',
@@ -1297,7 +1297,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Small food businesses that need basic FSSAI registration.',
-      price: 799,
+      price: 1199,
       govtFee: true,
       features: [
         'Basic FSSAI registration',
@@ -1308,7 +1308,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Mid-sized food businesses that need a State FSSAI licence.',
-      price: 2499,
+      price: 3749,
       govtFee: true,
       features: [
         'State FSSAI licence',
@@ -1320,7 +1320,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Large, multi-state or import/export food businesses (Central licence).',
-      price: 4499,
+      price: 6749,
       govtFee: true,
       features: [
         'Central FSSAI licence',
@@ -1335,7 +1335,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You need an Import Export Code to start trading abroad.',
-      price: 1499,
+      price: 2249,
       govtFee: true,
       features: [
         'IEC application filed with DGFT',
@@ -1346,7 +1346,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want priority processing or an existing IEC updated.',
-      price: 3499,
+      price: 5249,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -1358,7 +1358,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Exporters who also need AD code and export set-up support.',
-      price: 6999,
+      price: 10499,
       govtFee: true,
       features: [
         'Everything in Pro',
@@ -1375,7 +1375,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You want to understand which ISO standard fits and what it takes.',
-      price: 1499,
+      price: 2249,
       govtFee: false,
       features: [
         'ISO certification guidance',
@@ -1386,7 +1386,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You are getting certified to ISO 9001 or one other standard.',
-      price: 6999,
+      price: 10499,
       govtFee: false,
       features: [
         'Documentation for ISO 9001 or one chosen standard',
@@ -1398,7 +1398,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'You need several ISO standards or internal audit support.',
-      price: 14999,
+      price: 22499,
       govtFee: false,
       features: [
         'Multiple-standard coordination',
@@ -1413,7 +1413,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You need Professional Tax registration in one state.',
-      price: 1999,
+      price: 2999,
       govtFee: true,
       features: [
         'Professional Tax registration',
@@ -1424,7 +1424,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want registration plus your first return filed.',
-      price: 3999,
+      price: 5999,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -1436,7 +1436,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Employers who want PT returns and notices handled all year.',
-      price: 7999,
+      price: 11999,
       govtFee: true,
       period: 'year',
       features: [
@@ -1453,7 +1453,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'One shop or office that needs its state registration.',
-      price: 1999,
+      price: 2999,
       govtFee: true,
       features: [
         'State-specific registration',
@@ -1464,7 +1464,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want registration plus labour-law compliance guidance.',
-      price: 3999,
+      price: 5999,
       govtFee: true,
       features: [
         'Everything in Starter',
@@ -1476,7 +1476,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Multiple locations, with renewals tracked for the year.',
-      price: 7999,
+      price: 11999,
       govtFee: true,
       period: 'year',
       features: [
@@ -1494,7 +1494,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Standard',
       bestFor: 'Individuals or businesses that need a DSC for signing and filings.',
-      price: 1999,
+      price: 2999,
       govtFee: false,
       features: [
         'DSC valid for 2 years',
@@ -1506,7 +1506,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Elite',
       bestFor: 'New companies wanting a DSC plus first-year compliance in one plan.',
-      price: 24999,
+      price: 37499,
       govtFee: true,
       features: [
         'Everything in Standard',
@@ -1533,7 +1533,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Small businesses that need their books kept and basic reports.',
-      price: 7999,
+      price: 11999,
       govtFee: false,
       period: 'month',
       features: [
@@ -1545,7 +1545,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want a monthly P&L, balance sheet and reconciled bank accounts.',
-      price: 14999,
+      price: 22499,
       govtFee: false,
       period: 'month',
       features: [
@@ -1559,7 +1559,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Higher volumes, custom reports and CFO-style support.',
-      price: 29999,
+      price: 44999,
       govtFee: false,
       period: 'month',
       features: [
@@ -1577,7 +1577,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You need transactions and expenses recorded every month.',
-      price: 1999,
+      price: 2999,
       govtFee: false,
       period: 'month',
       features: [
@@ -1589,7 +1589,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You also want payables, receivables and the bank reconciled.',
-      price: 4999,
+      price: 7499,
       govtFee: false,
       period: 'month',
       features: [
@@ -1603,7 +1603,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Higher volumes with financial statements and account reviews.',
-      price: 9999,
+      price: 14999,
       govtFee: false,
       period: 'month',
       features: [
@@ -1620,7 +1620,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Teams of up to 10 employees.',
-      price: 2999,
+      price: 4499,
       govtFee: false,
       period: 'month',
       features: [
@@ -1632,7 +1632,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'Teams of up to 50 employees with TDS on salaries.',
-      price: 6999,
+      price: 10499,
       govtFee: false,
       period: 'month',
       features: [
@@ -1646,7 +1646,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Larger teams that want statutory deductions coordinated.',
-      price: 12999,
+      price: 19499,
       govtFee: false,
       period: 'month',
       features: [
@@ -1664,7 +1664,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You need PF registration and help with monthly challans.',
-      price: 1999,
+      price: 2999,
       govtFee: false,
       period: 'month',
       features: [
@@ -1676,7 +1676,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You want employee joins/exits and returns handled too.',
-      price: 4999,
+      price: 7499,
       govtFee: false,
       period: 'month',
       features: [
@@ -1690,7 +1690,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Ongoing PF compliance including claims and notices.',
-      price: 9999,
+      price: 14999,
       govtFee: false,
       period: 'month',
       features: [
@@ -1708,7 +1708,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Employers who need ESI registration.',
-      price: 1950,
+      price: 2925,
       govtFee: false,
       features: [
         'ESI registration',
@@ -1719,7 +1719,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You also want employees enrolled and returns guided.',
-      price: 5999,
+      price: 8999,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -1731,7 +1731,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Larger workforces that need ongoing ESI support.',
-      price: 9999,
+      price: 14999,
       govtFee: false,
       features: [
         'Everything in Pro',
@@ -1748,7 +1748,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You need a balance sheet and profit & loss for the year.',
-      price: 3999,
+      price: 5999,
       govtFee: false,
       features: [
         'Profit & loss and balance sheet preparation',
@@ -1759,7 +1759,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You need a full set with cash flow statement and notes.',
-      price: 8999,
+      price: 13499,
       govtFee: false,
       features: [
         'Everything in Starter',
@@ -1772,7 +1772,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Consolidated or complex statements with audit support.',
-      price: 19999,
+      price: 29999,
       govtFee: false,
       features: [
         'Everything in Pro',
@@ -1791,7 +1791,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'You want a lawyer’s first view on your issue.',
-      price: 99,
+      price: 149,
       govtFee: false,
       features: [
         '30-minute consultation with a lawyer',
@@ -1802,7 +1802,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'You need a longer session with follow-up questions answered.',
-      price: 999,
+      price: 1499,
       govtFee: false,
       features: [
         'Extended consultation',
@@ -1814,7 +1814,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Businesses that want a lawyer on call every month.',
-      price: 9999,
+      price: 14999,
       govtFee: false,
       period: 'month',
       features: [
@@ -1831,7 +1831,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'A standard agreement customised to your details.',
-      price: 1999,
+      price: 2999,
       govtFee: true,
       features: [
         'Standard agreement customised to your details',
@@ -1842,7 +1842,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'A custom agreement drafted for your specific deal.',
-      price: 4999,
+      price: 7499,
       govtFee: true,
       features: [
         'Custom agreement drafting',
@@ -1854,7 +1854,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Complex or multi-party agreements with negotiation support.',
-      price: 9999,
+      price: 14999,
       govtFee: true,
       features: [
         'Complex or multi-party agreement drafting',
@@ -1870,7 +1870,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'An NDA, vendor or other standard business agreement.',
-      price: 2499,
+      price: 3749,
       govtFee: true,
       features: [
         'NDA, vendor or standard business agreement',
@@ -1881,7 +1881,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'A custom commercial or partnership contract.',
-      price: 5999,
+      price: 8999,
       govtFee: true,
       features: [
         'Custom commercial or partnership contract',
@@ -1893,7 +1893,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'Shareholder, JV or other complex multi-party contracts.',
-      price: 14999,
+      price: 22499,
       govtFee: true,
       features: [
         'Complex multi-party, shareholder or JV contract',
@@ -1909,7 +1909,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'Sending or replying to a notice on a standard matter.',
-      price: 1499,
+      price: 2249,
       govtFee: false,
       features: [
         'Legal notice drafted or replied to',
@@ -1920,7 +1920,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'A more complex notice that needs a lawyer’s review.',
-      price: 2499,
+      price: 3749,
       govtFee: false,
       features: [
         'Higher-complexity notice or reply',
@@ -1932,7 +1932,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'A disputed matter that needs a notice strategy.',
-      price: 7999,
+      price: 11999,
       govtFee: false,
       features: [
         'Dispute notice or reply strategy',
@@ -1948,7 +1948,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Starter',
       bestFor: 'A ready legal document filled in with your details.',
-      price: 499,
+      price: 749,
       govtFee: true,
       features: [
         'Ready legal document prepared',
@@ -1959,7 +1959,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Pro',
       bestFor: 'An affidavit, power of attorney or business document drafted.',
-      price: 1999,
+      price: 2999,
       govtFee: true,
       features: [
         'Customised affidavit, POA or business document',
@@ -1971,7 +1971,7 @@ export const SERVICE_PRICING: Record<string, PricingPlan[]> = {
     {
       name: 'Enterprise',
       bestFor: 'A set of documents, including registration coordination.',
-      price: 4999,
+      price: 7499,
       govtFee: true,
       features: [
         'Complex legal documentation package',

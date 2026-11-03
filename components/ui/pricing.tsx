@@ -35,7 +35,7 @@ function PlanCard({ plan, href }: { plan: PricingPlan; href: string }) {
       )}
     >
       {plan.popular && (
-        <span className="absolute -top-3.25 left-[clamp(22px,2.4vw,30px)] rounded-full bg-emerald px-3 py-1 font-display text-[11.5px] font-bold uppercase tracking-[.1em] text-navy">Most popular</span>
+        <span className="absolute -top-3.25 left-[clamp(22px,2.4vw,30px)] rounded-full bg-emerald px-3 py-1 font-display text-[11.5px] font-bold uppercase tracking-widest text-navy">Most popular</span>
       )}
       <h3 className="m-0 font-display text-[21px] font-bold leading-[1.2] tracking-[-.02em] text-navy">{plan.name}</h3>
       <p className="mt-2 min-h-[2.9em] text-[14px] leading-[1.45] text-navy-2"><b className="font-semibold text-navy">Choose this if:</b> {plan.bestFor}</p>
